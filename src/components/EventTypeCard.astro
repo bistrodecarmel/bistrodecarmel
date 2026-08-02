@@ -1,0 +1,62 @@
+---
+interface Props {
+  title: string;
+  href: string;
+  image: string;
+}
+
+const { title, href, image } = Astro.props;
+---
+
+<a class="event-card" href={href}>
+  <img src={image} alt={title} loading="lazy" width="400" height="500" />
+  <div class="event-card-body">
+    <h3>{title}</h3>
+    <span class="cta">לפרטים נוספים ←</span>
+  </div>
+</a>
+
+<style>
+  .event-card {
+    position: relative;
+    display: block;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    text-decoration: none;
+    aspect-ratio: 4 / 5;
+    box-shadow: var(--shadow-card);
+  }
+
+  .event-card img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .event-card:hover img {
+    transform: scale(1.05);
+  }
+
+  .event-card-body {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: 0;
+    padding: 1.5rem 1.25rem;
+    background: linear-gradient(to top, rgba(20, 12, 10, 0.85), transparent);
+    color: var(--color-white);
+  }
+
+  .event-card-body h3 {
+    color: var(--color-white);
+    margin-block-end: 0.35rem;
+  }
+
+  .cta {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-gold-soft);
+  }
+</style>

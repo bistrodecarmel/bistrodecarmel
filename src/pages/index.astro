@@ -3,6 +3,46 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import LocalBusinessSchema from '../components/LocalBusinessSchema.astro';
+import EventTypeCard from '../components/EventTypeCard.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
+import LeadForm from '../components/LeadForm.astro';
+
+const eventTypes = [
+  { title: 'חתונות', href: '/weddings-bistro-de-carmel/', image: '/images/gallery/venue/venue-06.jpg' },
+  { title: 'בר מצווה', href: '/בר-מצווה-בביסטרו-דה-כרמל/', image: '/images/gallery/venue/venue-08.jpg' },
+  { title: 'בת מצווה', href: '/בת-מצווה-בביסטרו-דה-כרמל/', image: '/images/gallery/venue/venue-09.jpg' },
+  {
+    title: 'הפקת עליה לתורה',
+    href: '/חוגגים-עליה-לתורה-ובר-מצווה-בזכרון-יעקב/',
+    image: '/images/gallery/venue/venue-10.jpg',
+  },
+];
+
+const testimonials = [
+  {
+    quote:
+      'במילה אחת - ווואו!!! במלא מילים - התחתנו בביסטרו, חצי שנה אחרי שסגרנו את התאריך, חתונה של כ-220 אורחים. מעבר לתמורה הלא נורמלית למחיר, שחר החזיק לנו את היד לאורך כל הדרך... ממליצים בטירוף.',
+    author: 'לקוחה מרוצה',
+    date: 'חתונה בביסטרו',
+  },
+  {
+    quote: 'חגגנו בר מצווה ב25/6/26 היה מושלם. צוות נהדר, אוכל טעים, אולם יפה וייחודי.',
+    author: 'שירן גבע אלנקוה',
+    date: 'יוני 2026',
+  },
+  {
+    quote:
+      'אוכל טעים ובשפע... לוקיישן אינטימי ומדהים. יצאנו מרוצים וזכינו לתגובות כאלה גם מהאורחים... המקום מסודר מהמם, וייב מאוד חמים והחביות יין מוסיפות.',
+    author: 'Liran Hayak',
+    date: 'מרץ 2026',
+  },
+];
+
+const galleryImages = Array.from({ length: 12 }, (_, i) => {
+  const n = String(i + 1).padStart(2, '0');
+  const ext = i === 6 ? 'jpeg' : 'jpg'; // venue-07 was saved as .jpeg
+  return `/images/gallery/venue/venue-${n}.${ext}`;
+});
 ---
 
 <BaseLayout
@@ -20,29 +60,212 @@ import LocalBusinessSchema from '../components/LocalBusinessSchema.astro';
       <p class="eyebrow">BISTRO DE CARMEL</p>
       <h1>אירועי בוטיק באווירת יקב אותנטית בזכרון יעקב</h1>
       <p>
-        ביסטרו דה כרמל הוא הרבה מעבר למקום אירועים – שילוב קסום בין היסטוריה קלאסית, אווירת יקב אותנטית
-        ומטבח שף כשר ובשרי מוקפד, במבנה אבן משוחזר מהמאה ה-19 שהוקם על ידי הברון רוטשילד כמשכן הייננים.
+        ביסטרו דה כרמל הוא הרבה מעבר למקום אירועים – הוא שילוב קסום בין היסטוריה קלאסית, אווירת יקב
+        אותנטית ומטבח שף כשר ובשרי מוקפד. המקום שוכן במבנה אבן משוחזר מהמאה ה-19 בזכרון יעקב, שהוקם על
+        ידי הברון רוטשילד כמשכן הייננים, וטומן בחובו את רוח המושבה והכרמים.
       </p>
+      <p>
+        החלל שלנו משלב אלגנטיות כפרית נצחית עם נגיעות עיצוב חמימות, קירות אבן חשופים ותקרות גבוהות
+        שמשקיפות לחצר היקב. בתוך האווירה המיוחדת, הטאבון הבוער שלנו מוסיף לניחוחות, ואלמנטים טבעיים ויין
+        יוצרים תחושה של אירוע בוטיק אינטימי ויוקרתי.
+      </p>
+      <p>
+        אנו מתמחים ביצירת אירועי בוטיק אישיים ומרגשים, עם גמישות לארח בין 70 ל-250 אורחים. הצוות שלנו,
+        מנוסה ומקצועי, מלווה אתכם צעד אחר צעד – החל מבניית תפריט שף בשרי, יוקרתי וכשר מותאם אישית, דרך
+        פרטי ההפקה ועד לרגע האירוע עצמו, במקצועיות חמה ובקפדנות בלתי מתפשרת.
+      </p>
+      <p>
+        אם אתם מחפשים לחגוג חתונה קסומה, בר/בת מצווה מרגשת או אירוע חברה באווירה ייחודית, במקום שנושם
+        היסטוריה ומשלב חוויה קולינרית איכותית – ביסטרו דה כרמל הוא הבית שלכם. ממוקם בלב זכרון יעקב, הוא
+        נגיש ונוח להגעה מכל אזור הצפון והמרכז.
+      </p>
+      <p>נשמח להעניק לכם ולאורחים שלכם חוויית אירוח מושלמת, מדויקת ומלאת קסם.</p>
       <a class="btn btn-primary" href="#contact">לפרטים נוספים ותיאום פגישה</a>
     </section>
 
-    <!-- TODO: build out remaining homepage sections (4 event-type cards, #food, testimonials teaser, #gallery)
-         from content-inventory.md § 1 once the design system / component library is in place. -->
+    <section class="events container">
+      <h2>חוגגים בביסטרו</h2>
+      <p class="events-intro">
+        ביסטרו דה כרמל מתמחה ביצירת אירועים אינטימיים ומרגשים עד 250 מוזמנים. כאן תוכלו לחגוג חתונה
+        קסומה באווירת יקב אותנטית, או להעניק לילדיכם אירוע בר/בת מצווה שכולם יזכרו בזכות הפקה שלמה,
+        הכוללת:
+      </p>
+      <ul class="events-list">
+        <li>טקס בבית הכנסת המקומי בליווי חזן מקצועי.</li>
+        <li>תהלוכה סוחפת ומרגשת עם נגנים בשופרות ובתופים במדרחוב הציורי והקסום של זכרון יעקב.</li>
+        <li>קבלת פנים חגיגית במבנה ההיסטורי, עם תפריט שף משובח.</li>
+        <li>צוות הפקה שילווה אתכם אישית בכל שלבי האירוע.</li>
+      </ul>
+      <p>אנו דואגים לכל פרט ופרט, כדי שאתם תוכלו ליהנות משקט נפשי ומאירוע מושלם.</p>
+
+      <div class="event-cards">
+        {eventTypes.map((e) => <EventTypeCard title={e.title} href={e.href} image={e.image} />)}
+      </div>
+    </section>
+
+    <section id="food" class="food container">
+      <p class="eyebrow">קולינריה</p>
+      <h2>הטאבון הבוער, יינות היקב, וחווית אירוע קולינרית חד פעמית</h2>
+      <p>
+        ריח הלחם מטאבון האבן בכניסה למקום, מקבל את פני האורחים בניחוחות ממכרים, ויינות היקב וטעמם האנין,
+        מייצרים חווית אירוע קולינרית חד פעמית ובלתי נשכחת.
+      </p>
+      <div class="food-gallery">
+        <img src="/images/gallery/culinary/food-01.jpg" alt="מנת שף מביסטרו דה כרמל" loading="lazy" />
+        <img src="/images/gallery/culinary/food-02.jpg" alt="מאפה טרי מהטאבון" loading="lazy" />
+        <img src="/images/gallery/culinary/food-03.jpg" alt="קולינריה בביסטרו דה כרמל" loading="lazy" />
+        <img src="/images/gallery/culinary/food-04.jpg" alt="תפריט שף בביסטרו דה כרמל" loading="lazy" />
+      </div>
+    </section>
+
+    <section class="testimonials-teaser container">
+      <h2>לקוחות ממליצים על ביסטרו דה כרמל</h2>
+      <div class="testimonial-grid">
+        {testimonials.map((t) => <TestimonialCard quote={t.quote} author={t.author} date={t.date} />)}
+      </div>
+      <a class="btn btn-outline" href="/המלצות/">לכל ההמלצות</a>
+    </section>
+
+    <section id="gallery" class="gallery container">
+      <p class="eyebrow">גלריית תמונות המקום</p>
+      <h2>ביסטרו דה כרמל בתמונות</h2>
+      <div class="gallery-grid">
+        {
+          galleryImages.map((src, i) => (
+            <img src={src} alt={`ביסטרו דה כרמל - תמונה ${i + 1}`} loading="lazy" />
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="contact-cta container">
+      <div class="contact-cta-text">
+        <h2>חוגגים בקרוב?</h2>
+        <p>השאירו פרטים ונחזור אליכם מיד עם כל הפרטים על אירוע מושלם אצלנו</p>
+      </div>
+      <LeadForm heading="" instanceId="contact-cta" />
+    </section>
   </main>
 
   <Footer />
 </BaseLayout>
 
 <style>
+  section {
+    padding-block: 3.5rem;
+  }
+
   .hero {
-    padding-block: 4rem;
     max-width: 760px;
     text-align: center;
     margin-inline: auto;
   }
 
   .hero p {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: var(--color-ink-soft);
+    text-align: start;
+  }
+
+  .events {
+    text-align: center;
+  }
+
+  .events-intro,
+  .events > p {
+    max-width: 720px;
+    margin-inline: auto;
+  }
+
+  .events-list {
+    max-width: 640px;
+    margin-inline: auto;
+    text-align: start;
+    color: var(--color-ink-soft);
+  }
+
+  .event-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    margin-block-start: 2.5rem;
+    text-align: start;
+  }
+
+  .food {
+    background: var(--color-cream-deep);
+    border-radius: var(--radius-lg);
+    text-align: center;
+  }
+
+  .food > p {
+    max-width: 680px;
+    margin-inline: auto;
+  }
+
+  .food-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-block-start: 2rem;
+  }
+
+  .food-gallery img {
+    border-radius: var(--radius-md);
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
+  .testimonials-teaser {
+    text-align: center;
+  }
+
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-block: 2.5rem;
+    text-align: start;
+  }
+
+  .gallery {
+    text-align: center;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-block-start: 2rem;
+  }
+
+  .gallery-grid img {
+    border-radius: var(--radius-sm);
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .contact-cta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2.5rem;
+    align-items: flex-start;
+    padding-block-start: 4.5rem;
+    background: var(--color-cream-deep);
+    border-radius: var(--radius-lg);
+  }
+
+  .contact-cta-text {
+    max-width: 380px;
+  }
+
+  @media (max-width: 900px) {
+    .event-cards,
+    .food-gallery,
+    .testimonial-grid,
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 </style>

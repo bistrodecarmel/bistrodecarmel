@@ -2,9 +2,11 @@
 interface Props {
   heading?: string;
   compact?: boolean;
+  instanceId?: string;
 }
 
-const { heading = 'השאירו פרטים ונחזור אליכם מיד', compact = false } = Astro.props;
+const { heading = 'השאירו פרטים ונחזור אליכם מיד', compact = false, instanceId = 'default' } = Astro.props;
+const idFor = (field: string) => `lead-${instanceId}-${field}`;
 ---
 
 <form
@@ -16,29 +18,32 @@ const { heading = 'השאירו פרטים ונחזור אליכם מיד', comp
   action="/thank-you-page/"
 >
   <input type="hidden" name="form-name" value="lead" />
-  <p class="hidden-field"><label>אל תמלאו שדה זה: <input name="bot-field" /></label></p>
+  <p class="hidden-field">
+    <label>אל תמלאו שדה זה: <input name="bot-field" /></label>
+  </p>
 
   {heading && <h3>{heading}</h3>}
   <p class="min-guests-note">שימו לב – אנו מקיימים אירועים החל מ-70 מוזמנים בלבד.</p>
 
   <div class="field">
-    <label for="name">שם</label>
-    <input id="name" name="name" type="text" required />
+    <label for={idFor('name')}>שם</label>
+    <input id={idFor('name')} name="name" type="text" required />
   </div>
 
   <div class="field">
-    <label for="phone">נייד</label>
-    <input id="phone" name="phone" type="tel" required />
+    <label for={idFor('phone')}>נייד</label>
+    <input id={idFor('phone')} name="phone" type="tel" required />
   </div>
 
   <div class="field">
-    <label for="guests">כמות מוזמנים (החל מ-70 בלבד)</label>
-    <input id="guests" name="guests" type="number" min="70" />
+    <label for={idFor('guests')}>כמות מוזמנים (החל מ-70 בלבד)</label>
+    <input id={idFor('guests')} name="guests" type="number" min="70" />
   </div>
 
   <label class="consent">
     <input type="checkbox" name="consent" required />
-    הינני מסכימ/ה לתקנון האתר, <a href="/מדיניות-פרטיות-ביסטרו-דה-כרמל/">תנאי השימוש ומדיניות הפרטיות</a> של האתר.
+    הינני מסכימ/ה לתקנון האתר, <a href="/מדיניות-פרטיות-ביסטרו-דה-כרמל/">תנאי השימוש ומדיניות הפרטיות</a> של
+    האתר.
   </label>
 
   <button type="submit" class="btn btn-primary">שליחה &raquo;</button>
