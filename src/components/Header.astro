@@ -2,6 +2,13 @@
 import { Image } from 'astro:assets';
 import logo from '../assets/logo.png';
 
+interface Props {
+  /** שקוף מעל הירו (דף הבית) או מלא מההתחלה (עמודים פנימיים) */
+  overlay?: boolean;
+}
+
+const { overlay = false } = Astro.props;
+
 const navLinks = [
   { href: '/weddings-bistro-de-carmel/', label: 'חתונות בביסטרו' },
   { href: '/בת-מצווה-בביסטרו-דה-כרמל/', label: 'בת מצווה' },
@@ -14,8 +21,8 @@ const navLinks = [
 ];
 ---
 
-<header class="site-header">
-  <div class="container header-inner">
+<header class:list={['site-header', { overlay }]} id="site-header">
+  <div class="container-wide header-inner">
     <a href="/" class="logo-link" aria-label="ביסטרו דה כרמל - חזרה לדף הבית">
       <Image src={logo} alt="ביסטרו דה כרמל" width={172} height={56} />
     </a>
@@ -34,11 +41,49 @@ const navLinks = [
 
     <a href="tel:+972554316261" class="phone-link">055-4316261</a>
 
-    <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="פתיחת תפריט">
+    <button
+      class="menu-toggle"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+      aria-label="פתיחת תפריט"
+      id="menu-toggle"
+    >
       <span></span><span></span><span></span>
     </button>
   </div>
+
+  <nav class="mobile-nav" id="mobile-nav" aria-label="תפריט נייד" hidden>
+    <ul>
+      {
+        navLinks.map((link) => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))
+      }
+      <li class="mobile-phone"><a href="tel:+972554316261">055-4316261</a></li>
+    </ul>
+  </nav>
 </header>
+
+<script>
+  const header = document.getElementById('site-header');
+  if (header?.classList.contains('overlay')) {
+    const onScroll = () => {
+      header.classList.toggle('scrolled', window.scrollY > 40);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  const toggle = document.getElementById('menu-toggle');
+  const mobileNav = document.getElementById('mobile-nav');
+  toggle?.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+    if (mobileNav) mobileNav.hidden = isOpen;
+  });
+</script>
 
 <style>
   .site-header {
@@ -46,18 +91,52 @@ const navLinks = [
     top: 0;
     z-index: 40;
     background: var(--color-cream);
-    border-bottom: 1px solid var(--color-stone);
+    border-bottom: 1px solid var(--color-ivory-deep);
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+  /* מצב שקוף מעל הירו */
+  .site-header.overlay {
+    position: fixed;
+    inset-inline: 0;
+    background: transparent;
+    border-bottom-color: transparent;
+  }
+
+  .site-header.overlay:not(.scrolled) .main-nav a,
+  .site-header.overlay:not(.scrolled) .phone-link {
+    color: var(--color-white);
+  }
+
+  .site-header.overlay:not(.scrolled) .logo-link img {
+    filter: brightness(0) invert(0.95);
+  }
+
+  .site-header.overlay:not(.scrolled) .menu-toggle span {
+    background: var(--color-white);
+  }
+
+  .site-header.overlay.scrolled {
+    background: color-mix(in srgb, var(--color-cream) 92%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom-color: var(--color-ivory-deep);
   }
 
   .header-inner {
     display: flex;
     align-items: center;
     gap: 2rem;
-    padding-block: 0.85rem;
+    padding-block: 0.9rem;
   }
 
   .logo-link {
     flex-shrink: 0;
+  }
+
+  .logo-link img {
+    transition: filter 0.3s ease;
   }
 
   .main-nav {
@@ -68,7 +147,7 @@ const navLinks = [
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    gap: 1.5rem;
+    gap: 1.4rem;
     margin: 0;
     padding: 0;
     justify-content: center;
@@ -77,30 +156,78 @@ const navLinks = [
   .main-nav a {
     text-decoration: none;
     font-weight: 600;
-    font-size: 0.95rem;
-    color: var(--color-ink-soft);
-    transition: color 0.15s ease;
+    font-size: 0.92rem;
+    color: var(--color-ink);
+    letter-spacing: 0.01em;
+    transition: color 0.2s ease;
   }
 
   .main-nav a:hover {
-    color: var(--color-wine);
+    color: var(--color-bronze);
   }
 
   .phone-link {
     flex-shrink: 0;
     font-family: var(--font-display);
     font-weight: 700;
-    color: var(--color-wine);
+    color: var(--color-ink);
     text-decoration: none;
     font-size: 1.05rem;
+    transition: color 0.2s ease;
+  }
+
+  .phone-link:hover {
+    color: var(--color-bronze);
   }
 
   .menu-toggle {
     display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
   }
 
-  @media (max-width: 860px) {
-    .main-nav {
+  .menu-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--color-ink);
+    transition: background 0.3s ease;
+  }
+
+  .mobile-nav {
+    background: var(--color-cream);
+    border-top: 1px solid var(--color-ivory-deep);
+    padding: 1rem 1.5rem 1.5rem;
+  }
+
+  .mobile-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .mobile-nav a {
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .mobile-phone a {
+    color: var(--color-bronze);
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+  }
+
+  @media (max-width: 960px) {
+    .main-nav,
+    .phone-link {
       display: none;
     }
     .menu-toggle {

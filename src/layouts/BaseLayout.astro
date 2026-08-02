@@ -36,9 +36,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
 
+    <script is:inline>
+      document.documentElement.classList.add('has-js');
+    </script>
     <slot name="head" />
   </head>
   <body>
     <slot />
+    <script>
+      import { initAnimations } from '../scripts/animations';
+      initAnimations();
+    </script>
   </body>
 </html>

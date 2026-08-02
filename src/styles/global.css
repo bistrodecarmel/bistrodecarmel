@@ -7,31 +7,35 @@
 @import '@fontsource/assistant/700.css';
 
 :root {
-  /* אלגנטיות כפרית: אבן/קרם חמים, בורדו יין, נגיעות עץ/זהב */
-  --color-cream: #f8f2e8;
-  --color-cream-deep: #efe4d2;
-  --color-stone: #e4d8c4;
-  --color-ink: #2a201c;
-  --color-ink-soft: #4a3c34;
-  --color-wine: #611c2b;
-  --color-wine-dark: #3d0f19;
-  --color-wine-light: #8a3345;
-  --color-gold: #ab8752;
-  --color-gold-soft: #d8c39d;
-  --color-wood: #7a5233;
-  --color-white: #fffdf9;
+  /* פלטת זית-שמנת-שנהב: אלגנטית, חמה, עכשווית */
+  --color-olive-deep: #2c332a; /* אזורים כהים, פוטר */
+  --color-olive: #3a4232; /* משטחים כהים משניים */
+  --color-olive-soft: #5a6350; /* טקסט משני על רקע בהיר */
+  --color-cream: #f5efe3; /* רקע ראשי */
+  --color-ivory: #e8dcc8; /* שנהב כהה — משטחים משניים */
+  --color-ivory-deep: #d8c9ae; /* גבולות, הפרדות */
+  --color-bronze: #b39b6d; /* אקצנט ראשי — כותרות עוגן, קווים */
+  --color-bronze-soft: #cdbb96; /* אקצנט על רקע כהה */
+  --color-ink: #26291f; /* טקסט ראשי */
+  --color-white: #fdfaf4;
+  --color-wine-accent: #611c2b; /* בורדו הלוגו — שימוש נקודתי בלבד */
 
   --font-display: 'Frank Ruhl Libre', 'David Libre', serif;
   --font-body: 'Assistant', 'Segoe UI', sans-serif;
 
-  --radius-sm: 0.25rem;
+  --radius-sm: 0.2rem;
   --radius-md: 0.5rem;
-  --radius-lg: 1rem;
+  --radius-lg: 0.9rem;
 
-  --shadow-soft: 0 8px 30px rgba(42, 32, 28, 0.12);
-  --shadow-card: 0 4px 16px rgba(42, 32, 28, 0.08);
+  --shadow-soft: 0 10px 40px rgba(38, 41, 31, 0.14);
+  --shadow-card: 0 4px 18px rgba(38, 41, 31, 0.08);
 
   --container-width: 1180px;
+  --container-wide: 1400px;
+
+  /* טקסטורות — מוזנות מ-assets מג'ונרטים */
+  --texture-stone: url('/images/textures/stone-cream.jpg');
+  --texture-linen-dark: url('/images/textures/linen-olive.jpg');
 }
 
 *,
@@ -49,7 +53,7 @@ body {
   font-family: var(--font-body);
   color: var(--color-ink);
   background: var(--color-cream);
-  line-height: 1.65;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -58,18 +62,22 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  color: var(--color-wine-dark);
-  line-height: 1.2;
+  color: var(--color-ink);
+  line-height: 1.15;
   margin-block: 0 0.6em;
   font-weight: 500;
+  letter-spacing: -0.01em;
 }
 
-h1 {
-  font-size: clamp(2.2rem, 4vw + 1rem, 3.6rem);
+/* סקאלה דרמטית לכותרות display */
+h1,
+.display-1 {
+  font-size: clamp(2.6rem, 5.5vw + 1rem, 4.8rem);
 }
 
-h2 {
-  font-size: clamp(1.7rem, 2.5vw + 1rem, 2.6rem);
+h2,
+.display-2 {
+  font-size: clamp(1.9rem, 3vw + 1rem, 3.2rem);
 }
 
 h3 {
@@ -96,6 +104,25 @@ img {
   padding-inline: 1.5rem;
 }
 
+.container-wide {
+  width: 100%;
+  max-width: var(--container-wide);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+/* אזור כהה — זית עמוק עם טקסט שנהב */
+.section-dark {
+  background-color: var(--color-olive-deep);
+  color: var(--color-ivory);
+}
+
+.section-dark h1,
+.section-dark h2,
+.section-dark h3 {
+  color: var(--color-white);
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -104,45 +131,87 @@ img {
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 1rem;
-  padding: 0.85rem 1.8rem;
+  padding: 0.9rem 2rem;
   border-radius: var(--radius-sm);
   border: 1px solid transparent;
   cursor: pointer;
   text-decoration: none;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease,
+    color 0.15s ease;
 }
 
 .btn-primary {
-  background: var(--color-wine);
+  background: var(--color-olive);
   color: var(--color-white);
 }
 
 .btn-primary:hover {
-  background: var(--color-wine-dark);
+  background: var(--color-olive-deep);
   box-shadow: var(--shadow-soft);
   transform: translateY(-1px);
 }
 
 .btn-outline {
   background: transparent;
-  border-color: var(--color-wine);
-  color: var(--color-wine);
+  border-color: var(--color-olive);
+  color: var(--color-olive);
 }
 
 .btn-outline:hover {
-  background: var(--color-wine);
+  background: var(--color-olive);
   color: var(--color-white);
+}
+
+.btn-light {
+  background: var(--color-ivory);
+  color: var(--color-olive-deep);
+}
+
+.btn-light:hover {
+  background: var(--color-white);
+  box-shadow: var(--shadow-soft);
 }
 
 .eyebrow {
   display: inline-block;
   font-family: var(--font-body);
   font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--color-gold);
+  letter-spacing: 0.22em;
+  color: var(--color-bronze);
   text-transform: uppercase;
-  font-size: 0.85rem;
-  margin-block-end: 0.75rem;
+  font-size: 0.8rem;
+  margin-block-end: 0.9rem;
+}
+
+/* קו דקורטיבי — לחוצצים בין קטעים */
+.divider-line {
+  width: 72px;
+  height: 1px;
+  background: var(--color-bronze);
+  margin-inline: auto;
+  margin-block: 0.75rem 1.5rem;
+  position: relative;
+}
+
+.divider-line::after {
+  content: '';
+  position: absolute;
+  inset-inline-start: 50%;
+  transform: translateX(50%);
+  inset-block-start: -3px;
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--color-bronze);
+  border-radius: 50%;
+  background: var(--color-cream);
+}
+
+/* אלמנטים לאנימציית GSAP — מוסתרים רק כש-JS פעיל */
+html.has-js [data-animate] {
+  opacity: 0;
 }
 
 .visually-hidden {

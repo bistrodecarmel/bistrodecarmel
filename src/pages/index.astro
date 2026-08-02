@@ -38,11 +38,19 @@ const testimonials = [
   },
 ];
 
-const galleryImages = Array.from({ length: 12 }, (_, i) => {
-  const n = String(i + 1).padStart(2, '0');
-  const ext = i === 6 ? 'jpeg' : 'jpg'; // venue-07 was saved as .jpeg
-  return `/images/gallery/venue/venue-${n}.${ext}`;
-});
+/* גריד אדיטוריאלי: פריסה ידנית עם וריאציית גבהים */
+const galleryImages = [
+  { src: '/images/gallery/venue/venue-01.jpg', span: 'tall' },
+  { src: '/images/gallery/venue/venue-02.jpg', span: '' },
+  { src: '/images/gallery/venue/venue-03.jpg', span: '' },
+  { src: '/images/gallery/venue/venue-04.jpg', span: 'wide' },
+  { src: '/images/gallery/venue/venue-05.jpg', span: '' },
+  { src: '/images/gallery/venue/venue-07.jpeg', span: 'tall' },
+  { src: '/images/gallery/venue/venue-11.jpg', span: '' },
+  { src: '/images/gallery/venue/venue-12.jpg', span: 'wide' },
+  { src: '/images/gallery/venue/venue-06.jpg', span: '' },
+  { src: '/images/gallery/venue/venue-08.jpg', span: '' },
+];
 ---
 
 <BaseLayout
@@ -51,99 +59,186 @@ const galleryImages = Array.from({ length: 12 }, (_, i) => {
 >
   <Fragment slot="head">
     <LocalBusinessSchema />
+    <link rel="preload" as="image" href="/images/atmosphere/hero-courtyard.jpg" />
   </Fragment>
 
-  <Header />
+  <Header overlay />
 
   <main>
-    <section class="hero container">
-      <p class="eyebrow">BISTRO DE CARMEL</p>
-      <h1>אירועי בוטיק באווירת יקב אותנטית בזכרון יעקב</h1>
-      <p>
-        ביסטרו דה כרמל הוא הרבה מעבר למקום אירועים – הוא שילוב קסום בין היסטוריה קלאסית, אווירת יקב
-        אותנטית ומטבח שף כשר ובשרי מוקפד. המקום שוכן במבנה אבן משוחזר מהמאה ה-19 בזכרון יעקב, שהוקם על
-        ידי הברון רוטשילד כמשכן הייננים, וטומן בחובו את רוח המושבה והכרמים.
-      </p>
-      <p>
-        החלל שלנו משלב אלגנטיות כפרית נצחית עם נגיעות עיצוב חמימות, קירות אבן חשופים ותקרות גבוהות
-        שמשקיפות לחצר היקב. בתוך האווירה המיוחדת, הטאבון הבוער שלנו מוסיף לניחוחות, ואלמנטים טבעיים ויין
-        יוצרים תחושה של אירוע בוטיק אינטימי ויוקרתי.
-      </p>
-      <p>
-        אנו מתמחים ביצירת אירועי בוטיק אישיים ומרגשים, עם גמישות לארח בין 70 ל-250 אורחים. הצוות שלנו,
-        מנוסה ומקצועי, מלווה אתכם צעד אחר צעד – החל מבניית תפריט שף בשרי, יוקרתי וכשר מותאם אישית, דרך
-        פרטי ההפקה ועד לרגע האירוע עצמו, במקצועיות חמה ובקפדנות בלתי מתפשרת.
-      </p>
-      <p>
-        אם אתם מחפשים לחגוג חתונה קסומה, בר/בת מצווה מרגשת או אירוע חברה באווירה ייחודית, במקום שנושם
-        היסטוריה ומשלב חוויה קולינרית איכותית – ביסטרו דה כרמל הוא הבית שלכם. ממוקם בלב זכרון יעקב, הוא
-        נגיש ונוח להגעה מכל אזור הצפון והמרכז.
-      </p>
-      <p>נשמח להעניק לכם ולאורחים שלכם חוויית אירוח מושלמת, מדויקת ומלאת קסם.</p>
-      <a class="btn btn-primary" href="#contact">לפרטים נוספים ותיאום פגישה</a>
+    <!-- הירו full-bleed -->
+    <section class="hero">
+      <div class="hero-bg" data-parallax="60">
+        <img
+          src="/images/atmosphere/hero-courtyard.jpg"
+          alt="חצר אבן היסטורית של יקב בזכרון יעקב בשעת שקיעה, עצי זית ונורות תלויות"
+          fetchpriority="high"
+        />
+      </div>
+      <div class="hero-content container">
+        <p class="eyebrow hero-eyebrow" data-animate="fade-up">BISTRO DE CARMEL &middot; זכרון יעקב</p>
+        <h1 data-animate="fade-up">אירועי בוטיק באווירת יקב אותנטית בזכרון יעקב</h1>
+        <p class="hero-sub" data-animate="fade-up">
+          מבנה אבן משוחזר מהמאה ה-19, מטבח שף כשר ובשרי, ואירוח של 70 עד 250 אורחים — במקום שנושם היסטוריה.
+        </p>
+        <div class="hero-actions" data-animate="fade-up">
+          <a class="btn btn-light" href="#contact">לפרטים נוספים ותיאום פגישה</a>
+          <a class="btn btn-ghost" href="#story">הסיפור שלנו</a>
+        </div>
+      </div>
+      <div class="hero-fade" aria-hidden="true"></div>
     </section>
 
-    <section class="events container">
-      <h2>חוגגים בביסטרו</h2>
-      <p class="events-intro">
-        ביסטרו דה כרמל מתמחה ביצירת אירועים אינטימיים ומרגשים עד 250 מוזמנים. כאן תוכלו לחגוג חתונה
-        קסומה באווירת יקב אותנטית, או להעניק לילדיכם אירוע בר/בת מצווה שכולם יזכרו בזכות הפקה שלמה,
-        הכוללת:
-      </p>
-      <ul class="events-list">
-        <li>טקס בבית הכנסת המקומי בליווי חזן מקצועי.</li>
-        <li>תהלוכה סוחפת ומרגשת עם נגנים בשופרות ובתופים במדרחוב הציורי והקסום של זכרון יעקב.</li>
-        <li>קבלת פנים חגיגית במבנה ההיסטורי, עם תפריט שף משובח.</li>
-        <li>צוות הפקה שילווה אתכם אישית בכל שלבי האירוע.</li>
-      </ul>
-      <p>אנו דואגים לכל פרט ופרט, כדי שאתם תוכלו ליהנות משקט נפשי ומאירוע מושלם.</p>
-
-      <div class="event-cards">
-        {eventTypes.map((e) => <EventTypeCard title={e.title} href={e.href} image={e.image} />)}
+    <!-- הסיפור — אודות -->
+    <section id="story" class="story">
+      <div class="container story-grid">
+        <div class="story-text" data-animate="fade-up">
+          <p class="eyebrow">הבית שלכם לרגעים הגדולים</p>
+          <h2>שילוב קסום בין היסטוריה קלאסית, אווירת יקב אותנטית ומטבח שף מוקפד</h2>
+          <p>
+            ביסטרו דה כרמל הוא הרבה מעבר למקום אירועים – הוא שילוב קסום בין היסטוריה קלאסית, אווירת יקב
+            אותנטית ומטבח שף כשר ובשרי מוקפד. המקום שוכן במבנה אבן משוחזר מהמאה ה-19 בזכרון יעקב, שהוקם
+            על ידי הברון רוטשילד כמשכן הייננים, וטומן בחובו את רוח המושבה והכרמים.
+          </p>
+          <p>
+            החלל שלנו משלב אלגנטיות כפרית נצחית עם נגיעות עיצוב חמימות, קירות אבן חשופים ותקרות גבוהות
+            שמשקיפות לחצר היקב. בתוך האווירה המיוחדת, הטאבון הבוער שלנו מוסיף לניחוחות, ואלמנטים טבעיים
+            ויין יוצרים תחושה של אירוע בוטיק אינטימי ויוקרתי.
+          </p>
+          <p>
+            אנו מתמחים ביצירת אירועי בוטיק אישיים ומרגשים, עם גמישות לארח בין 70 ל-250 אורחים. הצוות
+            שלנו, מנוסה ומקצועי, מלווה אתכם צעד אחר צעד – החל מבניית תפריט שף בשרי, יוקרתי וכשר מותאם
+            אישית, דרך פרטי ההפקה ועד לרגע האירוע עצמו, במקצועיות חמה ובקפדנות בלתי מתפשרת.
+          </p>
+          <p>
+            אם אתם מחפשים לחגוג חתונה קסומה, בר/בת מצווה מרגשת או אירוע חברה באווירה ייחודית, במקום
+            שנושם היסטוריה ומשלב חוויה קולינרית איכותית – ביסטרו דה כרמל הוא הבית שלכם. ממוקם בלב זכרון
+            יעקב, הוא נגיש ונוח להגעה מכל אזור הצפון והמרכז.
+          </p>
+          <p>נשמח להעניק לכם ולאורחים שלכם חוויית אירוח מושלמת, מדויקת ומלאת קסם.</p>
+        </div>
+        <div class="story-media" data-animate="fade-up">
+          <img
+            src="/images/atmosphere/wine-cellar.jpg"
+            alt="מרתף יין היסטורי עם חביות אלון ואור נרות"
+            loading="lazy"
+          />
+          <div class="story-media-accent" aria-hidden="true"></div>
+        </div>
       </div>
     </section>
 
-    <section id="food" class="food container">
-      <p class="eyebrow">קולינריה</p>
-      <h2>הטאבון הבוער, יינות היקב, וחווית אירוע קולינרית חד פעמית</h2>
-      <p>
-        ריח הלחם מטאבון האבן בכניסה למקום, מקבל את פני האורחים בניחוחות ממכרים, ויינות היקב וטעמם האנין,
-        מייצרים חווית אירוע קולינרית חד פעמית ובלתי נשכחת.
-      </p>
-      <div class="food-gallery">
-        <img src="/images/gallery/culinary/food-01.jpg" alt="מנת שף מביסטרו דה כרמל" loading="lazy" />
-        <img src="/images/gallery/culinary/food-02.jpg" alt="מאפה טרי מהטאבון" loading="lazy" />
-        <img src="/images/gallery/culinary/food-03.jpg" alt="קולינריה בביסטרו דה כרמל" loading="lazy" />
-        <img src="/images/gallery/culinary/food-04.jpg" alt="תפריט שף בביסטרו דה כרמל" loading="lazy" />
+    <div class="divider-line" data-animate="draw-line" aria-hidden="true"></div>
+
+    <!-- חוגגים בביסטרו — כרטיסים אסימטריים -->
+    <section class="events">
+      <div class="container">
+        <div class="events-head" data-animate="fade-up">
+          <p class="eyebrow">חוגגים בביסטרו</p>
+          <h2>אירועים אינטימיים ומרגשים עד 250 מוזמנים</h2>
+          <p class="events-intro">
+            כאן תוכלו לחגוג חתונה קסומה באווירת יקב אותנטית, או להעניק לילדיכם אירוע בר/בת מצווה שכולם
+            יזכרו בזכות הפקה שלמה, הכוללת:
+          </p>
+          <ul class="events-list">
+            <li>טקס בבית הכנסת המקומי בליווי חזן מקצועי.</li>
+            <li>תהלוכה סוחפת ומרגשת עם נגנים בשופרות ובתופים במדרחוב הציורי והקסום של זכרון יעקב.</li>
+            <li>קבלת פנים חגיגית במבנה ההיסטורי, עם תפריט שף משובח.</li>
+            <li>צוות הפקה שילווה אתכם אישית בכל שלבי האירוע.</li>
+          </ul>
+          <p>אנו דואגים לכל פרט ופרט, כדי שאתם תוכלו ליהנות משקט נפשי ומאירוע מושלם.</p>
+        </div>
+
+        <div class="event-cards" data-animate="stagger">
+          {
+            eventTypes.map((e, i) => (
+              <div class:list={['event-card-slot', `slot-${i + 1}`]}>
+                <EventTypeCard title={e.title} href={e.href} image={e.image} index={i + 1} />
+              </div>
+            ))
+          }
+        </div>
       </div>
     </section>
 
-    <section class="testimonials-teaser container">
-      <h2>לקוחות ממליצים על ביסטרו דה כרמל</h2>
-      <div class="testimonial-grid">
-        {testimonials.map((t) => <TestimonialCard quote={t.quote} author={t.author} date={t.date} />)}
+    <!-- קולינריה — full-bleed כהה עם parallax -->
+    <section id="food" class="food section-dark">
+      <div class="food-bg" data-parallax="80">
+        <img
+          src="/images/atmosphere/taboon-moody.jpg"
+          alt="מאפים טריים ליד טאבון אבן בוער"
+          loading="lazy"
+        />
       </div>
-      <a class="btn btn-outline" href="/המלצות/">לכל ההמלצות</a>
+      <div class="food-content container">
+        <p class="eyebrow" data-animate="fade-up">קולינריה</p>
+        <h2 data-animate="fade-up">הטאבון הבוער, יינות היקב,<br />וחוויה קולינרית חד פעמית</h2>
+        <p class="food-text" data-animate="fade-up">
+          ריח הלחם מטאבון האבן בכניסה למקום, מקבל את פני האורחים בניחוחות ממכרים, ויינות היקב וטעמם
+          האנין, מייצרים חווית אירוע קולינרית חד פעמית ובלתי נשכחת.
+        </p>
+        <div class="food-gallery" data-animate="stagger">
+          <img src="/images/gallery/culinary/food-01.jpg" alt="מנת שף מביסטרו דה כרמל" loading="lazy" />
+          <img src="/images/gallery/culinary/food-02.jpg" alt="מאפה טרי מהטאבון" loading="lazy" />
+          <img src="/images/gallery/culinary/food-03.jpg" alt="קולינריה בביסטרו דה כרמל" loading="lazy" />
+          <img src="/images/gallery/culinary/food-04.jpg" alt="תפריט שף בביסטרו דה כרמל" loading="lazy" />
+        </div>
+      </div>
     </section>
 
-    <section id="gallery" class="gallery container">
-      <p class="eyebrow">גלריית תמונות המקום</p>
-      <h2>ביסטרו דה כרמל בתמונות</h2>
-      <div class="gallery-grid">
-        {
-          galleryImages.map((src, i) => (
-            <img src={src} alt={`ביסטרו דה כרמל - תמונה ${i + 1}`} loading="lazy" />
-          ))
-        }
+    <!-- המלצות -->
+    <section class="testimonials section-dark">
+      <div class="container">
+        <div class="testimonials-head" data-animate="fade-up">
+          <p class="eyebrow">לקוחות ממליצים</p>
+          <h2>לקוחות ממליצים על ביסטרו דה כרמל</h2>
+        </div>
+        <div class="testimonial-grid" data-animate="stagger">
+          {testimonials.map((t) => <TestimonialCard quote={t.quote} author={t.author} date={t.date} />)}
+        </div>
+        <div class="testimonials-cta" data-animate="fade-up">
+          <a class="btn btn-light" href="/המלצות/">לכל ההמלצות</a>
+        </div>
       </div>
     </section>
 
-    <section class="contact-cta container">
-      <div class="contact-cta-text">
-        <h2>חוגגים בקרוב?</h2>
-        <p>השאירו פרטים ונחזור אליכם מיד עם כל הפרטים על אירוע מושלם אצלנו</p>
+    <!-- גלריה אדיטוריאלית -->
+    <section id="gallery" class="gallery">
+      <div class="container-wide">
+        <div class="gallery-head" data-animate="fade-up">
+          <p class="eyebrow">גלריית תמונות המקום</p>
+          <h2>ביסטרו דה כרמל בתמונות</h2>
+        </div>
+        <div class="gallery-grid" data-animate="stagger">
+          {
+            galleryImages.map((img, i) => (
+              <div class:list={['gallery-item', img.span]}>
+                <img src={img.src} alt={`ביסטרו דה כרמל - תמונה ${i + 1}`} loading="lazy" />
+              </div>
+            ))
+          }
+        </div>
       </div>
-      <LeadForm heading="" instanceId="contact-cta" />
+    </section>
+
+    <!-- חוגגים בקרוב? -->
+    <section class="contact-cta">
+      <div class="container contact-grid">
+        <div class="contact-text" data-animate="fade-up">
+          <p class="eyebrow">צור קשר</p>
+          <h2>חוגגים בקרוב?</h2>
+          <p>השאירו פרטים ונחזור אליכם מיד עם כל הפרטים על אירוע מושלם אצלנו</p>
+          <img
+            class="contact-branch"
+            src="/images/textures/olive-branch.jpg"
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+          />
+        </div>
+        <div data-animate="fade-up">
+          <LeadForm heading="" instanceId="contact-cta" />
+        </div>
+      </div>
     </section>
   </main>
 
@@ -151,121 +246,368 @@ const galleryImages = Array.from({ length: 12 }, (_, i) => {
 </BaseLayout>
 
 <style>
-  section {
-    padding-block: 3.5rem;
-  }
-
+  /* ===== הירו ===== */
   .hero {
-    max-width: 760px;
-    text-align: center;
-    margin-inline: auto;
+    position: relative;
+    min-height: 92svh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    color: var(--color-white);
   }
 
-  .hero p {
-    font-size: 1.05rem;
-    color: var(--color-ink-soft);
-    text-align: start;
+  .hero-bg {
+    position: absolute;
+    inset: -60px 0;
+    z-index: 0;
   }
 
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      to top,
+      color-mix(in srgb, var(--color-olive-deep) 88%, transparent) 0%,
+      color-mix(in srgb, var(--color-olive-deep) 30%, transparent) 45%,
+      color-mix(in srgb, var(--color-olive-deep) 18%, transparent) 100%
+    );
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding-block-end: clamp(4rem, 10vh, 7rem);
+    max-width: 880px;
+  }
+
+  .hero h1 {
+    color: var(--color-white);
+    text-wrap: balance;
+    margin-block-end: 0.4em;
+  }
+
+  .hero-eyebrow {
+    color: var(--color-bronze-soft);
+  }
+
+  .hero-sub {
+    font-size: clamp(1.05rem, 1.2vw + 0.8rem, 1.3rem);
+    max-width: 560px;
+    color: var(--color-ivory);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-block-start: 1.75rem;
+  }
+
+  .btn-ghost {
+    background: transparent;
+    border-color: color-mix(in srgb, var(--color-white) 55%, transparent);
+    color: var(--color-white);
+  }
+
+  .btn-ghost:hover {
+    background: color-mix(in srgb, var(--color-white) 12%, transparent);
+  }
+
+  .hero-fade {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: 0;
+    height: 90px;
+    z-index: 1;
+    background: linear-gradient(to bottom, transparent, var(--color-cream));
+  }
+
+  /* ===== הסיפור ===== */
+  .story {
+    padding-block: clamp(4rem, 8vw, 7rem) 3rem;
+    background:
+      linear-gradient(color-mix(in srgb, var(--color-cream) 88%, transparent), color-mix(in srgb, var(--color-cream) 88%, transparent)),
+      var(--texture-stone) center / cover;
+  }
+
+  .story-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: start;
+  }
+
+  .story-text p {
+    color: var(--color-olive-soft);
+    font-size: 1.02rem;
+  }
+
+  .story-media {
+    position: relative;
+    margin-block-start: 3rem;
+  }
+
+  .story-media img {
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    z-index: 1;
+  }
+
+  .story-media-accent {
+    position: absolute;
+    inset-block-start: -1.25rem;
+    inset-inline-end: -1.25rem;
+    width: 60%;
+    height: 60%;
+    border: 1px solid var(--color-bronze);
+    border-radius: var(--radius-md);
+    z-index: 0;
+  }
+
+  /* ===== אירועים ===== */
   .events {
-    text-align: center;
+    padding-block: clamp(3.5rem, 7vw, 6rem);
   }
 
-  .events-intro,
-  .events > p {
+  .events-head {
     max-width: 720px;
-    margin-inline: auto;
+  }
+
+  .events-intro {
+    color: var(--color-olive-soft);
   }
 
   .events-list {
-    max-width: 640px;
-    margin-inline: auto;
-    text-align: start;
-    color: var(--color-ink-soft);
+    color: var(--color-olive-soft);
+    padding-inline-start: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
   }
 
   .event-cards {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1.25rem;
-    margin-block-start: 2.5rem;
-    text-align: start;
+    gap: 1.5rem;
+    margin-block-start: 3rem;
   }
 
+  /* אסימטריה עדינה — הסטות אנכיות מתחלפות */
+  .slot-2 {
+    transform: translateY(2.25rem);
+  }
+
+  .slot-4 {
+    transform: translateY(2.25rem);
+  }
+
+  /* ===== קולינריה ===== */
   .food {
-    background: var(--color-cream-deep);
-    border-radius: var(--radius-lg);
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(5rem, 10vw, 8rem);
+    margin-block-start: 4.5rem;
+  }
+
+  .food-bg {
+    position: absolute;
+    inset: -80px 0;
+    z-index: 0;
+  }
+
+  .food-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .food::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: color-mix(in srgb, var(--color-olive-deep) 78%, transparent);
+  }
+
+  .food-content {
+    position: relative;
+    z-index: 2;
     text-align: center;
   }
 
-  .food > p {
-    max-width: 680px;
+  .food-text {
+    max-width: 640px;
     margin-inline: auto;
+    color: var(--color-ivory);
+    font-size: 1.08rem;
   }
 
   .food-gallery {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
-    margin-block-start: 2rem;
+    margin-block-start: 2.75rem;
   }
 
   .food-gallery img {
     border-radius: var(--radius-md);
     aspect-ratio: 1;
     object-fit: cover;
+    border: 1px solid color-mix(in srgb, var(--color-bronze) 40%, transparent);
   }
 
-  .testimonials-teaser {
+  /* ===== המלצות ===== */
+  .testimonials {
+    background:
+      linear-gradient(color-mix(in srgb, var(--color-olive-deep) 92%, transparent), color-mix(in srgb, var(--color-olive-deep) 92%, transparent)),
+      var(--texture-linen-dark) center / cover;
+    padding-block: clamp(4rem, 8vw, 6.5rem);
+  }
+
+  .testimonials-head {
     text-align: center;
+  }
+
+  .testimonials-head .eyebrow {
+    color: var(--color-bronze-soft);
   }
 
   .testimonial-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
-    margin-block: 2.5rem;
-    text-align: start;
+    margin-block: 2.75rem;
   }
 
+  .testimonials-cta {
+    text-align: center;
+  }
+
+  /* ===== גלריה ===== */
   .gallery {
+    padding-block: clamp(4rem, 8vw, 6.5rem);
+  }
+
+  .gallery-head {
     text-align: center;
   }
 
   .gallery-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 0.75rem;
-    margin-block-start: 2rem;
+    grid-auto-rows: 220px;
+    grid-auto-flow: dense;
+    gap: 0.9rem;
+    margin-block-start: 2.5rem;
   }
 
-  .gallery-grid img {
+  .gallery-item {
+    overflow: hidden;
     border-radius: var(--radius-sm);
-    aspect-ratio: 4 / 3;
+  }
+
+  .gallery-item.tall {
+    grid-row: span 2;
+  }
+
+  .gallery-item.wide {
+    grid-column: span 2;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
+  .gallery-item:hover img {
+    transform: scale(1.05);
+  }
+
+  /* ===== צור קשר ===== */
   .contact-cta {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2.5rem;
-    align-items: flex-start;
-    padding-block-start: 4.5rem;
-    background: var(--color-cream-deep);
-    border-radius: var(--radius-lg);
+    padding-block: clamp(4rem, 8vw, 6.5rem);
+    background:
+      linear-gradient(color-mix(in srgb, var(--color-ivory) 80%, transparent), color-mix(in srgb, var(--color-ivory) 80%, transparent)),
+      var(--texture-stone) center / cover;
   }
 
-  .contact-cta-text {
-    max-width: 380px;
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: start;
+  }
+
+  .contact-text {
+    max-width: 460px;
+  }
+
+  .contact-text p {
+    color: var(--color-olive-soft);
+    font-size: 1.05rem;
+  }
+
+  .contact-branch {
+    margin-block-start: 2rem;
+    max-width: 280px;
+    mix-blend-mode: multiply;
+    opacity: 0.85;
+  }
+
+  /* ===== רספונסיבי ===== */
+  @media (max-width: 1024px) {
+    .event-cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .slot-2,
+    .slot-4 {
+      transform: translateY(1.25rem);
+    }
   }
 
   @media (max-width: 900px) {
-    .event-cards,
+    .story-grid,
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+    .story-media {
+      margin-block-start: 0;
+      max-width: 480px;
+    }
     .food-gallery,
-    .testimonial-grid,
+    .testimonial-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
     .gallery-grid {
       grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 180px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .event-cards {
+      grid-template-columns: 1fr;
+    }
+    .slot-2,
+    .slot-4 {
+      transform: none;
+    }
+    .food-gallery {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .testimonial-grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>
