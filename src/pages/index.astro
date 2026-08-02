@@ -1,17 +1,48 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import LocalBusinessSchema from '../components/LocalBusinessSchema.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="ביסטרו דה כרמל - אולם אירועים בזכרון יעקב | אירועים בצפון"
+  description="ביסטרו דה כרמל: אירועי בוטיק באווירת יקב אותנטית בזכרון יעקב, במבנה אבן היסטורי מהמאה ה-19. חתונות, בר/בת מצווה, עליה לתורה ואירועים עסקיים עד 250 אורחים."
+>
+  <Fragment slot="head">
+    <LocalBusinessSchema />
+  </Fragment>
+
+  <Header />
+
+  <main>
+    <section class="hero container">
+      <p class="eyebrow">BISTRO DE CARMEL</p>
+      <h1>אירועי בוטיק באווירת יקב אותנטית בזכרון יעקב</h1>
+      <p>
+        ביסטרו דה כרמל הוא הרבה מעבר למקום אירועים – שילוב קסום בין היסטוריה קלאסית, אווירת יקב אותנטית
+        ומטבח שף כשר ובשרי מוקפד, במבנה אבן משוחזר מהמאה ה-19 שהוקם על ידי הברון רוטשילד כמשכן הייננים.
+      </p>
+      <a class="btn btn-primary" href="#contact">לפרטים נוספים ותיאום פגישה</a>
+    </section>
+
+    <!-- TODO: build out remaining homepage sections (4 event-type cards, #food, testimonials teaser, #gallery)
+         from content-inventory.md § 1 once the design system / component library is in place. -->
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: 4rem;
+    max-width: 760px;
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+    color: var(--color-ink-soft);
+  }
+</style>

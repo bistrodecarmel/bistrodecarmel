@@ -1,0 +1,33 @@
+---
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'EventVenue',
+  '@id': 'https://bistrodecarmel.co.il/#business',
+  name: 'ביסטרו דה כרמל',
+  alternateName: 'Bistro de Carmel',
+  description:
+    'אולם אירועים בוטיק במבנה אבן היסטורי מהמאה ה-19 בזכרון יעקב, לחתונות, בר/בת מצווה, הפקת עליה לתורה, ברית ואירועים עסקיים, עד 250 אורחים.',
+  url: 'https://bistrodecarmel.co.il/',
+  telephone: '+972-55-431-6261',
+  priceRange: '₪₪₪',
+  image: 'https://bistrodecarmel.co.il/og-default.jpg',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'רחוב היין 20',
+    addressLocality: 'זכרון יעקב',
+    addressCountry: 'IL',
+  },
+  // TODO: town-center approximation for Zichron Yaakov — replace with the venue's exact
+  // coordinates (right-click the pin on Google Maps -> copy lat/lng) before launch.
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 32.5714,
+    longitude: 34.9506,
+  },
+  servesCuisine: 'בשרי כשר',
+  maximumAttendeeCapacity: 250,
+  minimumAttendeeCapacity: 70,
+} as const;
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

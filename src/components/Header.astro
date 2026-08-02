@@ -1,0 +1,110 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+
+const navLinks = [
+  { href: '/weddings-bistro-de-carmel/', label: 'חתונות בביסטרו' },
+  { href: '/בת-מצווה-בביסטרו-דה-כרמל/', label: 'בת מצווה' },
+  { href: '/בר-מצווה-בביסטרו-דה-כרמל/', label: 'בר מצווה' },
+  { href: '/חוגגים-עליה-לתורה-ובר-מצווה-בזכרון-יעקב/', label: 'הפקת עליה לתורה' },
+  { href: '/המלצות/', label: 'המלצות' },
+  { href: '/#food', label: 'קולינריה' },
+  { href: '/#gallery', label: 'גלריית תמונות המקום' },
+  { href: '/#contact', label: 'צור קשר' },
+];
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="logo-link" aria-label="ביסטרו דה כרמל - חזרה לדף הבית">
+      <Image src={logo} alt="ביסטרו דה כרמל" width={172} height={56} />
+    </a>
+
+    <nav class="main-nav" aria-label="תפריט ראשי">
+      <ul>
+        {
+          navLinks.map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <a href="tel:+972554316261" class="phone-link">055-4316261</a>
+
+    <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="פתיחת תפריט">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--color-cream);
+    border-bottom: 1px solid var(--color-stone);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding-block: 0.85rem;
+  }
+
+  .logo-link {
+    flex-shrink: 0;
+  }
+
+  .main-nav {
+    flex: 1;
+  }
+
+  .main-nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .main-nav a {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--color-ink-soft);
+    transition: color 0.15s ease;
+  }
+
+  .main-nav a:hover {
+    color: var(--color-wine);
+  }
+
+  .phone-link {
+    flex-shrink: 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--color-wine);
+    text-decoration: none;
+    font-size: 1.05rem;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  @media (max-width: 860px) {
+    .main-nav {
+      display: none;
+    }
+    .menu-toggle {
+      display: inline-flex;
+    }
+  }
+</style>

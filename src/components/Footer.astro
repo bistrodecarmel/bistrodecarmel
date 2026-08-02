@@ -1,0 +1,105 @@
+---
+import LeadForm from './LeadForm.astro';
+
+const moreLinks = [
+  { href: '/בר-מצווה-בצפון/', label: 'בר מצווה בצפון' },
+  { href: '/אולם-לחתונה-קטנה/', label: 'אולם לחתונה קטנה' },
+  { href: '/מדיניות-פרטיות-ביסטרו-דה-כרמל/', label: 'מדיניות פרטיות' },
+  { href: '/הצהרת-נגישות-ביסטרו-דה-כרמל/', label: 'הצהרת נגישות' },
+];
+---
+
+<footer id="contact" class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <h2>ביסטרו דה כרמל</h2>
+      <p>אולם אירועים בסגנון כפרי בזכרון יעקב.<br />מתאים לכל סוגי האירועים עד 250 מוזמנים.</p>
+      <a class="phone-big" href="tel:+972554316261">055-4316261</a>
+
+      <nav aria-label="קישורים נוספים">
+        <p class="more-links-title">עוד באתר</p>
+        <ul>
+          {
+            moreLinks.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <p class="address">כתובתנו: רחוב היין 20 זכרון יעקב</p>
+      <!-- TODO: developer/agency credit line goes here if desired -->
+    </div>
+
+    <div class="footer-form">
+      <LeadForm heading="השאירו פרטים ונחזור אליכם מיד" />
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-wine-dark);
+    color: var(--color-cream-deep);
+    padding-block: 3.5rem;
+    margin-block-start: 4rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 3rem;
+  }
+
+  .footer-about h2 {
+    color: var(--color-white);
+  }
+
+  .phone-big {
+    display: inline-block;
+    margin-block: 0.75rem 1.5rem;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--color-gold-soft);
+    text-decoration: none;
+  }
+
+  .more-links-title {
+    font-weight: 700;
+    margin-block-end: 0.5rem;
+    color: var(--color-white);
+  }
+
+  .footer-about ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .footer-about a {
+    color: var(--color-cream-deep);
+    text-decoration: none;
+    opacity: 0.85;
+  }
+
+  .footer-about a:hover {
+    opacity: 1;
+    text-decoration: underline;
+  }
+
+  .address {
+    font-size: 0.85rem;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 760px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

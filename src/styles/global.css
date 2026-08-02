@@ -1,0 +1,155 @@
+@import '@fontsource/frank-ruhl-libre/400.css';
+@import '@fontsource/frank-ruhl-libre/500.css';
+@import '@fontsource/frank-ruhl-libre/700.css';
+@import '@fontsource/assistant/400.css';
+@import '@fontsource/assistant/500.css';
+@import '@fontsource/assistant/600.css';
+@import '@fontsource/assistant/700.css';
+
+:root {
+  /* אלגנטיות כפרית: אבן/קרם חמים, בורדו יין, נגיעות עץ/זהב */
+  --color-cream: #f8f2e8;
+  --color-cream-deep: #efe4d2;
+  --color-stone: #e4d8c4;
+  --color-ink: #2a201c;
+  --color-ink-soft: #4a3c34;
+  --color-wine: #611c2b;
+  --color-wine-dark: #3d0f19;
+  --color-wine-light: #8a3345;
+  --color-gold: #ab8752;
+  --color-gold-soft: #d8c39d;
+  --color-wood: #7a5233;
+  --color-white: #fffdf9;
+
+  --font-display: 'Frank Ruhl Libre', 'David Libre', serif;
+  --font-body: 'Assistant', 'Segoe UI', sans-serif;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+
+  --shadow-soft: 0 8px 30px rgba(42, 32, 28, 0.12);
+  --shadow-card: 0 4px 16px rgba(42, 32, 28, 0.08);
+
+  --container-width: 1180px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  background: var(--color-cream);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  color: var(--color-wine-dark);
+  line-height: 1.2;
+  margin-block: 0 0.6em;
+  font-weight: 500;
+}
+
+h1 {
+  font-size: clamp(2.2rem, 4vw + 1rem, 3.6rem);
+}
+
+h2 {
+  font-size: clamp(1.7rem, 2.5vw + 1rem, 2.6rem);
+}
+
+h3 {
+  font-size: clamp(1.25rem, 1.5vw + 1rem, 1.6rem);
+}
+
+p {
+  margin-block: 0 1em;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.85rem 1.8rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.btn-primary {
+  background: var(--color-wine);
+  color: var(--color-white);
+}
+
+.btn-primary:hover {
+  background: var(--color-wine-dark);
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: var(--color-wine);
+  color: var(--color-wine);
+}
+
+.btn-outline:hover {
+  background: var(--color-wine);
+  color: var(--color-white);
+}
+
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-gold);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  margin-block-end: 0.75rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

@@ -1,0 +1,43 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# --- SEO preservation: redirects from retired/legacy pages on the old WordPress site ---
+# See content-inventory.md, "נספח: 30 עמודי SEO/בלוג נוספים" for the full audit these are based on.
+
+# Stale WordPress theme demo page (old phone number, "2023" content) -> homepage
+[[redirects]]
+  from = "/frontpage/"
+  to = "/"
+  status = 301
+  force = true
+
+# Broken shortcode guestbook page, superseded by the full /המלצות/ page
+[[redirects]]
+  from = "/%D7%A1%D7%A4%D7%A8-%D7%90%D7%95%D7%A8%D7%97%D7%99%D7%9D/"
+  to = "/%D7%94%D7%9E%D7%9C%D7%A6%D7%95%D7%AA/"
+  status = 301
+  force = true
+
+# Duplicate "thank you" pages -> the one real minimal thank-you page
+[[redirects]]
+  from = "/%D7%AA%D7%95%D7%93%D7%94-%D7%A8%D7%91%D7%94-%D7%A2%D7%9C-%D7%A4%D7%A0%D7%99%D7%99%D7%AA%D7%9B%D7%9D/"
+  to = "/thank-you-page/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/thankyou/"
+  to = "/thank-you-page/"
+  status = 301
+  force = true
+
+# Pre-existing redirect on the old site, preserved
+[[redirects]]
+  from = "/weddings/"
+  to = "/weddings-bistro-de-carmel/"
+  status = 301
+  force = true
