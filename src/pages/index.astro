@@ -59,7 +59,7 @@ const galleryImages = [
 >
   <Fragment slot="head">
     <LocalBusinessSchema />
-    <link rel="preload" as="image" href="/images/atmosphere/hero-courtyard.jpg" />
+    <link rel="preload" as="image" href="/images/atmosphere/hero-sparklers.jpg" />
   </Fragment>
 
   <Header overlay />
@@ -69,8 +69,8 @@ const galleryImages = [
     <section class="hero">
       <div class="hero-bg" data-parallax="60">
         <img
-          src="/images/atmosphere/hero-courtyard.jpg"
-          alt="חצר אבן היסטורית של יקב בזכרון יעקב בשעת שקיעה, עצי זית ונורות תלויות"
+          src="/images/atmosphere/hero-sparklers.jpg"
+          alt="כניסת זוג לאולם ביסטרו דה כרמל בליווי מזרקות זיקוקים, אורחים מריעים משני הצדדים"
           fetchpriority="high"
         />
       </div>
@@ -118,8 +118,8 @@ const galleryImages = [
         </div>
         <div class="story-media" data-animate="fade-up">
           <img
-            src="/images/atmosphere/wine-cellar.jpg"
-            alt="מרתף יין היסטורי עם חביות אלון ואור נרות"
+            src="/images/gallery/venue/venue-03.jpg"
+            alt="חלל האירועים של ביסטרו דה כרמל — קירות אבן, שולחנות עץ וכיסאות וינטאז'"
             loading="lazy"
           />
           <div class="story-media-accent" aria-hidden="true"></div>
@@ -164,8 +164,8 @@ const galleryImages = [
     <section id="food" class="food section-dark">
       <div class="food-bg" data-parallax="80">
         <img
-          src="/images/atmosphere/taboon-moody.jpg"
-          alt="מאפים טריים ליד טאבון אבן בוער"
+          src="/images/gallery/culinary/food-05.jpg"
+          alt="מנת שף של ביסטרו דה כרמל על רקע עץ כפרי"
           loading="lazy"
         />
       </div>
@@ -275,9 +275,10 @@ const galleryImages = [
     z-index: 1;
     background: linear-gradient(
       to top,
-      color-mix(in srgb, var(--color-olive-deep) 88%, transparent) 0%,
-      color-mix(in srgb, var(--color-olive-deep) 30%, transparent) 45%,
-      color-mix(in srgb, var(--color-olive-deep) 18%, transparent) 100%
+      color-mix(in srgb, var(--color-olive-deep) 96%, transparent) 0%,
+      color-mix(in srgb, var(--color-olive-deep) 62%, transparent) 38%,
+      color-mix(in srgb, var(--color-olive-deep) 28%, transparent) 70%,
+      color-mix(in srgb, var(--color-olive-deep) 22%, transparent) 100%
     );
   }
 
@@ -292,6 +293,12 @@ const galleryImages = [
     color: var(--color-white);
     text-wrap: balance;
     margin-block-end: 0.4em;
+    text-shadow: 0 2px 28px rgba(20, 24, 18, 0.55);
+  }
+
+  .hero-sub,
+  .hero-eyebrow {
+    text-shadow: 0 1px 16px rgba(20, 24, 18, 0.6);
   }
 
   .hero-eyebrow {
