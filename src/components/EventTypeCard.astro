@@ -14,10 +14,12 @@ const num = String(index).padStart(2, '0');
   <div class="frame">
     <img src={image} alt={title} loading="lazy" width="480" height="620" />
   </div>
-  <div class="event-card-meta">
-    <span class="num">{num}</span>
-    <h3>{title}</h3>
-    <span class="cta">לפרטים נוספים <span class="arrow">←</span></span>
+  <div class="meta">
+    <span class="num" aria-hidden="true">{num}</span>
+    <div class="meta-text">
+      <h3>{title}</h3>
+      <span class="cta">לפרטים נוספים <span class="arrow" aria-hidden="true">←</span></span>
+    </div>
   </div>
 </a>
 
@@ -30,56 +32,59 @@ const num = String(index).padStart(2, '0');
   .frame {
     position: relative;
     overflow: hidden;
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 3 / 4;
     border-radius: var(--radius-md);
+    background: var(--color-ivory);
   }
 
   .frame::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(44, 51, 42, 0.35), transparent 45%);
-    transition: opacity 0.4s ease;
+    background: linear-gradient(to top, rgba(34, 39, 30, 0.28), transparent 40%);
   }
 
   .frame img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .event-card:hover .frame img {
-    transform: scale(1.06);
+    transform: scale(1.055);
   }
 
-  .event-card-meta {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    align-items: baseline;
-    column-gap: 0.75rem;
-    padding-block-start: 1.1rem;
+  .meta {
+    display: flex;
+    gap: 0.9rem;
+    align-items: flex-start;
+    padding-block-start: 1.15rem;
   }
 
   .num {
-    font-family: var(--font-display);
-    font-size: 0.9rem;
-    color: var(--color-bronze);
-    letter-spacing: 0.1em;
+    font-weight: 250;
+    font-size: 1.7rem;
+    line-height: 1.1;
+    color: var(--color-bronze-text);
+    min-width: 2.1rem;
   }
 
   h3 {
-    margin: 0;
-    font-size: 1.45rem;
+    margin: 0 0 0.2rem;
+    font-size: 1.35rem;
+    font-weight: 700;
+    transition: color 0.2s ease;
+  }
+
+  .event-card:hover h3 {
+    color: var(--color-bronze-text);
   }
 
   .cta {
-    grid-column: 2;
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     font-weight: 600;
-    color: var(--color-olive-soft);
-    margin-block-start: 0.3rem;
-    transition: color 0.2s ease;
+    color: var(--color-muted);
   }
 
   .arrow {
@@ -87,11 +92,7 @@ const num = String(index).padStart(2, '0');
     transition: transform 0.25s ease;
   }
 
-  .event-card:hover .cta {
-    color: var(--color-bronze);
-  }
-
   .event-card:hover .arrow {
-    transform: translateX(-4px);
+    transform: translateX(-5px);
   }
 </style>

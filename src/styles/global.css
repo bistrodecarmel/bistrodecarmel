@@ -1,39 +1,64 @@
-@import '@fontsource/frank-ruhl-libre/400.css';
-@import '@fontsource/frank-ruhl-libre/500.css';
-@import '@fontsource/frank-ruhl-libre/700.css';
+@import '@fontsource/assistant/200.css';
+@import '@fontsource/assistant/300.css';
 @import '@fontsource/assistant/400.css';
 @import '@fontsource/assistant/500.css';
 @import '@fontsource/assistant/600.css';
 @import '@fontsource/assistant/700.css';
+@import '@fontsource/assistant/800.css';
 
 :root {
-  /* פלטת זית-שמנת-שנהב: אלגנטית, חמה, עכשווית */
-  --color-olive-deep: #2c332a; /* אזורים כהים, פוטר */
-  --color-olive: #3a4232; /* משטחים כהים משניים */
-  --color-olive-soft: #5a6350; /* טקסט משני על רקע בהיר */
-  --color-cream: #f5efe3; /* רקע ראשי */
-  --color-ivory: #e8dcc8; /* שנהב כהה — משטחים משניים */
-  --color-ivory-deep: #d8c9ae; /* גבולות, הפרדות */
-  --color-bronze: #b39b6d; /* אקצנט ראשי — כותרות עוגן, קווים */
-  --color-bronze-soft: #cdbb96; /* אקצנט על רקע כהה */
-  --color-ink: #26291f; /* טקסט ראשי */
-  --color-white: #fdfaf4;
-  --color-wine-accent: #611c2b; /* בורדו הלוגו — שימוש נקודתי בלבד */
+  /* ===== צבע: זית / שמנת / שנהב / ברונזה ===== */
+  --color-olive-deep: #272d24; /* משטחים כהים */
+  --color-olive: #39412f; /* משטח כהה משני, כפתור ראשי */
+  --color-cream: #f6f1e6; /* רקע עמוד */
+  --color-ivory: #eae0cd; /* משטח משני בהיר */
+  --color-ivory-deep: #d9cbb0; /* קווים והפרדות על בהיר */
 
-  --font-display: 'Frank Ruhl Libre', 'David Libre', serif;
-  --font-body: 'Assistant', 'Segoe UI', sans-serif;
+  /* טקסט — נבדק לניגודיות AA ומעלה */
+  --color-ink: #22271e; /* טקסט ראשי על בהיר (13:1) */
+  --color-body: #363d30; /* טקסט רץ על בהיר (9:1) */
+  --color-muted: #5b6150; /* טקסט משני על בהיר (5.4:1) */
+  --color-bronze-text: #7d6134; /* אקצנט טקסטואלי על בהיר (5:1) */
 
-  --radius-sm: 0.2rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.9rem;
+  /* טקסט על כהה */
+  --color-on-dark: #f2ecdd; /* טקסט ראשי על זית כהה (12:1) */
+  --color-on-dark-soft: #cfc9b6; /* טקסט משני על כהה (8:1) */
+  --color-bronze-on-dark: #d3bd93; /* אקצנט על כהה (7:1) */
 
-  --shadow-soft: 0 10px 40px rgba(38, 41, 31, 0.14);
-  --shadow-card: 0 4px 18px rgba(38, 41, 31, 0.08);
+  /* דקורציה בלבד — לא לטקסט על רקע בהיר */
+  --color-bronze-line: #ac9264;
+  --color-white: #fdfbf5;
+  --color-wine-accent: #611c2b; /* בורדו הלוגו — נקודתי בלבד */
+
+  /* ===== טיפוגרפיה: Assistant בלבד, סולם משקלים ===== */
+  --font-sans: 'Assistant', 'Segoe UI', system-ui, sans-serif;
+
+  --fs-display: clamp(2.9rem, 6vw + 1rem, 5.75rem);
+  --fs-h2: clamp(2rem, 3vw + 0.9rem, 3.4rem);
+  --fs-h3: clamp(1.3rem, 1vw + 1rem, 1.7rem);
+  --fs-lead: clamp(1.1rem, 0.5vw + 1rem, 1.35rem);
+  --fs-body: 1.0625rem;
+  --fs-small: 0.9rem;
+  --fs-label: 0.78rem;
+
+  --lh-display: 1.04;
+  --lh-heading: 1.12;
+  --lh-body: 1.75;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+
+  --shadow-soft: 0 14px 44px rgba(34, 39, 30, 0.16);
+  --shadow-card: 0 3px 14px rgba(34, 39, 30, 0.07);
 
   --container-width: 1180px;
-  --container-wide: 1400px;
+  --container-wide: 1440px;
 
-  /* טקסטורות — מוזנות מ-assets מג'ונרטים */
+  /* מקצב אנכי */
+  --section-pad: clamp(4.5rem, 9vw, 8rem);
+
+  /* טקסטורות (מופשטות בלבד) */
   --texture-stone: url('/images/textures/stone-cream.jpg');
   --texture-linen-dark: url('/images/textures/linen-olive.jpg');
 }
@@ -50,42 +75,84 @@ html {
 
 body {
   margin: 0;
-  font-family: var(--font-body);
-  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--fs-body);
+  color: var(--color-body);
   background: var(--color-cream);
-  line-height: 1.7;
+  line-height: var(--lh-body);
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
+::selection {
+  background: var(--color-olive);
+  color: var(--color-cream);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-bronze-text);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ===== כותרות: משקל דק כברירת מחדל, strong להדגשה ===== */
 h1,
 h2,
 h3,
 h4 {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   color: var(--color-ink);
-  line-height: 1.15;
-  margin-block: 0 0.6em;
-  font-weight: 500;
+  margin-block: 0 0.55em;
+  text-wrap: balance;
+}
+
+h1,
+.display {
+  font-size: var(--fs-display);
+  font-weight: 200;
+  line-height: var(--lh-display);
+  letter-spacing: -0.015em;
+}
+
+h2 {
+  font-size: var(--fs-h2);
+  font-weight: 250;
+  line-height: var(--lh-heading);
   letter-spacing: -0.01em;
 }
 
-/* סקאלה דרמטית לכותרות display */
-h1,
-.display-1 {
-  font-size: clamp(2.6rem, 5.5vw + 1rem, 4.8rem);
-}
-
-h2,
-.display-2 {
-  font-size: clamp(1.9rem, 3vw + 1rem, 3.2rem);
+h1 strong,
+h2 strong,
+.display strong {
+  font-weight: 700;
 }
 
 h3 {
-  font-size: clamp(1.25rem, 1.5vw + 1rem, 1.6rem);
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
 }
 
 p {
-  margin-block: 0 1em;
+  margin-block: 0 1.1em;
+  max-width: 68ch;
+}
+
+.lead {
+  font-size: var(--fs-lead);
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--color-ink);
+}
+
+.muted {
+  color: var(--color-muted);
 }
 
 a {
@@ -97,50 +164,71 @@ img {
   display: block;
 }
 
+ul {
+  margin-block: 0 1.1em;
+}
+
 .container {
   width: 100%;
   max-width: var(--container-width);
   margin-inline: auto;
-  padding-inline: 1.5rem;
+  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
 }
 
 .container-wide {
   width: 100%;
   max-width: var(--container-wide);
   margin-inline: auto;
-  padding-inline: 1.5rem;
+  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
 }
 
-/* אזור כהה — זית עמוק עם טקסט שנהב */
+/* ===== אזורים כהים ===== */
 .section-dark {
   background-color: var(--color-olive-deep);
-  color: var(--color-ivory);
+  color: var(--color-on-dark);
 }
 
 .section-dark h1,
 .section-dark h2,
-.section-dark h3 {
-  color: var(--color-white);
+.section-dark h3,
+.section-dark h4 {
+  color: var(--color-on-dark);
 }
 
+.section-dark p {
+  color: var(--color-on-dark-soft);
+}
+
+.section-dark .eyebrow {
+  color: var(--color-bronze-on-dark);
+}
+
+/* ===== כפתורים ===== */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  font-family: var(--font-body);
+  gap: 0.6rem;
+  min-height: 3rem;
+  font-family: var(--font-sans);
   font-weight: 600;
-  font-size: 1rem;
-  padding: 0.9rem 2rem;
+  font-size: 0.98rem;
+  letter-spacing: 0.01em;
+  padding: 0.8rem 2.1rem;
   border-radius: var(--radius-sm);
   border: 1px solid transparent;
   cursor: pointer;
   text-decoration: none;
   transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease,
-    background-color 0.15s ease,
-    color 0.15s ease;
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    background-color 0.16s ease,
+    border-color 0.16s ease,
+    color 0.16s ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
 }
 
 .btn-primary {
@@ -151,7 +239,6 @@ img {
 .btn-primary:hover {
   background: var(--color-olive-deep);
   box-shadow: var(--shadow-soft);
-  transform: translateY(-1px);
 }
 
 .btn-outline {
@@ -166,8 +253,8 @@ img {
 }
 
 .btn-light {
-  background: var(--color-ivory);
-  color: var(--color-olive-deep);
+  background: var(--color-cream);
+  color: var(--color-ink);
 }
 
 .btn-light:hover {
@@ -175,41 +262,52 @@ img {
   box-shadow: var(--shadow-soft);
 }
 
+.btn-ghost {
+  background: transparent;
+  border-color: color-mix(in srgb, var(--color-white) 60%, transparent);
+  color: var(--color-white);
+}
+
+.btn-ghost:hover {
+  background: color-mix(in srgb, var(--color-white) 14%, transparent);
+  border-color: var(--color-white);
+}
+
+/* ===== תווית קטנה (eyebrow) עם קו מקדים ===== */
 .eyebrow {
-  display: inline-block;
-  font-family: var(--font-body);
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  color: var(--color-bronze);
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  margin-block-end: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--color-bronze-text);
+  font-size: var(--fs-label);
+  margin-block-end: 1.1rem;
 }
 
-/* קו דקורטיבי — לחוצצים בין קטעים */
-.divider-line {
-  width: 72px;
-  height: 1px;
-  background: var(--color-bronze);
-  margin-inline: auto;
-  margin-block: 0.75rem 1.5rem;
-  position: relative;
-}
-
-.divider-line::after {
+.eyebrow::before {
   content: '';
-  position: absolute;
-  inset-inline-start: 50%;
-  transform: translateX(50%);
-  inset-block-start: -3px;
-  width: 7px;
-  height: 7px;
-  border: 1px solid var(--color-bronze);
-  border-radius: 50%;
-  background: var(--color-cream);
+  display: inline-block;
+  width: 2rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.7;
 }
 
-/* אלמנטים לאנימציית GSAP — מוסתרים רק כש-JS פעיל */
+.eyebrow.no-line::before {
+  display: none;
+}
+
+/* ===== קו חוצץ דקורטיבי ===== */
+.divider-line {
+  width: 76px;
+  height: 1px;
+  background: var(--color-bronze-line);
+  margin-inline: auto;
+  margin-block: 0.5rem 0;
+}
+
+/* ===== אנימציות GSAP ===== */
 html.has-js [data-animate] {
   opacity: 0;
 }

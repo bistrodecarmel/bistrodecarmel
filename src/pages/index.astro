@@ -18,6 +18,13 @@ const eventTypes = [
   },
 ];
 
+const stats = [
+  { value: '70–250', label: 'אורחים באירוע', ltr: true },
+  { value: 'המאה ה-19', label: 'מבנה אבן משוחזר', ltr: false },
+  { value: 'כשר', label: 'מטבח שף בשרי', ltr: false },
+  { value: '50+', label: 'המלצות מלקוחות', ltr: true },
+];
+
 const testimonials = [
   {
     quote:
@@ -38,7 +45,6 @@ const testimonials = [
   },
 ];
 
-/* גריד אדיטוריאלי: פריסה ידנית עם וריאציית גבהים */
 const galleryImages = [
   { src: '/images/gallery/venue/venue-01.jpg', span: 'tall' },
   { src: '/images/gallery/venue/venue-02.jpg', span: '' },
@@ -65,7 +71,7 @@ const galleryImages = [
   <Header overlay />
 
   <main>
-    <!-- הירו full-bleed -->
+    <!-- ===== הירו ===== -->
     <section class="hero">
       <div class="hero-bg" data-parallax="60">
         <img
@@ -74,35 +80,44 @@ const galleryImages = [
           fetchpriority="high"
         />
       </div>
-      <div class="hero-content container">
-        <p class="eyebrow hero-eyebrow" data-animate="fade-up">BISTRO DE CARMEL &middot; זכרון יעקב</p>
-        <h1 data-animate="fade-up">אירועי בוטיק באווירת יקב אותנטית בזכרון יעקב</h1>
-        <p class="hero-sub" data-animate="fade-up">
-          מבנה אבן משוחזר מהמאה ה-19, מטבח שף כשר ובשרי, ואירוח של 70 עד 250 אורחים — במקום שנושם היסטוריה.
+      <div class="hero-content container-wide">
+        <p class="eyebrow hero-eyebrow no-line" data-animate="fade-up">
+          BISTRO DE CARMEL &middot; זכרון יעקב
         </p>
+        <h1 data-animate="fade-up">
+          אירועי בוטיק<br />
+          <strong>באווירת יקב אותנטית</strong><br />
+          בזכרון יעקב
+        </h1>
         <div class="hero-actions" data-animate="fade-up">
           <a class="btn btn-light" href="#contact">לפרטים נוספים ותיאום פגישה</a>
           <a class="btn btn-ghost" href="#story">הסיפור שלנו</a>
         </div>
+        <ul class="hero-meta" data-animate="fade-up">
+          <li>מבנה אבן מהמאה ה-19</li>
+          <li>מטבח שף כשר ובשרי</li>
+          <li>70 עד 250 אורחים</li>
+        </ul>
       </div>
       <div class="hero-fade" aria-hidden="true"></div>
     </section>
 
-    <!-- הסיפור — אודות -->
+    <!-- ===== הסיפור ===== -->
     <section id="story" class="story">
       <div class="container story-grid">
         <div class="story-text" data-animate="fade-up">
-          <p class="eyebrow">הבית שלכם לרגעים הגדולים</p>
-          <h2>שילוב קסום בין היסטוריה קלאסית, אווירת יקב אותנטית ומטבח שף מוקפד</h2>
-          <p>
+          <p class="eyebrow">01 &middot; הבית שלכם לרגעים הגדולים</p>
+          <h2>שילוב קסום בין <strong>היסטוריה קלאסית</strong>, אווירת יקב אותנטית ומטבח שף מוקפד</h2>
+          <p class="lead">
             ביסטרו דה כרמל הוא הרבה מעבר למקום אירועים – הוא שילוב קסום בין היסטוריה קלאסית, אווירת יקב
-            אותנטית ומטבח שף כשר ובשרי מוקפד. המקום שוכן במבנה אבן משוחזר מהמאה ה-19 בזכרון יעקב, שהוקם
-            על ידי הברון רוטשילד כמשכן הייננים, וטומן בחובו את רוח המושבה והכרמים.
+            אותנטית ומטבח שף כשר ובשרי מוקפד.
           </p>
           <p>
-            החלל שלנו משלב אלגנטיות כפרית נצחית עם נגיעות עיצוב חמימות, קירות אבן חשופים ותקרות גבוהות
-            שמשקיפות לחצר היקב. בתוך האווירה המיוחדת, הטאבון הבוער שלנו מוסיף לניחוחות, ואלמנטים טבעיים
-            ויין יוצרים תחושה של אירוע בוטיק אינטימי ויוקרתי.
+            המקום שוכן במבנה אבן משוחזר מהמאה ה-19 בזכרון יעקב, שהוקם על ידי הברון רוטשילד כמשכן
+            הייננים, וטומן בחובו את רוח המושבה והכרמים. החלל שלנו משלב אלגנטיות כפרית נצחית עם נגיעות
+            עיצוב חמימות, קירות אבן חשופים ותקרות גבוהות שמשקיפות לחצר היקב. בתוך האווירה המיוחדת,
+            הטאבון הבוער שלנו מוסיף לניחוחות, ואלמנטים טבעיים ויין יוצרים תחושה של אירוע בוטיק אינטימי
+            ויוקרתי.
           </p>
           <p>
             אנו מתמחים ביצירת אירועי בוטיק אישיים ומרגשים, עם גמישות לארח בין 70 ל-250 אורחים. הצוות
@@ -125,17 +140,29 @@ const galleryImages = [
           <div class="story-media-accent" aria-hidden="true"></div>
         </div>
       </div>
+
+      <!-- פס נתונים -->
+      <div class="container">
+        <dl class="stats" data-animate="stagger">
+          {
+            stats.map((s) => (
+              <div class="stat">
+                <dt>{s.label}</dt>
+                <dd dir={s.ltr ? 'ltr' : undefined}>{s.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
     </section>
 
-    <div class="divider-line" data-animate="draw-line" aria-hidden="true"></div>
-
-    <!-- חוגגים בביסטרו — כרטיסים אסימטריים -->
+    <!-- ===== חוגגים בביסטרו ===== -->
     <section class="events">
       <div class="container">
         <div class="events-head" data-animate="fade-up">
-          <p class="eyebrow">חוגגים בביסטרו</p>
-          <h2>אירועים אינטימיים ומרגשים עד 250 מוזמנים</h2>
-          <p class="events-intro">
+          <p class="eyebrow">02 &middot; חוגגים בביסטרו</p>
+          <h2>אירועים אינטימיים ומרגשים <strong>עד 250 מוזמנים</strong></h2>
+          <p class="lead">
             כאן תוכלו לחגוג חתונה קסומה באווירת יקב אותנטית, או להעניק לילדיכם אירוע בר/בת מצווה שכולם
             יזכרו בזכות הפקה שלמה, הכוללת:
           </p>
@@ -160,18 +187,17 @@ const galleryImages = [
       </div>
     </section>
 
-    <!-- קולינריה — full-bleed כהה עם parallax -->
+    <!-- ===== קולינריה ===== -->
     <section id="food" class="food section-dark">
       <div class="food-bg" data-parallax="80">
-        <img
-          src="/images/gallery/culinary/food-05.jpg"
-          alt="מנת שף של ביסטרו דה כרמל על רקע עץ כפרי"
-          loading="lazy"
-        />
+        <img src="/images/gallery/culinary/food-05.jpg" alt="" aria-hidden="true" loading="lazy" />
       </div>
       <div class="food-content container">
-        <p class="eyebrow" data-animate="fade-up">קולינריה</p>
-        <h2 data-animate="fade-up">הטאבון הבוער, יינות היקב,<br />וחוויה קולינרית חד פעמית</h2>
+        <p class="eyebrow" data-animate="fade-up">03 &middot; קולינריה</p>
+        <h2 data-animate="fade-up">
+          הטאבון הבוער, יינות היקב,<br />
+          <strong>וחוויה קולינרית חד פעמית</strong>
+        </h2>
         <p class="food-text" data-animate="fade-up">
           ריח הלחם מטאבון האבן בכניסה למקום, מקבל את פני האורחים בניחוחות ממכרים, ויינות היקב וטעמם
           האנין, מייצרים חווית אירוע קולינרית חד פעמית ובלתי נשכחת.
@@ -185,12 +211,12 @@ const galleryImages = [
       </div>
     </section>
 
-    <!-- המלצות -->
+    <!-- ===== המלצות ===== -->
     <section class="testimonials section-dark">
       <div class="container">
         <div class="testimonials-head" data-animate="fade-up">
-          <p class="eyebrow">לקוחות ממליצים</p>
-          <h2>לקוחות ממליצים על ביסטרו דה כרמל</h2>
+          <p class="eyebrow no-line">04 &middot; לקוחות ממליצים</p>
+          <h2>לקוחות ממליצים <strong>על ביסטרו דה כרמל</strong></h2>
         </div>
         <div class="testimonial-grid" data-animate="stagger">
           {testimonials.map((t) => <TestimonialCard quote={t.quote} author={t.author} date={t.date} />)}
@@ -201,12 +227,12 @@ const galleryImages = [
       </div>
     </section>
 
-    <!-- גלריה אדיטוריאלית -->
+    <!-- ===== גלריה ===== -->
     <section id="gallery" class="gallery">
       <div class="container-wide">
         <div class="gallery-head" data-animate="fade-up">
-          <p class="eyebrow">גלריית תמונות המקום</p>
-          <h2>ביסטרו דה כרמל בתמונות</h2>
+          <p class="eyebrow no-line">05 &middot; גלריית תמונות המקום</p>
+          <h2>ביסטרו דה כרמל <strong>בתמונות</strong></h2>
         </div>
         <div class="gallery-grid" data-animate="stagger">
           {
@@ -220,13 +246,13 @@ const galleryImages = [
       </div>
     </section>
 
-    <!-- חוגגים בקרוב? -->
+    <!-- ===== צור קשר ===== -->
     <section class="contact-cta">
       <div class="container contact-grid">
         <div class="contact-text" data-animate="fade-up">
-          <p class="eyebrow">צור קשר</p>
-          <h2>חוגגים בקרוב?</h2>
-          <p>השאירו פרטים ונחזור אליכם מיד עם כל הפרטים על אירוע מושלם אצלנו</p>
+          <p class="eyebrow">06 &middot; צור קשר</p>
+          <h2><strong>חוגגים</strong> בקרוב?</h2>
+          <p class="lead">השאירו פרטים ונחזור אליכם מיד עם כל הפרטים על אירוע מושלם אצלנו</p>
           <img
             class="contact-branch"
             src="/images/textures/olive-branch.jpg"
@@ -249,7 +275,7 @@ const galleryImages = [
   /* ===== הירו ===== */
   .hero {
     position: relative;
-    min-height: 92svh;
+    min-height: 94svh;
     display: flex;
     align-items: flex-end;
     overflow: hidden;
@@ -275,91 +301,87 @@ const galleryImages = [
     z-index: 1;
     background: linear-gradient(
       to top,
-      color-mix(in srgb, var(--color-olive-deep) 96%, transparent) 0%,
-      color-mix(in srgb, var(--color-olive-deep) 62%, transparent) 38%,
-      color-mix(in srgb, var(--color-olive-deep) 28%, transparent) 70%,
-      color-mix(in srgb, var(--color-olive-deep) 22%, transparent) 100%
+      color-mix(in srgb, var(--color-olive-deep) 97%, transparent) 0%,
+      color-mix(in srgb, var(--color-olive-deep) 66%, transparent) 36%,
+      color-mix(in srgb, var(--color-olive-deep) 30%, transparent) 68%,
+      color-mix(in srgb, var(--color-olive-deep) 24%, transparent) 100%
     );
   }
 
   .hero-content {
     position: relative;
     z-index: 2;
-    padding-block-end: clamp(4rem, 10vh, 7rem);
-    max-width: 880px;
+    padding-block-end: clamp(3.5rem, 9vh, 6.5rem);
   }
 
   .hero h1 {
     color: var(--color-white);
-    text-wrap: balance;
-    margin-block-end: 0.4em;
-    text-shadow: 0 2px 28px rgba(20, 24, 18, 0.55);
-  }
-
-  .hero-sub,
-  .hero-eyebrow {
-    text-shadow: 0 1px 16px rgba(20, 24, 18, 0.6);
+    margin-block-end: 0.55em;
+    max-width: 14ch;
+    text-shadow: 0 2px 30px rgba(18, 22, 16, 0.55);
   }
 
   .hero-eyebrow {
-    color: var(--color-bronze-soft);
-  }
-
-  .hero-sub {
-    font-size: clamp(1.05rem, 1.2vw + 0.8rem, 1.3rem);
-    max-width: 560px;
-    color: var(--color-ivory);
+    color: var(--color-bronze-on-dark);
+    letter-spacing: 0.22em;
+    text-shadow: 0 1px 14px rgba(18, 22, 16, 0.6);
   }
 
   .hero-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
-    margin-block-start: 1.75rem;
+    gap: 0.9rem;
+    margin-block-end: 2.25rem;
   }
 
-  .btn-ghost {
-    background: transparent;
-    border-color: color-mix(in srgb, var(--color-white) 55%, transparent);
-    color: var(--color-white);
+  .hero-meta {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 0;
+    margin: 0;
+    padding: 1.1rem 0 0;
+    border-top: 1px solid color-mix(in srgb, var(--color-white) 28%, transparent);
+    max-width: 560px;
   }
 
-  .btn-ghost:hover {
-    background: color-mix(in srgb, var(--color-white) 12%, transparent);
+  .hero-meta li {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--color-on-dark);
+    text-shadow: 0 1px 12px rgba(18, 22, 16, 0.6);
+  }
+
+  .hero-meta li:not(:last-child)::after {
+    content: '·';
+    margin-inline: 0.9rem;
+    color: var(--color-bronze-on-dark);
   }
 
   .hero-fade {
     position: absolute;
     inset-inline: 0;
     inset-block-end: 0;
-    height: 90px;
+    height: 70px;
     z-index: 1;
     background: linear-gradient(to bottom, transparent, var(--color-cream));
   }
 
   /* ===== הסיפור ===== */
   .story {
-    padding-block: clamp(4rem, 8vw, 7rem) 3rem;
-    background:
-      linear-gradient(color-mix(in srgb, var(--color-cream) 88%, transparent), color-mix(in srgb, var(--color-cream) 88%, transparent)),
-      var(--texture-stone) center / cover;
+    padding-block: var(--section-pad) 0;
   }
 
   .story-grid {
     display: grid;
     grid-template-columns: 1.15fr 0.85fr;
-    gap: clamp(2rem, 5vw, 5rem);
+    gap: clamp(2.5rem, 6vw, 6rem);
     align-items: start;
-  }
-
-  .story-text p {
-    color: var(--color-olive-soft);
-    font-size: 1.02rem;
   }
 
   .story-media {
     position: relative;
-    margin-block-start: 3rem;
+    margin-block-start: 2.5rem;
   }
 
   .story-media img {
@@ -371,58 +393,92 @@ const galleryImages = [
 
   .story-media-accent {
     position: absolute;
-    inset-block-start: -1.25rem;
-    inset-inline-end: -1.25rem;
-    width: 60%;
-    height: 60%;
-    border: 1px solid var(--color-bronze);
+    inset-block-start: -1.4rem;
+    inset-inline-end: -1.4rem;
+    width: 55%;
+    height: 55%;
+    border: 1px solid var(--color-bronze-line);
     border-radius: var(--radius-md);
     z-index: 0;
   }
 
+  /* פס נתונים */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: clamp(3.5rem, 7vw, 5.5rem) 0 0;
+    padding: clamp(1.75rem, 3vw, 2.5rem) 0;
+    border-top: 1px solid var(--color-ivory-deep);
+    border-bottom: 1px solid var(--color-ivory-deep);
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding-inline: 1rem;
+  }
+
+  .stat:not(:last-child) {
+    border-inline-end: 1px solid var(--color-ivory-deep);
+  }
+
+  .stat dd {
+    margin: 0;
+    order: 1;
+    font-size: clamp(1.6rem, 2.2vw, 2.4rem);
+    font-weight: 250;
+    color: var(--color-ink);
+    line-height: 1.2;
+  }
+
+  .stat dt {
+    order: 2;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-muted);
+    margin-block-start: 0.35rem;
+  }
+
   /* ===== אירועים ===== */
   .events {
-    padding-block: clamp(3.5rem, 7vw, 6rem);
+    padding-block: var(--section-pad);
   }
 
   .events-head {
-    max-width: 720px;
-  }
-
-  .events-intro {
-    color: var(--color-olive-soft);
+    max-width: 760px;
   }
 
   .events-list {
-    color: var(--color-olive-soft);
+    color: var(--color-body);
     padding-inline-start: 1.2rem;
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 0.4rem;
+  }
+
+  .events-list li::marker {
+    color: var(--color-bronze-text);
   }
 
   .event-cards {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
-    margin-block-start: 3rem;
+    gap: clamp(1.25rem, 2vw, 2rem);
+    margin-block-start: clamp(2.5rem, 5vw, 4rem);
   }
 
-  /* אסימטריה עדינה — הסטות אנכיות מתחלפות */
-  .slot-2 {
-    transform: translateY(2.25rem);
-  }
-
+  .slot-2,
   .slot-4 {
-    transform: translateY(2.25rem);
+    transform: translateY(2.5rem);
   }
 
   /* ===== קולינריה ===== */
   .food {
     position: relative;
     overflow: hidden;
-    padding-block: clamp(5rem, 10vw, 8rem);
-    margin-block-start: 4.5rem;
+    padding-block: var(--section-pad);
+    margin-block-start: 5rem;
   }
 
   .food-bg {
@@ -442,7 +498,7 @@ const galleryImages = [
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: color-mix(in srgb, var(--color-olive-deep) 78%, transparent);
+    background: color-mix(in srgb, var(--color-olive-deep) 86%, transparent);
   }
 
   .food-content {
@@ -451,33 +507,45 @@ const galleryImages = [
     text-align: center;
   }
 
-  .food-text {
-    max-width: 640px;
+  .food-content .eyebrow {
+    justify-content: center;
+  }
+
+  .food-content h2 {
     margin-inline: auto;
-    color: var(--color-ivory);
-    font-size: 1.08rem;
+  }
+
+  .food-text {
+    max-width: 620px;
+    margin-inline: auto;
+    font-size: var(--fs-lead);
+    font-weight: 300;
+    color: var(--color-on-dark);
   }
 
   .food-gallery {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
-    margin-block-start: 2.75rem;
+    margin-block-start: clamp(2.5rem, 5vw, 3.5rem);
   }
 
   .food-gallery img {
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-sm);
     aspect-ratio: 1;
     object-fit: cover;
-    border: 1px solid color-mix(in srgb, var(--color-bronze) 40%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-bronze-on-dark) 35%, transparent);
   }
 
   /* ===== המלצות ===== */
   .testimonials {
     background:
-      linear-gradient(color-mix(in srgb, var(--color-olive-deep) 92%, transparent), color-mix(in srgb, var(--color-olive-deep) 92%, transparent)),
+      linear-gradient(
+        color-mix(in srgb, var(--color-olive-deep) 94%, transparent),
+        color-mix(in srgb, var(--color-olive-deep) 94%, transparent)
+      ),
       var(--texture-linen-dark) center / cover;
-    padding-block: clamp(4rem, 8vw, 6.5rem);
+    padding-block: var(--section-pad);
   }
 
   .testimonials-head {
@@ -485,14 +553,14 @@ const galleryImages = [
   }
 
   .testimonials-head .eyebrow {
-    color: var(--color-bronze-soft);
+    justify-content: center;
   }
 
   .testimonial-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
-    margin-block: 2.75rem;
+    margin-block: clamp(2.5rem, 5vw, 3.5rem);
   }
 
   .testimonials-cta {
@@ -501,20 +569,24 @@ const galleryImages = [
 
   /* ===== גלריה ===== */
   .gallery {
-    padding-block: clamp(4rem, 8vw, 6.5rem);
+    padding-block: var(--section-pad);
   }
 
   .gallery-head {
     text-align: center;
   }
 
+  .gallery-head .eyebrow {
+    justify-content: center;
+  }
+
   .gallery-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: 220px;
+    grid-auto-rows: 230px;
     grid-auto-flow: dense;
-    gap: 0.9rem;
-    margin-block-start: 2.5rem;
+    gap: 0.8rem;
+    margin-block-start: clamp(2.5rem, 5vw, 3.5rem);
   }
 
   .gallery-item {
@@ -534,42 +606,40 @@ const galleryImages = [
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .gallery-item:hover img {
-    transform: scale(1.05);
+    transform: scale(1.045);
   }
 
   /* ===== צור קשר ===== */
   .contact-cta {
-    padding-block: clamp(4rem, 8vw, 6.5rem);
+    padding-block: var(--section-pad);
     background:
-      linear-gradient(color-mix(in srgb, var(--color-ivory) 80%, transparent), color-mix(in srgb, var(--color-ivory) 80%, transparent)),
+      linear-gradient(
+        color-mix(in srgb, var(--color-ivory) 82%, transparent),
+        color-mix(in srgb, var(--color-ivory) 82%, transparent)
+      ),
       var(--texture-stone) center / cover;
   }
 
   .contact-grid {
     display: grid;
     grid-template-columns: 1fr auto;
-    gap: clamp(2rem, 5vw, 5rem);
+    gap: clamp(2.5rem, 6vw, 6rem);
     align-items: start;
   }
 
   .contact-text {
-    max-width: 460px;
-  }
-
-  .contact-text p {
-    color: var(--color-olive-soft);
-    font-size: 1.05rem;
+    max-width: 470px;
   }
 
   .contact-branch {
-    margin-block-start: 2rem;
-    max-width: 280px;
+    margin-block-start: 2.25rem;
+    max-width: 260px;
     mix-blend-mode: multiply;
-    opacity: 0.85;
+    opacity: 0.8;
   }
 
   /* ===== רספונסיבי ===== */
@@ -579,7 +649,14 @@ const galleryImages = [
     }
     .slot-2,
     .slot-4 {
-      transform: translateY(1.25rem);
+      transform: translateY(1.5rem);
+    }
+    .stats {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 1.75rem;
+    }
+    .stat:nth-child(2) {
+      border-inline-end: none;
     }
   }
 
@@ -590,7 +667,7 @@ const galleryImages = [
     }
     .story-media {
       margin-block-start: 0;
-      max-width: 480px;
+      max-width: 500px;
     }
     .food-gallery,
     .testimonial-grid {
@@ -598,7 +675,7 @@ const galleryImages = [
     }
     .gallery-grid {
       grid-template-columns: repeat(2, 1fr);
-      grid-auto-rows: 180px;
+      grid-auto-rows: 190px;
     }
   }
 
@@ -615,6 +692,12 @@ const galleryImages = [
     }
     .testimonial-grid {
       grid-template-columns: 1fr;
+    }
+    .stats {
+      grid-template-columns: 1fr 1fr;
+    }
+    .stat {
+      border-inline-end: none !important;
     }
   }
 </style>

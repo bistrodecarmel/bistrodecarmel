@@ -16,7 +16,7 @@ const navLinks = [
   { href: '/חוגגים-עליה-לתורה-ובר-מצווה-בזכרון-יעקב/', label: 'הפקת עליה לתורה' },
   { href: '/המלצות/', label: 'המלצות' },
   { href: '/#food', label: 'קולינריה' },
-  { href: '/#gallery', label: 'גלריית תמונות המקום' },
+  { href: '/#gallery', label: 'גלריה' },
   { href: '/#contact', label: 'צור קשר' },
 ];
 ---
@@ -24,7 +24,7 @@ const navLinks = [
 <header class:list={['site-header', { overlay }]} id="site-header">
   <div class="container-wide header-inner">
     <a href="/" class="logo-link" aria-label="ביסטרו דה כרמל - חזרה לדף הבית">
-      <Image src={logo} alt="ביסטרו דה כרמל" width={172} height={56} />
+      <Image src={logo} alt="ביסטרו דה כרמל" width={150} height={49} />
     </a>
 
     <nav class="main-nav" aria-label="תפריט ראשי">
@@ -39,7 +39,7 @@ const navLinks = [
       </ul>
     </nav>
 
-    <a href="tel:+972554316261" class="phone-link">055-4316261</a>
+    <a href="tel:+972554316261" class="phone-cta">055-4316261</a>
 
     <button
       class="menu-toggle"
@@ -48,7 +48,7 @@ const navLinks = [
       aria-label="פתיחת תפריט"
       id="menu-toggle"
     >
-      <span></span><span></span><span></span>
+      <span></span><span></span>
     </button>
   </div>
 
@@ -81,6 +81,7 @@ const navLinks = [
   toggle?.addEventListener('click', () => {
     const isOpen = toggle.getAttribute('aria-expanded') === 'true';
     toggle.setAttribute('aria-expanded', String(!isOpen));
+    toggle.classList.toggle('open', !isOpen);
     if (mobileNav) mobileNav.hidden = isOpen;
   });
 </script>
@@ -97,7 +98,6 @@ const navLinks = [
       border-color 0.3s ease;
   }
 
-  /* מצב שקוף מעל הירו */
   .site-header.overlay {
     position: fixed;
     inset-inline: 0;
@@ -105,13 +105,22 @@ const navLinks = [
     border-bottom-color: transparent;
   }
 
-  .site-header.overlay:not(.scrolled) .main-nav a,
-  .site-header.overlay:not(.scrolled) .phone-link {
+  .site-header.overlay:not(.scrolled) .main-nav a {
     color: var(--color-white);
   }
 
+  .site-header.overlay:not(.scrolled) .phone-cta {
+    color: var(--color-white);
+    border-color: color-mix(in srgb, var(--color-white) 55%, transparent);
+  }
+
+  .site-header.overlay:not(.scrolled) .phone-cta:hover {
+    background: color-mix(in srgb, var(--color-white) 14%, transparent);
+    border-color: var(--color-white);
+  }
+
   .site-header.overlay:not(.scrolled) .logo-link img {
-    filter: brightness(0) invert(0.95);
+    filter: brightness(0) invert(0.97);
   }
 
   .site-header.overlay:not(.scrolled) .menu-toggle span {
@@ -119,20 +128,21 @@ const navLinks = [
   }
 
   .site-header.overlay.scrolled {
-    background: color-mix(in srgb, var(--color-cream) 92%, transparent);
-    backdrop-filter: blur(10px);
+    background: color-mix(in srgb, var(--color-cream) 94%, transparent);
+    backdrop-filter: blur(12px);
     border-bottom-color: var(--color-ivory-deep);
   }
 
   .header-inner {
     display: flex;
     align-items: center;
-    gap: 2rem;
-    padding-block: 0.9rem;
+    gap: 2.25rem;
+    padding-block: 0.8rem;
   }
 
   .logo-link {
     flex-shrink: 0;
+    display: block;
   }
 
   .logo-link img {
@@ -147,61 +157,92 @@ const navLinks = [
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    gap: 1.4rem;
+    gap: 1.75rem;
     margin: 0;
     padding: 0;
     justify-content: center;
   }
 
   .main-nav a {
+    position: relative;
     text-decoration: none;
     font-weight: 600;
     font-size: 0.92rem;
     color: var(--color-ink);
-    letter-spacing: 0.01em;
+    padding-block: 0.35rem;
     transition: color 0.2s ease;
   }
 
-  .main-nav a:hover {
-    color: var(--color-bronze);
+  .main-nav a::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: 0;
+    height: 1px;
+    background: var(--color-bronze-line);
+    transform: scaleX(0);
+    transform-origin: 100% 50%;
+    transition: transform 0.25s ease;
   }
 
-  .phone-link {
+  .main-nav a:hover::after {
+    transform: scaleX(1);
+  }
+
+  .phone-cta {
     flex-shrink: 0;
-    font-family: var(--font-display);
     font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
     color: var(--color-ink);
     text-decoration: none;
-    font-size: 1.05rem;
-    transition: color 0.2s ease;
+    border: 1px solid var(--color-ivory-deep);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem 1.1rem;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease;
   }
 
-  .phone-link:hover {
-    color: var(--color-bronze);
+  .phone-cta:hover {
+    background: var(--color-olive);
+    border-color: var(--color-olive);
+    color: var(--color-white);
   }
 
   .menu-toggle {
     display: none;
     flex-direction: column;
-    gap: 5px;
+    gap: 6px;
     background: none;
     border: none;
-    padding: 0.5rem;
+    padding: 0.6rem 0.4rem;
     cursor: pointer;
   }
 
   .menu-toggle span {
     display: block;
-    width: 24px;
+    width: 26px;
     height: 2px;
     background: var(--color-ink);
-    transition: background 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      background 0.3s ease;
+  }
+
+  .menu-toggle.open span:first-child {
+    transform: translateY(4px) rotate(45deg);
+  }
+
+  .menu-toggle.open span:last-child {
+    transform: translateY(-4px) rotate(-45deg);
   }
 
   .mobile-nav {
     background: var(--color-cream);
     border-top: 1px solid var(--color-ivory-deep);
-    padding: 1rem 1.5rem 1.5rem;
+    padding: 1.25rem clamp(1.25rem, 4vw, 2.5rem) 1.75rem;
   }
 
   .mobile-nav ul {
@@ -210,24 +251,32 @@ const navLinks = [
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.9rem;
+    gap: 1rem;
   }
 
   .mobile-nav a {
     text-decoration: none;
     font-weight: 600;
+    font-size: 1.05rem;
     color: var(--color-ink);
   }
 
+  .mobile-phone {
+    margin-block-start: 0.5rem;
+    padding-block-start: 1rem;
+    border-top: 1px solid var(--color-ivory-deep);
+  }
+
   .mobile-phone a {
-    color: var(--color-bronze);
-    font-family: var(--font-display);
-    font-size: 1.1rem;
+    color: var(--color-bronze-text);
+    font-weight: 800;
+    font-size: 1.15rem;
+    letter-spacing: 0.04em;
   }
 
   @media (max-width: 960px) {
     .main-nav,
-    .phone-link {
+    .phone-cta {
       display: none;
     }
     .menu-toggle {

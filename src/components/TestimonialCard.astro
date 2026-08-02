@@ -9,7 +9,6 @@ const { quote, author, date } = Astro.props;
 ---
 
 <figure class="testimonial-card">
-  <span class="quote-mark" aria-hidden="true">&rdquo;</span>
   <blockquote>{quote}</blockquote>
   <figcaption>
     <span class="author">{author}</span>
@@ -19,35 +18,24 @@ const { quote, author, date } = Astro.props;
 
 <style>
   .testimonial-card {
-    position: relative;
     margin: 0;
-    padding: 2.2rem 2rem 1.8rem;
-    background: color-mix(in srgb, var(--color-olive) 55%, transparent);
-    border: 1px solid color-mix(in srgb, var(--color-bronze) 35%, transparent);
-    border-radius: var(--radius-md);
+    padding: 2rem 1.9rem 1.6rem;
+    background: color-mix(in srgb, var(--color-white) 5%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-bronze-on-dark) 28%, transparent);
+    border-top: 2px solid var(--color-bronze-on-dark);
+    border-radius: var(--radius-sm);
     display: flex;
     flex-direction: column;
-    gap: 1.1rem;
+    gap: 1.25rem;
     height: 100%;
-  }
-
-  .quote-mark {
-    position: absolute;
-    inset-block-start: 0.4rem;
-    inset-inline-start: 1.2rem;
-    font-family: var(--font-display);
-    font-size: 4rem;
-    line-height: 1;
-    color: var(--color-bronze);
-    opacity: 0.55;
   }
 
   blockquote {
     margin: 0;
-    font-family: var(--font-display);
-    font-size: 1.1rem;
-    color: var(--color-ivory);
-    line-height: 1.7;
+    font-size: 1.08rem;
+    font-weight: 300;
+    color: var(--color-on-dark);
+    line-height: 1.8;
     display: -webkit-box;
     -webkit-line-clamp: 6;
     -webkit-box-orient: vertical;
@@ -58,15 +46,21 @@ const { quote, author, date } = Astro.props;
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    font-size: 0.82rem;
-    color: var(--color-bronze-soft);
-    border-top: 1px solid color-mix(in srgb, var(--color-bronze) 30%, transparent);
-    padding-top: 0.85rem;
+    gap: 1rem;
     margin-block-start: auto;
+    padding-block-start: 0.9rem;
+    border-top: 1px solid color-mix(in srgb, var(--color-bronze-on-dark) 25%, transparent);
   }
 
   .author {
     font-weight: 700;
-    color: var(--color-white);
+    font-size: 0.95rem;
+    color: var(--color-on-dark);
+  }
+
+  .date {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--color-bronze-on-dark);
   }
 </style>
