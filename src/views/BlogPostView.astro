@@ -87,10 +87,28 @@ const isArticle = entry.data.kind === 'article';
     margin-block-end: 2rem;
   }
 
+  /* מפריד עדין לפני כל כותרת משנה — שובר את גוש הטקסט הארוך בלי נכס תמונה נוסף */
   .post-body :global(h2) {
     font-size: 1.6rem;
     font-weight: 600;
-    margin-block: 1.6em 0.5em;
+    margin-block: 1.9em 0.5em;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .post-body :global(h2::before) {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    flex-shrink: 0;
+    background: var(--color-bronze-line);
+    transform: rotate(45deg);
+  }
+
+  .post-body :global(h2:first-child) {
+    margin-block-start: 0;
   }
 
   .post-body :global(h3) {

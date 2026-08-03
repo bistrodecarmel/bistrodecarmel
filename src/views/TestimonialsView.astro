@@ -5,6 +5,13 @@ import Footer from '../components/Footer.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { testimonials } from '../data/testimonials';
+
+/* שוברים את הרשימה הארוכה לקבוצות עם מפריד עדין ביניהן, במקום גוש כרטיסים אחיד */
+const GROUP_SIZE = 15;
+const groups: (typeof testimonials)[number][][] = [];
+for (let i = 0; i < testimonials.length; i += GROUP_SIZE) {
+  groups.push(testimonials.slice(i, i + GROUP_SIZE));
+}
 ---
 
 <BaseLayout
@@ -25,14 +32,25 @@ import { testimonials } from '../data/testimonials';
         <img class="ornament-divider" src="/images/decor/divider-vine.jpg" alt="" aria-hidden="true" loading="lazy" />
         <div class="reviews-grid">
           {
-            testimonials.map((t) => (
-              <figure class="review-card">
-                <blockquote>{t.quote}</blockquote>
-                <figcaption>
-                  <span class="author">{t.author}</span>
-                  <span class="date">{t.date}</span>
-                </figcaption>
-              </figure>
+            groups.map((group, gi) => (
+              <>
+                {gi > 0 && (
+                  <div class="reviews-divider" aria-hidden="true">
+                    <span />
+                    <i>✦</i>
+                    <span />
+                  </div>
+                )}
+                {group.map((t) => (
+                  <figure class="review-card">
+                    <blockquote>{t.quote}</blockquote>
+                    <figcaption>
+                      <span class="author">{t.author}</span>
+                      <span class="date">{t.date}</span>
+                    </figcaption>
+                  </figure>
+                ))}
+              </>
             ))
           }
         </div>
@@ -53,6 +71,27 @@ import { testimonials } from '../data/testimonials';
   .reviews-grid {
     columns: 3 320px;
     column-gap: 1.25rem;
+  }
+
+  /* מפריד בין קבוצות המלצות — שובר את רצף הכרטיסים הארוך על פני כל העמודות */
+  .reviews-divider {
+    column-span: all;
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    margin-block: 0.5rem 1.5rem;
+    color: var(--color-bronze-line);
+  }
+
+  .reviews-divider span {
+    flex: 1;
+    height: 1px;
+    background: var(--color-ivory-deep);
+  }
+
+  .reviews-divider i {
+    font-style: normal;
+    font-size: 0.85rem;
   }
 
   .review-card {
