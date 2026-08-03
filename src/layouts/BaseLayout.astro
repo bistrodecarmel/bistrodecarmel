@@ -45,7 +45,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <slot />
     <script>
       import { initAnimations } from '../scripts/animations';
+      import { initLightbox } from '../scripts/lightbox';
       initAnimations();
+      initLightbox();
     </script>
   </body>
 </html>

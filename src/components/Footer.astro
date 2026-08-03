@@ -12,6 +12,7 @@ const moreLinks = [
 ---
 
 <footer id="contact" class="site-footer section-dark">
+  <p class="footer-giant" aria-hidden="true">נתראה <i>✦</i> בשמחות</p>
   <div class="container footer-grid">
     <div class="footer-about">
       <h2><strong>ביסטרו</strong> דה כרמל</h2>
@@ -44,6 +45,11 @@ const moreLinks = [
 </footer>
 
 <style>
+  .site-footer .footer-giant {
+    padding-block-start: 0;
+    margin-block-end: clamp(2.5rem, 5vw, 4rem);
+  }
+
   .site-footer {
     background:
       linear-gradient(

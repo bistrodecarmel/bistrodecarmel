@@ -6,6 +6,13 @@ import LocalBusinessSchema from '../components/LocalBusinessSchema.astro';
 import EventTypeCard from '../components/EventTypeCard.astro';
 import TestimonialCard from '../components/TestimonialCard.astro';
 import LeadForm from '../components/LeadForm.astro';
+import MarqueeStrip from '../components/MarqueeStrip.astro';
+import { testimonials as allTestimonials } from '../data/testimonials';
+
+/* קרוסלת המלצות: ציטוטים קצרים-בינוניים מתוך 45 ההמלצות האמיתיות */
+const marqueeQuotes = allTestimonials.filter((t) => t.quote.length > 40 && t.quote.length < 260).slice(0, 12);
+const rowA = marqueeQuotes.slice(0, 6);
+const rowB = marqueeQuotes.slice(6, 12);
 
 const eventTypes = [
   { title: 'חתונות', href: '/weddings-bistro-de-carmel/', image: '/images/gallery/venue/venue-06.jpg' },
@@ -18,32 +25,19 @@ const eventTypes = [
   },
 ];
 
-const stats = [
-  { value: '70–250', label: 'אורחים באירוע', ltr: true },
+const stats: {
+  value: string;
+  label: string;
+  ltr: boolean;
+  count?: string;
+  countFormat?: string;
+}[] = [
+  { value: '70–250', label: 'אורחים באירוע', ltr: true, count: '250', countFormat: '70–{n}' },
   { value: 'המאה ה-19', label: 'מבנה אבן משוחזר', ltr: false },
   { value: 'כשר', label: 'מטבח שף בשרי', ltr: false },
-  { value: '50+', label: 'המלצות מלקוחות', ltr: true },
+  { value: '50+', label: 'המלצות מלקוחות', ltr: true, count: '50', countFormat: '{n}+' },
 ];
 
-const testimonials = [
-  {
-    quote:
-      'במילה אחת - ווואו!!! במלא מילים - התחתנו בביסטרו, חצי שנה אחרי שסגרנו את התאריך, חתונה של כ-220 אורחים. מעבר לתמורה הלא נורמלית למחיר, שחר החזיק לנו את היד לאורך כל הדרך... ממליצים בטירוף.',
-    author: 'לקוחה מרוצה',
-    date: 'חתונה בביסטרו',
-  },
-  {
-    quote: 'חגגנו בר מצווה ב25/6/26 היה מושלם. צוות נהדר, אוכל טעים, אולם יפה וייחודי.',
-    author: 'שירן גבע אלנקוה',
-    date: 'יוני 2026',
-  },
-  {
-    quote:
-      'אוכל טעים ובשפע... לוקיישן אינטימי ומדהים. יצאנו מרוצים וזכינו לתגובות כאלה גם מהאורחים... המקום מסודר מהמם, וייב מאוד חמים והחביות יין מוסיפות.',
-    author: 'Liran Hayak',
-    date: 'מרץ 2026',
-  },
-];
 
 const galleryImages = [
   { src: '/images/gallery/venue/venue-01.jpg', span: 'tall' },
@@ -84,14 +78,14 @@ const galleryImages = [
         <p class="eyebrow hero-eyebrow no-line" data-animate="fade-up">
           BISTRO DE CARMEL &middot; זכרון יעקב
         </p>
-        <h1 data-animate="fade-up">
-          אירועי בוטיק<br />
-          <strong>באווירת יקב אותנטית</strong><br />
-          בזכרון יעקב
+        <h1 class="hero-title">
+          <span class="hero-line"><span class="hero-line-inner">אירועי בוטיק</span></span>
+          <span class="hero-line"><span class="hero-line-inner"><strong>באווירת יקב אותנטית</strong></span></span>
+          <span class="hero-line"><span class="hero-line-inner">בזכרון יעקב</span></span>
         </h1>
         <div class="hero-actions" data-animate="fade-up">
-          <a class="btn btn-light" href="#contact">לפרטים נוספים ותיאום פגישה</a>
-          <a class="btn btn-ghost" href="#story">הסיפור שלנו</a>
+          <a class="btn btn-light" href="#contact" data-magnetic>לפרטים נוספים ותיאום פגישה</a>
+          <a class="btn btn-ghost" href="#story" data-magnetic>הסיפור שלנו</a>
         </div>
         <ul class="hero-meta" data-animate="fade-up">
           <li>מבנה אבן מהמאה ה-19</li>
@@ -99,6 +93,7 @@ const galleryImages = [
           <li>70 עד 250 אורחים</li>
         </ul>
       </div>
+      <div class="scroll-cue" aria-hidden="true"></div>
       <div class="hero-fade" aria-hidden="true"></div>
     </section>
 
@@ -131,12 +126,22 @@ const galleryImages = [
           </p>
           <p>נשמח להעניק לכם ולאורחים שלכם חוויית אירוח מושלמת, מדויקת ומלאת קסם.</p>
         </div>
-        <div class="story-media" data-animate="fade-up">
-          <img
-            src="/images/gallery/venue/venue-03.jpg"
-            alt="חלל האירועים של ביסטרו דה כרמל — קירות אבן, שולחנות עץ וכיסאות וינטאז'"
-            loading="lazy"
-          />
+        <div class="story-media collage" data-animate="fade-up">
+          <div class="collage-main arch" data-parallax="26">
+            <img
+              src="/images/gallery/venue/venue-03.jpg"
+              alt="חלל האירועים של ביסטרו דה כרמל — קירות אבן, שולחנות עץ וכיסאות וינטאז'"
+              loading="lazy"
+            />
+          </div>
+          <div class="collage-secondary" data-parallax="54">
+            <img
+              src="/images/gallery/culinary/food-02.jpg"
+              alt="מאפים טריים מהטאבון של ביסטרו דה כרמל"
+              loading="lazy"
+            />
+          </div>
+          <span class="collage-caption" aria-hidden="true">זכרון יעקב &middot; מאז המאה ה-19</span>
           <div class="story-media-accent" aria-hidden="true"></div>
         </div>
       </div>
@@ -148,13 +153,21 @@ const galleryImages = [
             stats.map((s) => (
               <div class="stat">
                 <dt>{s.label}</dt>
-                <dd dir={s.ltr ? 'ltr' : undefined}>{s.value}</dd>
+                <dd
+                  dir={s.ltr ? 'ltr' : undefined}
+                  data-counter={s.count ?? undefined}
+                  data-counter-format={s.countFormat ?? undefined}
+                >
+                  {s.value}
+                </dd>
               </div>
             ))
           }
         </dl>
       </div>
     </section>
+
+    <MarqueeStrip />
 
     <!-- ===== חוגגים בביסטרו ===== -->
     <section class="events">
@@ -202,7 +215,7 @@ const galleryImages = [
           ריח הלחם מטאבון האבן בכניסה למקום, מקבל את פני האורחים בניחוחות ממכרים, ויינות היקב וטעמם
           האנין, מייצרים חווית אירוע קולינרית חד פעמית ובלתי נשכחת.
         </p>
-        <div class="food-gallery" data-animate="stagger">
+        <div class="food-gallery" data-animate="stagger" data-lightbox>
           <img src="/images/gallery/culinary/food-01.jpg" alt="מנת שף מביסטרו דה כרמל" loading="lazy" />
           <img src="/images/gallery/culinary/food-02.jpg" alt="מאפה טרי מהטאבון" loading="lazy" />
           <img src="/images/gallery/culinary/food-03.jpg" alt="קולינריה בביסטרו דה כרמל" loading="lazy" />
@@ -218,28 +231,52 @@ const galleryImages = [
           <p class="eyebrow no-line">04 &middot; לקוחות ממליצים</p>
           <h2>לקוחות ממליצים <strong>על ביסטרו דה כרמל</strong></h2>
         </div>
-        <div class="testimonial-grid" data-animate="stagger">
-          {testimonials.map((t) => <TestimonialCard quote={t.quote} author={t.author} date={t.date} />)}
+      </div>
+
+      <!-- קרוסלה זורמת של המלצות אמיתיות -->
+      <div class="t-marquee" aria-label="המלצות מלקוחות">
+        <div class="t-row">
+          {rowA.map((t) => (
+            <div class="t-card"><TestimonialCard quote={t.quote} author={t.author} date={t.date} /></div>
+          ))}
+          {rowA.map((t) => (
+            <div class="t-card" aria-hidden="true"><TestimonialCard quote={t.quote} author={t.author} date={t.date} /></div>
+          ))}
         </div>
+        <div class="t-row reverse">
+          {rowB.map((t) => (
+            <div class="t-card"><TestimonialCard quote={t.quote} author={t.author} date={t.date} /></div>
+          ))}
+          {rowB.map((t) => (
+            <div class="t-card" aria-hidden="true"><TestimonialCard quote={t.quote} author={t.author} date={t.date} /></div>
+          ))}
+        </div>
+      </div>
+
+      <div class="container">
         <div class="testimonials-cta" data-animate="fade-up">
           <a class="btn btn-light" href="/המלצות/">לכל ההמלצות</a>
         </div>
       </div>
     </section>
 
-    <!-- ===== גלריה ===== -->
+    <!-- ===== גלריה אופקית ===== -->
     <section id="gallery" class="gallery">
       <div class="container-wide">
         <div class="gallery-head" data-animate="fade-up">
           <p class="eyebrow no-line">05 &middot; גלריית תמונות המקום</p>
           <h2>ביסטרו דה כרמל <strong>בתמונות</strong></h2>
+          <p class="muted gallery-hint">גללו — הגלריה נעה איתכם</p>
         </div>
-        <div class="gallery-grid" data-animate="stagger">
+      </div>
+      <div class="hscroll" data-lightbox>
+        <div class="hscroll-track">
           {
             galleryImages.map((img, i) => (
-              <div class:list={['gallery-item', img.span]}>
+              <figure class="hscroll-item">
                 <img src={img.src} alt={`ביסטרו דה כרמל - תמונה ${i + 1}`} loading="lazy" />
-              </div>
+                <figcaption>{String(i + 1).padStart(2, '0')} / {String(galleryImages.length).padStart(2, '0')}</figcaption>
+              </figure>
             ))
           }
         </div>
@@ -321,6 +358,38 @@ const galleryImages = [
     text-shadow: 0 2px 30px rgba(18, 22, 16, 0.55);
   }
 
+  /* חשיפה שורה-שורה */
+  .hero-line {
+    display: block;
+    overflow: hidden;
+    padding-block-end: 0.06em; /* מונע חיתוך אותיות יורדות */
+  }
+
+  .hero-line-inner {
+    display: block;
+    will-change: transform;
+  }
+
+  /* Ken Burns עדין על תמונת ההירו */
+  .hero-bg img {
+    animation: kenburns 12s ease-out both;
+  }
+
+  @keyframes kenburns {
+    from {
+      transform: scale(1.08);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-bg img {
+      animation: none;
+    }
+  }
+
   .hero-eyebrow {
     color: var(--color-bronze-on-dark);
     letter-spacing: 0.22em;
@@ -384,11 +453,53 @@ const galleryImages = [
     margin-block-start: 2.5rem;
   }
 
-  .story-media img {
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-soft);
+  /* קולאז' שכבות */
+  .collage {
+    padding-block-end: 5rem;
+    padding-inline-start: 3.5rem;
+  }
+
+  .collage-main {
     position: relative;
     z-index: 1;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .collage-main img {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+  }
+
+  .collage-secondary {
+    position: absolute;
+    z-index: 2;
+    inset-block-end: 1.5rem;
+    inset-inline-start: 0;
+    width: 48%;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    border: 4px solid var(--color-cream);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .collage-secondary img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
+  .collage-caption {
+    position: absolute;
+    z-index: 0;
+    inset-block-start: 2.5rem;
+    inset-inline-start: -0.5rem;
+    writing-mode: vertical-rl;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--color-bronze-text);
   }
 
   .story-media-accent {
@@ -396,9 +507,9 @@ const galleryImages = [
     inset-block-start: -1.4rem;
     inset-inline-end: -1.4rem;
     width: 55%;
-    height: 55%;
+    height: 45%;
     border: 1px solid var(--color-bronze-line);
-    border-radius: var(--radius-md);
+    border-radius: 999px 999px var(--radius-md) var(--radius-md);
     z-index: 0;
   }
 

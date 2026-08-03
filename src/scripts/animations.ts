@@ -10,10 +10,23 @@ export function initAnimations() {
     document.querySelectorAll<HTMLElement>('[data-animate]').forEach((el) => {
       el.style.opacity = '1';
     });
+    document.querySelectorAll<HTMLElement>('.hero-line-inner').forEach((el) => {
+      el.style.transform = 'none';
+    });
     return;
   }
 
-  // fade-up כללי לכל אלמנט עם data-animate
+  // חשיפת כותרת הירו שורה-שורה (מסכה)
+  const heroLines = document.querySelectorAll<HTMLElement>('.hero-line-inner');
+  if (heroLines.length) {
+    gsap.fromTo(
+      heroLines,
+      { yPercent: 115 },
+      { yPercent: 0, duration: 1.05, ease: 'power3.out', stagger: 0.14, delay: 0.15 }
+    );
+  }
+
+  // fade-up כללי
   document.querySelectorAll<HTMLElement>('[data-animate="fade-up"]').forEach((el) => {
     gsap.fromTo(
       el,
@@ -28,7 +41,7 @@ export function initAnimations() {
     );
   });
 
-  // stagger לילדים של קונטיינר (כרטיסים, גריד גלריה)
+  // stagger לילדים
   document.querySelectorAll<HTMLElement>('[data-animate="stagger"]').forEach((container) => {
     const children = Array.from(container.children);
     gsap.fromTo(
@@ -43,16 +56,15 @@ export function initAnimations() {
         scrollTrigger: { trigger: container, start: 'top 82%', once: true },
       }
     );
-    // הקונטיינר עצמו נחשף מיד — הילדים הם שמונפשים
-    (container as HTMLElement).style.opacity = '1';
+    container.style.opacity = '1';
   });
 
-  // parallax עדין לתמונות רקע full-width
+  // parallax עדין
   document.querySelectorAll<HTMLElement>('[data-parallax]').forEach((el) => {
     const strength = Number(el.dataset.parallax) || 40;
     gsap.fromTo(
       el,
-      { yPercent: 0, y: -strength / 2 },
+      { y: -strength / 2 },
       {
         y: strength / 2,
         ease: 'none',
@@ -66,7 +78,7 @@ export function initAnimations() {
     );
   });
 
-  // קו דקורטיבי שמצייר את עצמו
+  // קו שמצייר את עצמו
   document.querySelectorAll<HTMLElement>('[data-animate="draw-line"]').forEach((el) => {
     gsap.fromTo(
       el,
@@ -79,4 +91,65 @@ export function initAnimations() {
       }
     );
   });
+
+  // מונים בפס הנתונים — data-counter="250" data-counter-format="70–{n}"
+  document.querySelectorAll<HTMLElement>('[data-counter]').forEach((el) => {
+    const target = Number(el.dataset.counter);
+    const format = el.dataset.counterFormat || '{n}';
+    const obj = { n: 0 };
+    gsap.to(obj, {
+      n: target,
+      duration: 1.6,
+      ease: 'power2.out',
+      snap: { n: 1 },
+      scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+      onUpdate: () => {
+        el.textContent = format.replace('{n}', String(Math.round(obj.n)));
+      },
+    });
+  });
+
+  // גלריה אופקית נעוצה (דסקטופ בלבד — במובייל scroll-snap רגיל)
+  const hTrack = document.querySelector<HTMLElement>('.hscroll-track');
+  const hSection = document.querySelector<HTMLElement>('.hscroll');
+  if (hTrack && hSection) {
+    const mm = gsap.matchMedia();
+    mm.add('(min-width: 900px)', () => {
+      const getDistance = () => hTrack.scrollWidth - hSection.clientWidth;
+      const tween = gsap.to(hTrack, {
+        // RTL: הפריטים הבאים יושבים משמאל, מזיזים את המסילה ימינה
+        x: () => getDistance(),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: hSection,
+          start: 'top top',
+          end: () => `+=${getDistance()}`,
+          pin: true,
+          scrub: 0.6,
+          invalidateOnRefresh: true,
+        },
+      });
+      return () => {
+        tween.scrollTrigger?.kill();
+        tween.kill();
+        gsap.set(hTrack, { clearProps: 'transform' });
+      };
+    });
+  }
+
+  // כפתורים מגנטיים (עכבר בלבד)
+  if (window.matchMedia('(pointer: fine)').matches) {
+    document.querySelectorAll<HTMLElement>('[data-magnetic]').forEach((btn) => {
+      const strength = 7;
+      btn.addEventListener('mousemove', (e) => {
+        const r = btn.getBoundingClientRect();
+        const x = ((e.clientX - r.left) / r.width - 0.5) * 2 * strength;
+        const y = ((e.clientY - r.top) / r.height - 0.5) * 2 * strength;
+        gsap.to(btn, { x, y, duration: 0.3, ease: 'power2.out' });
+      });
+      btn.addEventListener('mouseleave', () => {
+        gsap.to(btn, { x: 0, y: 0, duration: 0.4, ease: 'elastic.out(1, 0.5)' });
+      });
+    });
+  }
 }
