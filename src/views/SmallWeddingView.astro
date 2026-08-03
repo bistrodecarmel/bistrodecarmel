@@ -74,6 +74,13 @@ const galleryImages = [
           <p class="eyebrow">חמש סיבות טובות</p>
           <h2>למה לבחור בביסטרו דה כרמל <strong>לחתונה קטנה?</strong></h2>
         </div>
+        <img
+          class="reasons-engraving"
+          src="/images/decor/engraving-toast.webp"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+        />
         <div class="reasons-grid" data-animate="stagger">
           {
             reasons.map((r, i) => (
@@ -90,6 +97,10 @@ const galleryImages = [
       </div>
     </section>
 
+    <div class="watercolor-band on-light" aria-hidden="true">
+      <img src="/images/decor/watercolor-vine-sunset.webp" alt="" loading="lazy" data-parallax="50" />
+    </div>
+
     <GalleryGrid
       images={galleryImages}
       altPrefix="חתונה קטנה בביסטרו דה כרמל"
@@ -104,8 +115,28 @@ const galleryImages = [
 </BaseLayout>
 
 <style>
+  .reasons-section {
+    position: relative;
+  }
+
   .reasons-head {
     max-width: 720px;
+  }
+
+  /* תחריט "לחיים" — ממלא את השוליים הפנויים לצד רשימת הסיבות בדסקטופ */
+  .reasons-engraving {
+    position: absolute;
+    inset-block-start: clamp(4rem, 12vw, 9rem);
+    inset-inline-end: clamp(1rem, 4vw, 4rem);
+    width: clamp(150px, 16vw, 230px);
+    opacity: 0.85;
+    pointer-events: none;
+  }
+
+  @media (max-width: 1100px) {
+    .reasons-engraving {
+      display: none;
+    }
   }
 
   .reasons-grid {

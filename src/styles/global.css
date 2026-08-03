@@ -665,6 +665,24 @@ html.reveal-ready [data-animate="stagger"] > *.is-visible {
   background: linear-gradient(to top, var(--color-cream), transparent);
 }
 
+/* גרסה לרצועת מעבר: קטע בהיר מעל ← קטע כהה מתחת */
+.watercolor-band.to-dark::before {
+  background: linear-gradient(to bottom, var(--color-cream), transparent);
+}
+
+.watercolor-band.to-dark::after {
+  background: linear-gradient(to top, var(--color-olive-deep), transparent);
+}
+
+/* גרסה לרצועת מעבר: קטע כהה מעל ← קטע בהיר מתחת */
+.watercolor-band.from-dark::before {
+  background: linear-gradient(to bottom, var(--color-olive-deep), transparent);
+}
+
+.watercolor-band.from-dark::after {
+  background: linear-gradient(to top, var(--color-cream), transparent);
+}
+
 /* פטרן עלי זית עדין לרקעים */
 .pattern-bg {
   position: relative;

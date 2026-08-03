@@ -51,7 +51,7 @@ const galleryImages = [
       image="/images/gallery/aliyah/aliyah-01.jpg"
     />
 
-    <section class="page-section">
+    <section class="page-section package-section">
       <div class="container prose" data-animate="fade-up">
         <p class="eyebrow">חבילה אחת, יום שלם</p>
         <h2>חבילה ייחודית המשלבת <strong>את כל מרכיבי האירוע</strong></h2>
@@ -74,7 +74,19 @@ const galleryImages = [
           ))
         }
       </div>
+
+      <img
+        class="package-engraving"
+        src="/images/decor/engraving-barrel.webp"
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+      />
     </section>
+
+    <div class="watercolor-band on-light" aria-hidden="true">
+      <img src="/images/decor/watercolor-stone-village.webp" alt="" loading="lazy" data-parallax="50" />
+    </div>
 
     <GalleryGrid
       images={galleryImages}
@@ -90,6 +102,26 @@ const galleryImages = [
 </BaseLayout>
 
 <style>
+  /* תחריט חבית יין — יושב בשוליים הפנויים ליד רשימת החבילה בדסקטופ */
+  .package-section {
+    position: relative;
+  }
+
+  .package-engraving {
+    position: absolute;
+    inset-block-end: clamp(2rem, 6vw, 5rem);
+    inset-inline-end: clamp(1rem, 4vw, 4rem);
+    width: clamp(150px, 16vw, 230px);
+    opacity: 0.85;
+    pointer-events: none;
+  }
+
+  @media (max-width: 1100px) {
+    .package-engraving {
+      display: none;
+    }
+  }
+
   .package-list {
     display: flex;
     flex-direction: column;
