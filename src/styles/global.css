@@ -36,6 +36,9 @@
   --fs-display: clamp(2.9rem, 6vw + 1rem, 5.75rem);
   --fs-h2: clamp(2rem, 3vw + 0.9rem, 3.4rem);
   --fs-h3: clamp(1.3rem, 1vw + 1rem, 1.7rem);
+  --fs-h4: 1.1rem;
+  /* כותרת-כרטיס בתוך גריד צפוף (.option/.principle/.reason) — צעד ביניים בין h2 ל-h3 */
+  --fs-card-title: clamp(1.4rem, 0.6vw + 1.2rem, 1.6rem);
   --fs-lead: clamp(1.1rem, 0.5vw + 1rem, 1.35rem);
   --fs-body: 1.0625rem;
   --fs-small: 0.9rem;
@@ -135,7 +138,7 @@ h3 {
 }
 
 h4 {
-  font-size: 1.1rem;
+  font-size: var(--fs-h4);
   font-weight: 700;
 }
 
@@ -296,6 +299,44 @@ ul {
 
 .eyebrow.no-line::before {
   display: none;
+}
+
+/* יהלום זהב/ברונזה — חתימה עיצובית חוזרת ליד ה-eyebrow (הירו, PageHero, ועוד) */
+.eyebrow-mark {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--color-bronze-line);
+  transform: rotate(45deg);
+}
+
+.section-dark .eyebrow-mark {
+  background: var(--color-bronze-on-dark);
+  box-shadow: 0 0 8px 1px color-mix(in srgb, var(--color-bronze-on-dark) 65%, transparent);
+}
+
+/* קו זהב שנפתח מתחת לכותרת — אותה חתימה עיצובית כמו בהירו */
+.heading-underline {
+  display: block;
+  width: 4.5rem;
+  height: 2px;
+  margin-block: 0.25em 1.3em;
+  background: linear-gradient(to left, transparent, var(--color-bronze-line) 45%, var(--color-bronze-line));
+  transform-origin: right center;
+  animation: heading-underline-draw 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+
+.section-dark .heading-underline {
+  background: linear-gradient(to left, transparent, var(--color-bronze-on-dark) 45%, var(--color-bronze-on-dark));
+}
+
+@keyframes heading-underline-draw {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heading-underline { animation: none; }
 }
 
 /* ===== קו חוצץ דקורטיבי ===== */

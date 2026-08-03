@@ -12,11 +12,15 @@ import Footer from '../components/Footer.astro';
   <Header />
 
   <main>
-    <section class="thanks page-section">
+    <section class="thanks page-section pattern-bg">
       <div class="container thanks-inner">
-        <p class="eyebrow no-line">ביסטרו דה כרמל</p>
-        <h1><strong>תודה רבה</strong> על פנייתך!</h1>
-        <p class="lead">קיבלנו את הפרטים ונחזור אליכם בהקדם עם כל המידע על האירוע המושלם שלכם.</p>
+        <p class="eyebrow no-line" data-animate="fade-up">
+          <span class="eyebrow-mark" aria-hidden="true"></span>
+          ביסטרו דה כרמל
+        </p>
+        <h1 data-animate="fade-up"><strong>תודה רבה</strong> על פנייתך!</h1>
+        <span class="heading-underline" aria-hidden="true"></span>
+        <p class="lead" data-animate="fade-up">קיבלנו את הפרטים ונחזור אליכם בהקדם עם כל המידע על האירוע המושלם שלכם.</p>
         <p class="muted">רוצים לדבר כבר עכשיו? חייגו <a href="tel:+972554316261">055-4316261</a></p>
         <a class="btn btn-primary" href="/">חזרה לדף הבית</a>
       </div>
@@ -40,6 +44,10 @@ import Footer from '../components/Footer.astro';
 
   .thanks-inner .eyebrow {
     justify-content: center;
+  }
+
+  .thanks-inner .heading-underline {
+    margin-inline: auto;
   }
 
   .thanks-inner p {

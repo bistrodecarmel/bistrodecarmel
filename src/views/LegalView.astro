@@ -19,9 +19,13 @@ const { title, metaTitle, description, contentHtml } = Astro.props;
   <main>
     <section class="page-section legal-page">
       <div class="container">
-        <p class="eyebrow">ביסטרו דה כרמל</p>
-        <h1>{title}</h1>
-        <div class="legal-content" set:html={contentHtml} />
+        <p class="eyebrow no-line" data-animate="fade-up">
+          <span class="eyebrow-mark" aria-hidden="true"></span>
+          ביסטרו דה כרמל
+        </p>
+        <h1 data-animate="fade-up">{title}</h1>
+        <span class="heading-underline" aria-hidden="true"></span>
+        <div class="legal-content" set:html={contentHtml} data-animate="fade-up" />
       </div>
     </section>
   </main>
