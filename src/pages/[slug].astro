@@ -3,17 +3,21 @@
  * נתיב דינמי לעמודים עם slug עברי — ה-slugs חייבים להישאר זהים במדויק
  * לאתר הישן לצורך שימור SEO. אל תשנו אותם בלי הפניית 301 מסודרת.
  */
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 import MitzvahView from '../views/MitzvahView.astro';
 import AliyahView from '../views/AliyahView.astro';
 import TestimonialsView from '../views/TestimonialsView.astro';
 import BarMitzvahNorthView from '../views/BarMitzvahNorthView.astro';
 import SmallWeddingView from '../views/SmallWeddingView.astro';
 import LegalView from '../views/LegalView.astro';
+import BlogPostView from '../views/BlogPostView.astro';
+import BlogIndexView from '../views/BlogIndexView.astro';
 import privacyHtml from '../content/legal/privacy.html?raw';
 import accessibilityHtml from '../content/legal/accessibility.html?raw';
 
-export function getStaticPaths() {
-  return [
+export async function getStaticPaths() {
+  const staticPages = [
     { params: { slug: 'בת-מצווה-בביסטרו-דה-כרמל' }, props: { view: 'bat-mitzvah' } },
     { params: { slug: 'בר-מצווה-בביסטרו-דה-כרמל' }, props: { view: 'bar-mitzvah' } },
     { params: { slug: 'חוגגים-עלייה-לתורה-ובר-מצווה-בזכרון-יע' }, props: { view: 'aliyah' } },
@@ -22,10 +26,24 @@ export function getStaticPaths() {
     { params: { slug: 'אולם-לחתונה-קטנה' }, props: { view: 'small-wedding' } },
     { params: { slug: 'מדיניות-פרטיות-ביסטרו-דה-כרמל' }, props: { view: 'privacy' } },
     { params: { slug: 'הצהרת-נגישות-ביסטרו-דה-כרמל' }, props: { view: 'accessibility' } },
+    { params: { slug: 'בלוג' }, props: { view: 'blog-index' } },
   ];
+
+  const posts = await getCollection('blog');
+  const postPages = posts.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { view: 'blog-post', entry },
+  }));
+
+  return [...staticPages, ...postPages];
 }
 
-const { view } = Astro.props;
+interface Props {
+  view: string;
+  entry?: CollectionEntry<'blog'>;
+}
+
+const { view, entry } = Astro.props;
 ---
 
 {view === 'bat-mitzvah' && <MitzvahView variant="bat" />}
@@ -34,6 +52,8 @@ const { view } = Astro.props;
 {view === 'testimonials' && <TestimonialsView />}
 {view === 'bar-mitzvah-north' && <BarMitzvahNorthView />}
 {view === 'small-wedding' && <SmallWeddingView />}
+{view === 'blog-index' && <BlogIndexView />}
+{view === 'blog-post' && entry && <BlogPostView entry={entry} />}
 {
   view === 'privacy' && (
     <LegalView

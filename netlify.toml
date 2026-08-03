@@ -41,3 +41,47 @@
   to = "/weddings-bistro-de-carmel/"
   status = 301
   force = true
+
+# Thin/duplicate legacy pages -> closest equivalents (see content-inventory.md appendix)
+
+# /צור-קשר/ -> homepage contact section
+[[redirects]]
+  from = "/%D7%A6%D7%95%D7%A8-%D7%A7%D7%A9%D7%A8/"
+  to = "/#contact"
+  status = 301
+  force = true
+
+# /ביסטרו-דה-כרמל-אירועים/ -> homepage
+[[redirects]]
+  from = "/%D7%91%D7%99%D7%A1%D7%98%D7%A8%D7%95-%D7%93%D7%94-%D7%9B%D7%A8%D7%9E%D7%9C-%D7%90%D7%99%D7%A8%D7%95%D7%A2%D7%99%D7%9D/"
+  to = "/"
+  status = 301
+  force = true
+
+# /בר-ובת-מצווה-בביסטרו-דה-כרמל/ -> the bar-bat-mitzva hub page
+[[redirects]]
+  from = "/%D7%91%D7%A8-%D7%95%D7%91%D7%AA-%D7%9E%D7%A6%D7%95%D7%95%D7%94-%D7%91%D7%91%D7%99%D7%A1%D7%98%D7%A8%D7%95-%D7%93%D7%94-%D7%9B%D7%A8%D7%9E%D7%9C/"
+  to = "/bar-bat-mitzva/"
+  status = 301
+  force = true
+
+# /הביסטרו-דה-כרמל-בזכרון-יעקב/ -> homepage (story)
+[[redirects]]
+  from = "/%D7%94%D7%91%D7%99%D7%A1%D7%98%D7%A8%D7%95-%D7%93%D7%94-%D7%9B%D7%A8%D7%9E%D7%9C-%D7%91%D7%96%D7%9B%D7%A8%D7%95%D7%9F-%D7%99%D7%A2%D7%A7%D7%91/"
+  to = "/"
+  status = 301
+  force = true
+
+# /טיפים-ומאמרים/ -> the blog index (near-duplicate index page)
+[[redirects]]
+  from = "/%D7%98%D7%99%D7%A4%D7%99%D7%9D-%D7%95%D7%9E%D7%90%D7%9E%D7%A8%D7%99%D7%9D/"
+  to = "/%D7%91%D7%9C%D7%95%D7%92/"
+  status = 301
+  force = true
+
+# /frontpage/reservation/ (old theme leftover)
+[[redirects]]
+  from = "/frontpage/reservation/"
+  to = "/"
+  status = 301
+  force = true

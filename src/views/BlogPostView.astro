@@ -1,0 +1,87 @@
+---
+import { render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+interface Props {
+  entry: CollectionEntry<'blog'>;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const isArticle = entry.data.kind === 'article';
+---
+
+<BaseLayout title={entry.data.metaTitle} description={entry.data.description}>
+  <Header />
+
+  <main>
+    <PageHero
+      eyebrow={isArticle ? 'הבלוג של ביסטרו דה כרמל' : 'ביסטרו דה כרמל'}
+      title={`<strong>${entry.data.title}</strong>`}
+    />
+
+    <section class="page-section-tight">
+      <div class="container">
+        {
+          isArticle && (
+            <nav class="breadcrumbs" aria-label="פירורי לחם">
+              <a href="/">דף הבית</a>
+              <span aria-hidden="true">‹</span>
+              <a href="/בלוג/">בלוג</a>
+              <span aria-hidden="true">‹</span>
+              <span>{entry.data.title}</span>
+            </nav>
+          )
+        }
+        <article class="prose post-body">
+          <Content />
+        </article>
+      </div>
+    </section>
+
+    <CtaBand instanceId={`post-${entry.id}`} />
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .breadcrumbs {
+    display: flex;
+    gap: 0.6rem;
+    align-items: baseline;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-muted);
+    margin-block-end: 2rem;
+  }
+
+  .breadcrumbs a {
+    color: var(--color-bronze-text);
+    text-decoration: none;
+  }
+
+  .breadcrumbs a:hover {
+    text-decoration: underline;
+  }
+
+  .post-body :global(h2) {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-block: 1.6em 0.5em;
+  }
+
+  .post-body :global(h3) {
+    font-size: 1.25rem;
+    margin-block: 1.4em 0.4em;
+  }
+
+  .post-body :global(a) {
+    color: var(--color-bronze-text);
+  }
+</style>

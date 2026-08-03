@@ -1,0 +1,116 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const posts = (await getCollection('blog')).filter((p) => p.data.kind === 'article');
+---
+
+<BaseLayout
+  title="בלוג - ביסטרו דה כרמל- אירועים קטנים בחיפה I בצפון"
+  description="טיפים, מדריכים ורעיונות לאירועים בצפון: חתונות, בר/בת מצווה, בריתות, חינה וכנסים — מהבלוג של ביסטרו דה כרמל בזכרון יעקב."
+>
+  <Header />
+
+  <main>
+    <PageHero
+      eyebrow="ביסטרו דה כרמל"
+      title="<strong>הבלוג</strong> — טיפים ומאמרים"
+      sub="מדריכים ורעיונות לתכנון האירוע המושלם בצפון"
+    />
+
+    <section class="page-section-tight">
+      <div class="container-wide">
+        <div class="posts-grid" data-animate="stagger">
+          {
+            posts.map((post) => (
+              <a class="post-card" href={`/${post.data.slug}/`}>
+                <h2>{post.data.title}</h2>
+                <p>{post.data.description}</p>
+                <span class="more">
+                  המשך לקרוא <span class="arrow" aria-hidden="true">←</span>
+                </span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <CtaBand instanceId="blog-index" />
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .post-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.8rem 1.7rem;
+    background: var(--color-white);
+    border: 1px solid var(--color-ivory-deep);
+    border-top: 2px solid var(--color-bronze-line);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .post-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .post-card h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .post-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--color-muted);
+    flex: 1;
+  }
+
+  .more {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-bronze-text);
+    margin-block-start: 0.6rem;
+  }
+
+  .arrow {
+    display: inline-block;
+    transition: transform 0.25s ease;
+  }
+
+  .post-card:hover .arrow {
+    transform: translateX(-5px);
+  }
+
+  @media (max-width: 960px) {
+    .posts-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .posts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
