@@ -307,9 +307,40 @@ ul {
   margin-block: 0.5rem 0;
 }
 
-/* ===== אנימציות GSAP ===== */
-html.has-js [data-animate] {
+/* ===== חשיפות בגלילה — CSS + IntersectionObserver (ראו reveal.ts) =====
+   מכוון, לא GSAP: מבטיח שתוכן אף פעם לא נשאר תקוע בלתי-נראה.
+
+   חשוב: ה-opacity:0 ההתחלתי מותנה במחלקה `reveal-ready` שרק reveal.ts
+   עצמו מוסיף (ב-JS, אחרי שהוא כבר תפס את כל האלמנטים ל-observer) —
+   ולא במחלקה הגנרית `has-js`. כך אם הסקריפט הזה ייכשל לגמרי מכל סיבה
+   שהיא, ברירת המחדל היא תוכן גלוי, לא תוכן חבוי. */
+html.reveal-ready [data-animate] {
   opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html.reveal-ready [data-animate="stagger"] {
+  /* הקונטיינר עצמו תמיד גלוי — רק הילדים שלו נחשפים */
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+html.reveal-ready [data-animate="stagger"] > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html.reveal-ready [data-animate].is-visible,
+html.reveal-ready [data-animate="stagger"] > *.is-visible {
+  opacity: 1;
+  transform: none;
 }
 
 .visually-hidden {

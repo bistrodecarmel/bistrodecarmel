@@ -3,50 +3,17 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+/**
+ * שימו לב: חשיפות פשוטות (fade-up/stagger/מונים) עברו ל-reveal.ts
+ * (IntersectionObserver) כי ScrollTrigger תלוי בלולאת rAF שיכולה
+ * להיתקע ולהשאיר תוכן בלתי-נראה לצמיתות. כאן נשאר רק מה שבאמת
+ * דורש מעקב רציף אחרי מיקום גלילה (parallax, פין אופקי) — אלו
+ * אפקטים ויזואליים בלבד; אם הם לא רצים, התוכן עדיין גלוי וקריא.
+ */
 
 export function initAnimations() {
-  if (prefersReducedMotion) {
-    document.querySelectorAll<HTMLElement>('[data-animate]').forEach((el) => {
-      el.style.opacity = '1';
-    });
-    return;
-  }
-
-  // חשיפת שורות ההירו נעשית ב-CSS (ראו index.astro) — עמידה גם כשה-rAF מושהה
-
-  // fade-up כללי
-  document.querySelectorAll<HTMLElement>('[data-animate="fade-up"]').forEach((el) => {
-    gsap.fromTo(
-      el,
-      { opacity: 0, y: 36 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.9,
-        ease: 'power2.out',
-        scrollTrigger: { trigger: el, start: 'top 85%', once: true },
-      }
-    );
-  });
-
-  // stagger לילדים
-  document.querySelectorAll<HTMLElement>('[data-animate="stagger"]').forEach((container) => {
-    const children = Array.from(container.children);
-    gsap.fromTo(
-      children,
-      { opacity: 0, y: 28 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.75,
-        ease: 'power2.out',
-        stagger: 0.09,
-        scrollTrigger: { trigger: container, start: 'top 82%', once: true },
-      }
-    );
-    container.style.opacity = '1';
-  });
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) return;
 
   // parallax עדין
   document.querySelectorAll<HTMLElement>('[data-parallax]').forEach((el) => {
@@ -65,37 +32,6 @@ export function initAnimations() {
         },
       }
     );
-  });
-
-  // קו שמצייר את עצמו
-  document.querySelectorAll<HTMLElement>('[data-animate="draw-line"]').forEach((el) => {
-    gsap.fromTo(
-      el,
-      { opacity: 1, scaleX: 0 },
-      {
-        scaleX: 1,
-        duration: 1.1,
-        ease: 'power2.inOut',
-        scrollTrigger: { trigger: el, start: 'top 90%', once: true },
-      }
-    );
-  });
-
-  // מונים בפס הנתונים — data-counter="250" data-counter-format="70–{n}"
-  document.querySelectorAll<HTMLElement>('[data-counter]').forEach((el) => {
-    const target = Number(el.dataset.counter);
-    const format = el.dataset.counterFormat || '{n}';
-    const obj = { n: 0 };
-    gsap.to(obj, {
-      n: target,
-      duration: 1.6,
-      ease: 'power2.out',
-      snap: { n: 1 },
-      scrollTrigger: { trigger: el, start: 'top 88%', once: true },
-      onUpdate: () => {
-        el.textContent = format.replace('{n}', String(Math.round(obj.n)));
-      },
-    });
   });
 
   // גלריה אופקית נעוצה (דסקטופ בלבד — במובייל scroll-snap רגיל)
@@ -141,4 +77,6 @@ export function initAnimations() {
       });
     });
   }
+
+  window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
 }
