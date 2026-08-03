@@ -9,10 +9,8 @@ import MarqueeStrip from '../components/MarqueeStrip.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { testimonials as allTestimonials } from '../data/testimonials';
 
-/* קרוסלת המלצות: ציטוטים קצרים-בינוניים מתוך 45 ההמלצות האמיתיות */
-const marqueeQuotes = allTestimonials.filter((t) => t.quote.length > 40 && t.quote.length < 260).slice(0, 12);
-const rowA = marqueeQuotes.slice(0, 6);
-const rowB = marqueeQuotes.slice(6, 12);
+/* המלצות בדף הבית: ציטוטים קצרים-בינוניים מתוך ההמלצות האמיתיות */
+const homeQuotes = allTestimonials.filter((t) => t.quote.length > 40 && t.quote.length < 260).slice(0, 6);
 
 const eventTypes = [
   { title: 'חתונות', href: '/weddings-bistro-de-carmel/', image: '/images/gallery/venue/venue-06.jpg' },
@@ -240,36 +238,20 @@ const galleryImages = [
 
     <!-- ===== המלצות ===== -->
     <section class="testimonials section-dark">
-      <div class="container">
+      <div class="container-wide">
         <div class="testimonials-head" data-animate="fade-up">
           <p class="eyebrow no-line">04 &middot; לקוחות ממליצים</p>
           <h2>לקוחות ממליצים <strong>על ביסטרו דה כרמל</strong></h2>
         </div>
-      </div>
 
-      <!-- קרוסלה זורמת של המלצות אמיתיות -->
-      <div class="t-marquee" aria-label="המלצות מלקוחות">
-        <div class="t-row">
-          {rowA.map((t) => (
-            <div class="t-card"><TestimonialCard quote={t.quote} author={t.author} date={t.date} /></div>
-          ))}
-          {rowA.map((t) => (
-            <div class="t-card" aria-hidden="true"><TestimonialCard quote={t.quote} author={t.author} date={t.date} /></div>
+        <div class="testimonials-grid" data-animate="stagger">
+          {homeQuotes.map((t) => (
+            <TestimonialCard quote={t.quote} author={t.author} date={t.date} />
           ))}
         </div>
-        <div class="t-row reverse">
-          {rowB.map((t) => (
-            <div class="t-card"><TestimonialCard quote={t.quote} author={t.author} date={t.date} /></div>
-          ))}
-          {rowB.map((t) => (
-            <div class="t-card" aria-hidden="true"><TestimonialCard quote={t.quote} author={t.author} date={t.date} /></div>
-          ))}
-        </div>
-      </div>
 
-      <div class="container">
         <div class="testimonials-cta" data-animate="fade-up">
-          <a class="btn btn-light" href="/המלצות/">לכל ההמלצות</a>
+          <a class="btn btn-light" href="/המלצות/">לכל {allTestimonials.length} ההמלצות</a>
         </div>
       </div>
     </section>
@@ -741,11 +723,19 @@ const galleryImages = [
     justify-content: center;
   }
 
-  .testimonial-grid {
+  /* גריד רספונסיבי — לא קרוסלה. auto-fit מבטיח שכרטיס אף פעם לא רחב
+     מהמסך (הבאג הקודם: כרטיסי 400px קבועים על מסך 375px נחתכו משני
+     הצדדים ולא נראתה אף המלצה שלמה במובייל).
+     תקרה של 3 עמודות: 6 המלצות מתחלקות ל-3+3 מלא, במקום 4+2 עם שורה
+     יתומה חלקית במסכים רחבים. */
+  .testimonials-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
     margin-block: clamp(2.5rem, 5vw, 3.5rem);
+    align-items: stretch;
+    max-width: 1180px;
+    margin-inline: auto;
   }
 
   .testimonials-cta {
@@ -913,8 +903,7 @@ const galleryImages = [
     .story-media-accent {
       display: none;
     }
-    .food-gallery,
-    .testimonial-grid {
+    .food-gallery {
       grid-template-columns: repeat(2, 1fr);
     }
     .gallery-grid {
@@ -933,9 +922,6 @@ const galleryImages = [
     }
     .food-gallery {
       grid-template-columns: repeat(2, 1fr);
-    }
-    .testimonial-grid {
-      grid-template-columns: 1fr;
     }
     .stats {
       grid-template-columns: 1fr 1fr;

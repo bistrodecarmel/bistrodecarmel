@@ -12,59 +12,52 @@ const { eyebrow, title, sub, image } = Astro.props;
 
 <section class:list={['page-hero', 'section-dark', { 'has-image': !!image }]}>
   {
-    image && (
-      <div class="page-hero-bg">
-        <img src={image} alt="" aria-hidden="true" fetchpriority="high" />
+    image ? (
+      <div class="page-hero-grid">
+        <div class="page-hero-panel">
+          <div class="page-hero-panel-inner">
+            <p class="eyebrow no-line" data-animate="fade-up">
+              <span class="page-hero-mark" aria-hidden="true" />
+              {eyebrow}
+            </p>
+            <h1 data-animate="fade-up" set:html={title} />
+            <span class="page-hero-underline" aria-hidden="true" />
+            {sub && <p class="page-hero-sub" data-animate="fade-up" set:html={sub} />}
+          </div>
+        </div>
+        <div class="page-hero-media">
+          <div class="page-hero-media-inner">
+            <img src={image} alt="" aria-hidden="true" fetchpriority="high" />
+          </div>
+        </div>
+      </div>
+    ) : (
+      <div class="container page-hero-panel-inner">
+        <p class="eyebrow no-line" data-animate="fade-up">
+          <span class="page-hero-mark" aria-hidden="true" />
+          {eyebrow}
+        </p>
+        <h1 data-animate="fade-up" set:html={title} />
+        <span class="page-hero-underline" aria-hidden="true" />
+        {sub && <p class="page-hero-sub" data-animate="fade-up" set:html={sub} />}
       </div>
     )
   }
-  <div class="page-hero-glow" aria-hidden="true" />
-  <div class="page-hero-frame" aria-hidden="true" />
-  <div class="container page-hero-content">
-    <p class="eyebrow no-line" data-animate="fade-up">
-      <span class="page-hero-mark" aria-hidden="true" />
-      {eyebrow}
-    </p>
-    <h1 data-animate="fade-up" set:html={title} />
-    <span class="page-hero-underline" aria-hidden="true" />
-    {sub && <p class="page-hero-sub" data-animate="fade-up" set:html={sub} />}
-  </div>
 </section>
 
 <style>
+  /* ===== הירו: אותה קומפוזיציה של פיצול עורכי כמו בדף הבית ===== */
   .page-hero {
     position: relative;
     overflow: hidden;
-    padding-block: clamp(7rem, 16vh, 10rem) clamp(3.5rem, 7vw, 5.5rem);
+    border-block-end: 1px solid color-mix(in srgb, var(--color-bronze-line) 50%, transparent);
+
+    /* מסילת התוכן — זהה בדיוק ל-.container-wide, כדי שהטקסט יתיישר עם שאר האתר */
+    --rail: clamp(1.25rem, 4vw, 2.5rem);
+    --panel-basis: calc(var(--container-wide) * 0.42);
   }
 
-  .page-hero-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-  }
-
-  .page-hero-bg img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  /* וריאציה עם תמונה: אותה שפה חמה כמו ההירו הראשי, מרוסנת יותר */
-  .page-hero.has-image::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: linear-gradient(
-      to top,
-      color-mix(in srgb, var(--color-ink) 95%, transparent) 0%,
-      color-mix(in srgb, var(--color-ink) 66%, #3a2c14) 45%,
-      color-mix(in srgb, var(--color-olive-deep) 40%, transparent) 100%
-    );
-  }
-
-  /* וריאציה בלי תמונה (בלוג): טקסטורת פשתן כהה במקום צבע שטוח אחיד */
+  /* וריאציה בלי תמונה (בלוג): טקסטורת פשתן כהה, בלי עמודת מדיה */
   .page-hero:not(.has-image) {
     background:
       linear-gradient(
@@ -72,40 +65,54 @@ const { eyebrow, title, sub, image } = Astro.props;
         color-mix(in srgb, var(--color-olive-deep) 92%, transparent)
       ),
       var(--texture-linen-dark) center / cover;
+    padding-block: clamp(4rem, 10vh, 6rem);
   }
 
-  /* זוהר ברונזה עדין — עקבי עם ההירו הראשי, אך שקט יותר */
-  .page-hero-glow {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: radial-gradient(
-      55% 70% at 50% 30%,
-      color-mix(in srgb, #e8b96a 22%, transparent) 0%,
-      transparent 70%
-    );
-    mix-blend-mode: soft-light;
-    pointer-events: none;
+  .page-hero-grid {
+    display: grid;
+    /* RTL: עמודה 1 = ימין = הפאנל, בדיוק כמו בהירו הראשי */
+    grid-template-columns:
+      max(42%, calc((100% - var(--container-wide)) / 2 + var(--panel-basis)))
+      minmax(0, 1fr);
+    min-height: clamp(340px, 46svh, 480px);
   }
 
-  /* מסגרת ברונזה — אותה חתימה עיצובית כמו בדף הבית */
-  .page-hero-frame {
-    position: absolute;
-    inset: 1.1rem;
-    z-index: 2;
-    border: 1px solid color-mix(in srgb, var(--color-bronze-on-dark) 42%, transparent);
-    pointer-events: none;
+  .page-hero-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background:
+      linear-gradient(
+        color-mix(in srgb, var(--color-olive-deep) 92%, transparent),
+        color-mix(in srgb, var(--color-olive-deep) 92%, transparent)
+      ),
+      var(--texture-linen-dark) center / cover;
+    padding-inline-start: max(var(--rail), calc(100% - var(--panel-basis) + var(--rail)));
+    padding-inline-end: clamp(1.5rem, 3vw, 3.5rem);
+    padding-block: clamp(2.5rem, 6vh, 4rem);
   }
 
-  .page-hero-content {
+  /* עמודת התמונה — נקייה, בלי שכבת גרדיאנט מעליה (הטקסט כבר בפאנל) */
+  .page-hero-media {
     position: relative;
-    z-index: 3;
+    overflow: hidden;
+  }
+
+  .page-hero-media-inner {
+    position: absolute;
+    inset: -30px 0;
+  }
+
+  .page-hero-media-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .page-hero h1 {
     color: var(--color-white);
-    font-size: clamp(2.4rem, 4.5vw + 1rem, 4.5rem);
-    max-width: 18ch;
+    font-size: clamp(2rem, 3.2vw + 1rem, 3.4rem);
+    max-width: 16ch;
     margin-block-end: 0.3em;
   }
 
@@ -146,13 +153,31 @@ const { eyebrow, title, sub, image } = Astro.props;
     font-size: var(--fs-lead);
     font-weight: 300;
     color: var(--color-on-dark);
-    max-width: 560px;
+    max-width: 480px;
     margin: 0;
   }
 
-  @media (max-width: 700px) {
-    .page-hero-frame {
-      inset: 0.7rem;
+  @media (max-width: 900px) {
+    .page-hero-grid {
+      grid-template-columns: minmax(0, 1fr);
+      min-height: 0;
+    }
+
+    /* סדר המקור (פאנל→תמונה) נכון ל-RTL בדסקטופ, אבל בערימה רוצים את
+       התמונה למעלה. לא order — הוא מנתק סדר ויזואלי מסדר DOM עבור
+       משתמשי מקלדת. ראו את אותה הערה בהירו הראשי (index.astro). */
+    .page-hero-media {
+      grid-row: 1;
+      height: clamp(200px, 38svh, 340px);
+    }
+
+    .page-hero-media-inner {
+      inset: -30px 0;
+    }
+
+    .page-hero-panel {
+      padding-inline: var(--rail);
+      padding-block: clamp(2rem, 6vw, 3rem);
     }
   }
 </style>

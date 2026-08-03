@@ -39,17 +39,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <script is:inline>
       document.documentElement.classList.add('has-js');
     </script>
-    <script is:inline>
-      // מונע קפיצת רוחב בקרוסלת ההמלצות: הפונט (Assistant) נטען אסינכרונית,
-      // וטקסט בפונט גיבוי יכול להיות רחב יותר. אם האנימציה רצה לפני שהפונט
-      // התייצב, אחוזי ה-translateX מחושבים כנגד רוחב שעדיין ישתנה — וזה מה
-      // שגרם לקרוסלה "לקפוץ" ולהיראות כאילו היא לא תופסת את כל רוחב המסך.
-      if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(() => document.documentElement.classList.add('fonts-ready'));
-      } else {
-        document.documentElement.classList.add('fonts-ready');
-      }
-    </script>
     <slot name="head" />
   </head>
   <body>

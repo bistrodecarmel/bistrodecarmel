@@ -505,52 +505,7 @@ html.reveal-ready [data-animate="stagger"] > *.is-visible {
   60%, 100% { transform: translateY(240%); }
 }
 
-/* קרוסלת המלצות זורמת */
-.t-marquee {
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  margin-block-end: clamp(2rem, 4vw, 3rem);
-}
-
-.t-row {
-  display: flex;
-  gap: 1.25rem;
-  width: max-content;
-  animation: t-slide 80s linear infinite;
-  /* מושהית עד שהפונט נטען (ראו BaseLayout) — מונעת "קפיצה" כשה-% מחושבים
-     מחדש נגד רוחב שהשתנה עם טעינת הפונט */
-  animation-play-state: paused;
-}
-
-html.fonts-ready .t-row {
-  animation-play-state: running;
-}
-
-.t-row.reverse {
-  animation-direction: reverse;
-}
-
-.t-row:hover {
-  animation-play-state: paused;
-}
-
-/* גובה קבוע לכל הכרטיסים — בלי זה כל שורה נגררת לגובה הציטוט הכי ארוך
-   *שלה*, וזה יוצר שתי שורות בגבהים שונים שלא נראות מיושרות זו עם זו */
-.t-card {
-  width: 400px;
-  height: 320px;
-  flex-shrink: 0;
-}
-
-@keyframes t-slide {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .t-row { animation: none; }
   .scroll-cue::after { animation: none; }
 }
 
