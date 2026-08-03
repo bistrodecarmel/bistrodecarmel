@@ -5,8 +5,8 @@ import Footer from '../components/Footer.astro';
 import LocalBusinessSchema from '../components/LocalBusinessSchema.astro';
 import EventTypeCard from '../components/EventTypeCard.astro';
 import TestimonialCard from '../components/TestimonialCard.astro';
-import LeadForm from '../components/LeadForm.astro';
 import MarqueeStrip from '../components/MarqueeStrip.astro';
+import CtaBand from '../components/CtaBand.astro';
 import { testimonials as allTestimonials } from '../data/testimonials';
 
 /* קרוסלת המלצות: ציטוטים קצרים-בינוניים מתוך 45 ההמלצות האמיתיות */
@@ -284,25 +284,7 @@ const galleryImages = [
     </section>
 
     <!-- ===== צור קשר ===== -->
-    <section class="contact-cta">
-      <div class="container contact-grid">
-        <div class="contact-text" data-animate="fade-up">
-          <p class="eyebrow">06 &middot; צור קשר</p>
-          <h2><strong>חוגגים</strong> בקרוב?</h2>
-          <p class="lead">השאירו פרטים ונחזור אליכם מיד עם כל הפרטים על אירוע מושלם אצלנו</p>
-          <img
-            class="contact-branch"
-            src="/images/textures/olive-branch.jpg"
-            alt=""
-            aria-hidden="true"
-            loading="lazy"
-          />
-        </div>
-        <div data-animate="fade-up">
-          <LeadForm heading="" instanceId="contact-cta" />
-        </div>
-      </div>
-    </section>
+    <CtaBand instanceId="contact-cta" />
   </main>
 
   <Footer />
