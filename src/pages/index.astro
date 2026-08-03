@@ -74,8 +74,14 @@ const galleryImages = [
           fetchpriority="high"
         />
       </div>
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-sparks" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="hero-frame" aria-hidden="true"></div>
       <div class="hero-content container-wide">
         <p class="eyebrow hero-eyebrow no-line" data-animate="fade-up">
+          <span class="hero-eyebrow-mark" aria-hidden="true"></span>
           BISTRO DE CARMEL &middot; זכרון יעקב
         </p>
         <h1 class="hero-title">
@@ -83,6 +89,7 @@ const galleryImages = [
           <span class="hero-line"><span class="hero-line-inner"><strong>באווירת יקב אותנטית</strong></span></span>
           <span class="hero-line"><span class="hero-line-inner">בזכרון יעקב</span></span>
         </h1>
+        <span class="hero-underline" aria-hidden="true"></span>
         <div class="hero-actions" data-animate="fade-up">
           <a class="btn btn-light" href="#contact" data-magnetic>לפרטים נוספים ותיאום פגישה</a>
           <a class="btn btn-ghost" href="#story" data-magnetic>הסיפור שלנו</a>
@@ -320,18 +327,85 @@ const galleryImages = [
     object-fit: cover;
   }
 
+  /* מסך הדרגתי: יותר חם, יותר עומק — לא שטיח זית שטוח */
   .hero::before {
     content: '';
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: linear-gradient(
-      to top,
-      color-mix(in srgb, var(--color-olive-deep) 97%, transparent) 0%,
-      color-mix(in srgb, var(--color-olive-deep) 66%, transparent) 36%,
-      color-mix(in srgb, var(--color-olive-deep) 30%, transparent) 68%,
-      color-mix(in srgb, var(--color-olive-deep) 24%, transparent) 100%
+    background:
+      /* וינייטה עדינה בפינות לתחושה קולנועית */
+      radial-gradient(
+        130% 90% at 50% 15%,
+        transparent 55%,
+        color-mix(in srgb, var(--color-ink) 32%, transparent) 100%
+      ),
+      linear-gradient(
+        to top,
+        color-mix(in srgb, var(--color-ink) 94%, transparent) 0%,
+        color-mix(in srgb, var(--color-ink) 62%, #3a2c14) 32%,
+        color-mix(in srgb, var(--color-olive-deep) 20%, transparent) 62%,
+        color-mix(in srgb, var(--color-olive-deep) 12%, transparent) 100%
+      );
+  }
+
+  /* זוהר זהב-ברונזה חם מאחורי הזוג והזיקוקים — מזריק צבע וחיים במקום להשטיח אותם */
+  .hero-glow {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: radial-gradient(
+      42% 55% at 50% 68%,
+      color-mix(in srgb, #e8b96a 38%, transparent) 0%,
+      color-mix(in srgb, #c98f3f 20%, transparent) 38%,
+      transparent 72%
     );
+    mix-blend-mode: soft-light;
+    pointer-events: none;
+  }
+
+  /* ניצוצות זהב עדינים — מהדהדים את הזיקוקים בתמונה עצמה */
+  .hero-sparks {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .hero-sparks span {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #f3d9a4;
+    box-shadow: 0 0 6px 1px rgba(243, 217, 164, 0.8);
+    opacity: 0;
+    animation: spark-twinkle 3.6s ease-in-out infinite;
+  }
+
+  .hero-sparks span:nth-child(1) { inset-inline-start: 12%; inset-block-start: 22%; animation-delay: 0.2s; }
+  .hero-sparks span:nth-child(2) { inset-inline-start: 22%; inset-block-start: 62%; animation-delay: 1.4s; }
+  .hero-sparks span:nth-child(3) { inset-inline-start: 84%; inset-block-start: 18%; animation-delay: 0.8s; }
+  .hero-sparks span:nth-child(4) { inset-inline-start: 90%; inset-block-start: 55%; animation-delay: 2.1s; }
+  .hero-sparks span:nth-child(5) { inset-inline-start: 68%; inset-block-start: 12%; animation-delay: 2.7s; }
+  .hero-sparks span:nth-child(6) { inset-inline-start: 8%; inset-block-start: 80%; animation-delay: 1.9s; }
+
+  @keyframes spark-twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.6); }
+    50% { opacity: 1; transform: scale(1.3); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-sparks { display: none; }
+  }
+
+  /* מסגרת זהב-ברונזה עדינה — תחושת כרטיס הזמנה יוקרתי */
+  .hero-frame {
+    position: absolute;
+    inset: 1.75rem;
+    z-index: 2;
+    border: 1px solid color-mix(in srgb, var(--color-bronze-on-dark) 55%, transparent);
+    pointer-events: none;
   }
 
   .hero-content {
@@ -411,11 +485,52 @@ const galleryImages = [
     text-shadow: 0 1px 14px rgba(18, 22, 16, 0.6);
   }
 
+  /* יהלום זהב קטן — נגיעת יוקרה במקום קו טקסטואלי גנרי */
+  .hero-eyebrow-mark {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--color-bronze-on-dark);
+    transform: rotate(45deg);
+    box-shadow: 0 0 8px 1px color-mix(in srgb, var(--color-bronze-on-dark) 70%, transparent);
+  }
+
+  /* קו זהב שנפתח מתחת לכותרת — נחיתה עדינה, לא ישר לתוכן */
+  .hero-underline {
+    display: block;
+    width: 5.5rem;
+    height: 2px;
+    margin-block: 0.3em 1.8em;
+    background: linear-gradient(to left, transparent, var(--color-bronze-on-dark) 45%, var(--color-bronze-on-dark));
+    transform-origin: right center;
+    animation: underline-draw 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.75s both;
+  }
+
+  @keyframes underline-draw {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-underline { animation: none; }
+  }
+
   .hero-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 0.9rem;
     margin-block-end: 2.25rem;
+  }
+
+  /* זוהר ברונזה עדין על הכפתור הראשי — מהדהד את אור הזיקוקים */
+  .hero-actions .btn-light {
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-bronze-on-dark) 45%, transparent),
+      0 8px 26px -6px rgba(201, 143, 63, 0.55);
+  }
+
+  .hero-actions .btn-light:hover {
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-bronze-on-dark) 65%, transparent),
+      0 10px 30px -4px rgba(201, 143, 63, 0.7);
   }
 
   .hero-meta {
@@ -785,10 +900,24 @@ const galleryImages = [
     .hero::before {
       background: linear-gradient(
         to top,
-        color-mix(in srgb, var(--color-olive-deep) 96%, transparent) 0%,
-        color-mix(in srgb, var(--color-olive-deep) 62%, transparent) 45%,
-        color-mix(in srgb, var(--color-olive-deep) 30%, transparent) 100%
+        color-mix(in srgb, var(--color-ink) 96%, transparent) 0%,
+        color-mix(in srgb, var(--color-ink) 68%, #3a2c14) 45%,
+        color-mix(in srgb, var(--color-olive-deep) 34%, transparent) 100%
       );
+    }
+
+    /* מסגרת עדינה ורוד-ניצוצות מיועדים לדסקטופ — במובייל שומרים על ניקיון */
+    .hero-frame {
+      inset: 0.9rem;
+    }
+
+    .hero-glow {
+      opacity: 0.7;
+    }
+
+    .hero-sparks span:nth-child(4),
+    .hero-sparks span:nth-child(5) {
+      display: none;
     }
 
     /* ה-eyebrow מיותר במובייל — מתנגש ויזואלית עם הלוגו שבהדר */
