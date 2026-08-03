@@ -10,21 +10,10 @@ export function initAnimations() {
     document.querySelectorAll<HTMLElement>('[data-animate]').forEach((el) => {
       el.style.opacity = '1';
     });
-    document.querySelectorAll<HTMLElement>('.hero-line-inner').forEach((el) => {
-      el.style.transform = 'none';
-    });
     return;
   }
 
-  // חשיפת כותרת הירו שורה-שורה (מסכה)
-  const heroLines = document.querySelectorAll<HTMLElement>('.hero-line-inner');
-  if (heroLines.length) {
-    gsap.fromTo(
-      heroLines,
-      { yPercent: 115 },
-      { yPercent: 0, duration: 1.05, ease: 'power3.out', stagger: 0.14, delay: 0.15 }
-    );
-  }
+  // חשיפת שורות ההירו נעשית ב-CSS (ראו index.astro) — עמידה גם כשה-rAF מושהה
 
   // fade-up כללי
   document.querySelectorAll<HTMLElement>('[data-animate="fade-up"]').forEach((el) => {

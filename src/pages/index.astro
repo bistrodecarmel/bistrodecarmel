@@ -358,7 +358,7 @@ const galleryImages = [
     text-shadow: 0 2px 30px rgba(18, 22, 16, 0.55);
   }
 
-  /* חשיפה שורה-שורה */
+  /* חשיפה שורה-שורה — CSS טהור (מבוסס שעון, מסתיים תמיד) */
   .hero-line {
     display: block;
     overflow: hidden;
@@ -367,7 +367,33 @@ const galleryImages = [
 
   .hero-line-inner {
     display: block;
-    will-change: transform;
+    transform: translateY(115%);
+    animation: hero-line-up 0.95s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .hero-line:nth-child(1) .hero-line-inner {
+    animation-delay: 0.15s;
+  }
+
+  .hero-line:nth-child(2) .hero-line-inner {
+    animation-delay: 0.29s;
+  }
+
+  .hero-line:nth-child(3) .hero-line-inner {
+    animation-delay: 0.43s;
+  }
+
+  @keyframes hero-line-up {
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-line-inner {
+      transform: none;
+      animation: none;
+    }
   }
 
   /* Ken Burns עדין על תמונת ההירו */
@@ -754,6 +780,39 @@ const galleryImages = [
   }
 
   /* ===== רספונסיבי ===== */
+
+  /* מובייל: scrim חזק יותר + הסטת המוקד הבהיר של התמונה מאחורי הטקסט */
+  @media (max-width: 700px) {
+    .hero {
+      min-height: 88svh;
+    }
+
+    .hero-bg img {
+      /* מסיט את מרכז התמונה (השמלה הלבנה) שמאלה, הטקסט יושב על אזור כהה יותר */
+      object-position: 30% center;
+    }
+
+    .hero::before {
+      background: linear-gradient(
+        to top,
+        color-mix(in srgb, var(--color-olive-deep) 98%, transparent) 0%,
+        color-mix(in srgb, var(--color-olive-deep) 86%, transparent) 42%,
+        color-mix(in srgb, var(--color-olive-deep) 58%, transparent) 75%,
+        color-mix(in srgb, var(--color-olive-deep) 42%, transparent) 100%
+      );
+    }
+
+    .hero h1 {
+      text-shadow: 0 2px 18px rgba(18, 22, 16, 0.75);
+    }
+
+    .hero-sub,
+    .hero-eyebrow,
+    .hero-meta li {
+      text-shadow: 0 1px 12px rgba(18, 22, 16, 0.8);
+    }
+  }
+
   @media (max-width: 1024px) {
     .event-cards {
       grid-template-columns: repeat(2, 1fr);
