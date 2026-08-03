@@ -17,6 +17,7 @@ const {
 ---
 
 <section class="cta-band" id="contact">
+  <img class="cta-corner" src="/images/decor/corner-olive.jpg" alt="" aria-hidden="true" loading="lazy" />
   <div class="container cta-grid">
     <div class="cta-text" data-animate="fade-up">
       <p class="eyebrow">צור קשר</p>
@@ -35,8 +36,8 @@ const {
       </ul>
 
       <img
-        class="cta-branch"
-        src="/images/textures/olive-branch.jpg"
+        class="cta-engraving"
+        src="/images/decor/engraving-wine.jpg"
         alt=""
         aria-hidden="true"
         loading="lazy"
@@ -133,11 +134,27 @@ const {
     flex-shrink: 0;
   }
 
-  .cta-branch {
+  .cta-engraving {
     margin-block-start: 2rem;
-    max-width: 230px;
+    max-width: 190px;
     mix-blend-mode: multiply;
-    opacity: 0.75;
+    opacity: 0.8;
+  }
+
+  .cta-band {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* עיטור פינתי — עלי זית בקו ברונזה */
+  .cta-corner {
+    position: absolute;
+    inset-block-end: -40px;
+    inset-inline-start: -40px;
+    width: clamp(180px, 22vw, 320px);
+    mix-blend-mode: multiply;
+    opacity: 0.55;
+    pointer-events: none;
   }
 
   /* כרטיס הטופס מקבל נוכחות */
@@ -153,7 +170,8 @@ const {
       grid-template-columns: 1fr;
     }
 
-    .cta-branch {
+    .cta-engraving,
+    .cta-corner {
       display: none;
     }
 
