@@ -183,7 +183,7 @@ const galleryImages = [
         <div class="events-head" data-animate="fade-up">
           <p class="eyebrow">02 &middot; חוגגים בביסטרו</p>
           <h2>אירועים אינטימיים ומרגשים <strong>עד 250 מוזמנים</strong></h2>
-          <img class="ornament-divider head-ornament" src="/images/decor/divider-vine.jpg" alt="" aria-hidden="true" loading="lazy" />
+          <img class="ornament-divider head-ornament" src="/images/decor/divider-vine.webp" alt="" aria-hidden="true" loading="lazy" />
           <p class="lead">
             כאן תוכלו לחגוג חתונה קסומה באווירת יקב אותנטית, או להעניק לילדיכם אירוע בר/בת מצווה שכולם
             יזכרו בזכות הפקה שלמה, הכוללת:
@@ -274,24 +274,20 @@ const galleryImages = [
       </div>
     </section>
 
-    <!-- ===== גלריה אופקית ===== -->
+    <!-- ===== גלריה ===== -->
     <section id="gallery" class="gallery">
       <div class="container-wide">
         <div class="gallery-head" data-animate="fade-up">
           <p class="eyebrow no-line">05 &middot; גלריית תמונות המקום</p>
           <h2>ביסטרו דה כרמל <strong>בתמונות</strong></h2>
-          <img class="ornament-divider" src="/images/decor/divider-vine.jpg" alt="" aria-hidden="true" loading="lazy" />
-          <p class="muted gallery-hint">גללו — הגלריה נעה איתכם</p>
+          <img class="ornament-divider" src="/images/decor/divider-vine.webp" alt="" aria-hidden="true" loading="lazy" />
         </div>
-      </div>
-      <div class="hscroll" data-lightbox>
-        <div class="hscroll-track">
+        <div class="gallery-grid" data-lightbox data-animate="stagger">
           {
             galleryImages.map((img, i) => (
-              <figure class="hscroll-item">
+              <div class={`gallery-item ${img.span}`}>
                 <img src={img.src} alt={`ביסטרו דה כרמל - תמונה ${i + 1}`} loading="lazy" />
-                <figcaption>{String(i + 1).padStart(2, '0')} / {String(galleryImages.length).padStart(2, '0')}</figcaption>
-              </figure>
+              </div>
             ))
           }
         </div>

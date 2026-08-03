@@ -477,6 +477,13 @@ html.reveal-ready [data-animate="stagger"] > *.is-visible {
   gap: 1.25rem;
   width: max-content;
   animation: t-slide 80s linear infinite;
+  /* מושהית עד שהפונט נטען (ראו BaseLayout) — מונעת "קפיצה" כשה-% מחושבים
+     מחדש נגד רוחב שהשתנה עם טעינת הפונט */
+  animation-play-state: paused;
+}
+
+html.fonts-ready .t-row {
+  animation-play-state: running;
 }
 
 .t-row.reverse {
@@ -584,56 +591,6 @@ html.reveal-ready [data-animate="stagger"] > *.is-visible {
   inset-inline-end: 1.5rem;
 }
 
-/* גלריה אופקית */
-.hscroll {
-  overflow: hidden;
-}
-
-.hscroll-track {
-  display: flex;
-  gap: 1.1rem;
-  align-items: stretch;
-  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
-  width: max-content;
-}
-
-.hscroll-item {
-  position: relative;
-  width: clamp(300px, 34vw, 520px);
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  border-radius: var(--radius-md);
-  flex-shrink: 0;
-}
-
-.hscroll-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.hscroll-item figcaption {
-  position: absolute;
-  inset-inline: 0;
-  inset-block-end: 0;
-  padding: 1.1rem 1.2rem 0.9rem;
-  background: linear-gradient(to top, rgba(34, 39, 30, 0.72), transparent);
-  color: var(--color-white);
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-
-@media (max-width: 899px) {
-  .hscroll {
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-  }
-  .hscroll-item {
-    scroll-snap-align: center;
-  }
-}
-
 /* שורת ענק בפוטר */
 .footer-giant {
   margin: 0;
@@ -656,13 +613,13 @@ html.reveal-ready [data-animate="stagger"] > *.is-visible {
 
 /* ===== אלמנטים דקורטיביים מג'ונרטים ===== */
 
-/* קו גפן אורנמנטלי — תחת כותרות קטע */
+/* קו גפן אורנמנטלי — תחת כותרות קטע. PNG שקוף (לא JPG עם רקע אחיד) —
+   כך שאין "ריבוע" נראה לעין סביב האיור על רקעים בגוון שונה מעט */
 .ornament-divider {
   display: block;
   margin-inline: auto;
   margin-block: 0.25rem 1.5rem;
   max-width: 300px;
-  mix-blend-mode: multiply;
   opacity: 0.9;
 }
 

@@ -34,34 +34,6 @@ export function initAnimations() {
     );
   });
 
-  // גלריה אופקית נעוצה (דסקטופ בלבד — במובייל scroll-snap רגיל)
-  const hTrack = document.querySelector<HTMLElement>('.hscroll-track');
-  const hSection = document.querySelector<HTMLElement>('.hscroll');
-  if (hTrack && hSection) {
-    const mm = gsap.matchMedia();
-    mm.add('(min-width: 900px)', () => {
-      const getDistance = () => hTrack.scrollWidth - hSection.clientWidth;
-      const tween = gsap.to(hTrack, {
-        // RTL: הפריטים הבאים יושבים משמאל, מזיזים את המסילה ימינה
-        x: () => getDistance(),
-        ease: 'none',
-        scrollTrigger: {
-          trigger: hSection,
-          start: 'top top',
-          end: () => `+=${getDistance()}`,
-          pin: true,
-          scrub: 0.6,
-          invalidateOnRefresh: true,
-        },
-      });
-      return () => {
-        tween.scrollTrigger?.kill();
-        tween.kill();
-        gsap.set(hTrack, { clearProps: 'transform' });
-      };
-    });
-  }
-
   // כפתורים מגנטיים (עכבר בלבד)
   if (window.matchMedia('(pointer: fine)').matches) {
     document.querySelectorAll<HTMLElement>('[data-magnetic]').forEach((btn) => {

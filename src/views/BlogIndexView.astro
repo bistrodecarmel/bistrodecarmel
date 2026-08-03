@@ -24,7 +24,7 @@ const posts = (await getCollection('blog')).filter((p) => p.data.kind === 'artic
 
     <section class="page-section-tight pattern-bg">
       <div class="container-wide">
-        <img class="ornament-divider" src="/images/decor/divider-vine.jpg" alt="" aria-hidden="true" loading="lazy" />
+        <img class="ornament-divider" src="/images/decor/divider-vine.webp" alt="" aria-hidden="true" loading="lazy" />
         <div class="posts-grid" data-animate="stagger">
           {
             posts.map((post) => (
@@ -82,6 +82,7 @@ const posts = (await getCollection('blog')).filter((p) => p.data.kind === 'artic
     font-size: 1.3rem;
     font-weight: 700;
     margin: 0;
+    color: var(--color-ink);
   }
 
   .post-card p {

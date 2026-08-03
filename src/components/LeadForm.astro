@@ -62,11 +62,14 @@ const idFor = (field: string) => `lead-${instanceId}-${field}`;
     max-width: 430px;
   }
 
+  /* צבע מפורש, לא ירושה מהסביבה — הכרטיס תמיד בהיר, גם כשהוא בתוך אזור כהה
+     (כמו הפוטר, .section-dark), אז אסור שהכותרת "תירש" צבע טקסט לרקע כהה */
   .lead-form h3 {
     margin-block-end: 0.35rem;
     font-size: 1.55rem;
     font-weight: 700;
     line-height: 1.25;
+    color: var(--color-ink);
   }
 
   .min-guests-note {
@@ -140,6 +143,7 @@ const idFor = (field: string) => `lead-${instanceId}-${field}`;
     margin-block: 0.9rem 0;
     font-size: 0.92rem;
     font-weight: 500;
+    color: var(--color-body);
   }
 
   .phone-alt a {
