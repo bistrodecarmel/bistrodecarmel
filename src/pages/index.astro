@@ -781,25 +781,40 @@ const galleryImages = [
 
   /* ===== רספונסיבי ===== */
 
-  /* מובייל: scrim חזק יותר + הסטת המוקד הבהיר של התמונה מאחורי הטקסט */
+  /* מובייל: תמונה מעומעמת + scrim חזק — הטקסט תמיד ברור */
   @media (max-width: 700px) {
     .hero {
       min-height: 88svh;
     }
 
     .hero-bg img {
-      /* מסיט את מרכז התמונה (השמלה הלבנה) שמאלה, הטקסט יושב על אזור כהה יותר */
+      /* מסיט את מרכז התמונה שמאלה ומעמעם אותה — הטקסט תמיד על רקע כהה */
       object-position: 30% center;
+      filter: brightness(0.55) saturate(0.9);
     }
 
     .hero::before {
       background: linear-gradient(
         to top,
-        color-mix(in srgb, var(--color-olive-deep) 98%, transparent) 0%,
-        color-mix(in srgb, var(--color-olive-deep) 86%, transparent) 42%,
-        color-mix(in srgb, var(--color-olive-deep) 58%, transparent) 75%,
-        color-mix(in srgb, var(--color-olive-deep) 42%, transparent) 100%
+        color-mix(in srgb, var(--color-olive-deep) 96%, transparent) 0%,
+        color-mix(in srgb, var(--color-olive-deep) 62%, transparent) 45%,
+        color-mix(in srgb, var(--color-olive-deep) 30%, transparent) 100%
       );
+    }
+
+    /* ה-eyebrow מיותר במובייל — מתנגש ויזואלית עם הלוגו שבהדר */
+    .hero-eyebrow {
+      display: none;
+    }
+
+    /* כפתורים אחידים ברוחב מלא */
+    .hero-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .hero-actions .btn {
+      width: 100%;
     }
 
     .hero h1 {
@@ -807,7 +822,6 @@ const galleryImages = [
     }
 
     .hero-sub,
-    .hero-eyebrow,
     .hero-meta li {
       text-shadow: 0 1px 12px rgba(18, 22, 16, 0.8);
     }
@@ -838,6 +852,19 @@ const galleryImages = [
     .story-media {
       margin-block-start: 0;
       max-width: 500px;
+    }
+    /* קולאז' פשוט במובייל — בלי שכבות שגולשות מהמסך */
+    .collage {
+      padding-inline-start: 0;
+      padding-block-end: 0;
+    }
+    .collage-main img {
+      aspect-ratio: 4 / 3;
+    }
+    .collage-secondary,
+    .collage-caption,
+    .story-media-accent {
+      display: none;
     }
     .food-gallery,
     .testimonial-grid {
