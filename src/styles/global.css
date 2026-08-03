@@ -511,6 +511,7 @@ html.reveal-ready [data-animate="stagger"] > *.is-visible {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  margin-block-end: clamp(2rem, 4vw, 3rem);
 }
 
 .t-row {
