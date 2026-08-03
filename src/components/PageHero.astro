@@ -1,0 +1,83 @@
+---
+interface Props {
+  eyebrow: string;
+  /** תומך ב-<strong> להדגשה */
+  title: string;
+  sub?: string;
+  image?: string;
+}
+
+const { eyebrow, title, sub, image } = Astro.props;
+---
+
+<section class:list={['page-hero', 'section-dark', { 'has-image': !!image }]}>
+  {
+    image && (
+      <div class="page-hero-bg">
+        <img src={image} alt="" aria-hidden="true" fetchpriority="high" />
+      </div>
+    )
+  }
+  <div class="container page-hero-content">
+    <p class="eyebrow no-line" data-animate="fade-up">{eyebrow}</p>
+    <h1 data-animate="fade-up" set:html={title} />
+    {sub && <p class="page-hero-sub" data-animate="fade-up" set:html={sub} />}
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(7rem, 16vh, 10rem) clamp(3.5rem, 7vw, 5.5rem);
+  }
+
+  .page-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .page-hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .page-hero.has-image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      to top,
+      color-mix(in srgb, var(--color-olive-deep) 96%, transparent),
+      color-mix(in srgb, var(--color-olive-deep) 72%, transparent)
+    );
+  }
+
+  .page-hero-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .page-hero h1 {
+    color: var(--color-white);
+    font-size: clamp(2.4rem, 4.5vw + 1rem, 4.5rem);
+    max-width: 18ch;
+    margin-block-end: 0.3em;
+  }
+
+  .page-hero .eyebrow {
+    color: var(--color-bronze-on-dark);
+    letter-spacing: 0.2em;
+  }
+
+  .page-hero-sub {
+    font-size: var(--fs-lead);
+    font-weight: 300;
+    color: var(--color-on-dark);
+    max-width: 560px;
+    margin: 0;
+  }
+</style>

@@ -1,0 +1,72 @@
+---
+interface Props {
+  images: string[];
+  altPrefix: string;
+  eyebrow?: string;
+  title?: string;
+}
+
+const { images, altPrefix, eyebrow, title } = Astro.props;
+---
+
+<section class="gallery-section page-section-tight">
+  <div class="container-wide">
+    {
+      (eyebrow || title) && (
+        <div class="gallery-section-head" data-animate="fade-up">
+          {eyebrow && <p class="eyebrow no-line">{eyebrow}</p>}
+          {title && <h2 set:html={title} />}
+        </div>
+      )
+    }
+    <div class="gallery-section-grid" data-animate="stagger">
+      {
+        images.map((src, i) => (
+          <div class="gallery-section-item">
+            <img src={src} alt={`${altPrefix} - תמונה ${i + 1}`} loading="lazy" />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .gallery-section-head {
+    text-align: center;
+  }
+
+  .gallery-section-head .eyebrow {
+    justify-content: center;
+  }
+
+  .gallery-section-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.8rem;
+    margin-block-start: 1.5rem;
+  }
+
+  .gallery-section-item {
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    aspect-ratio: 4 / 3;
+  }
+
+  .gallery-section-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .gallery-section-item:hover img {
+    transform: scale(1.045);
+  }
+
+  @media (max-width: 900px) {
+    .gallery-section-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

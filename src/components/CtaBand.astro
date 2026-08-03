@@ -1,0 +1,71 @@
+---
+import LeadForm from './LeadForm.astro';
+
+interface Props {
+  heading?: string;
+  sub?: string;
+  instanceId: string;
+}
+
+const {
+  heading = 'חוגגים בקרוב?',
+  sub = 'השאירו פרטים ונחזור אליכם מיד עם כל הפרטים על אירוע מושלם אצלנו',
+  instanceId,
+} = Astro.props;
+---
+
+<section class="cta-band">
+  <div class="container cta-grid">
+    <div class="cta-text" data-animate="fade-up">
+      <p class="eyebrow">צור קשר</p>
+      <h2><strong>{heading}</strong></h2>
+      <p class="lead">{sub}</p>
+      <img
+        class="cta-branch"
+        src="/images/textures/olive-branch.jpg"
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+      />
+    </div>
+    <div data-animate="fade-up">
+      <LeadForm heading="" instanceId={instanceId} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-band {
+    padding-block: var(--section-pad);
+    background:
+      linear-gradient(
+        color-mix(in srgb, var(--color-ivory) 82%, transparent),
+        color-mix(in srgb, var(--color-ivory) 82%, transparent)
+      ),
+      var(--texture-stone) center / cover;
+  }
+
+  .cta-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: clamp(2.5rem, 6vw, 6rem);
+    align-items: start;
+  }
+
+  .cta-text {
+    max-width: 470px;
+  }
+
+  .cta-branch {
+    margin-block-start: 2.25rem;
+    max-width: 260px;
+    mix-blend-mode: multiply;
+    opacity: 0.8;
+  }
+
+  @media (max-width: 900px) {
+    .cta-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

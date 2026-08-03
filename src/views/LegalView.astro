@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  metaTitle: string;
+  description: string;
+  contentHtml: string;
+}
+
+const { title, metaTitle, description, contentHtml } = Astro.props;
+---
+
+<BaseLayout title={metaTitle} description={description}>
+  <Header />
+
+  <main>
+    <section class="page-section legal-page">
+      <div class="container">
+        <p class="eyebrow">ביסטרו דה כרמל</p>
+        <h1>{title}</h1>
+        <div class="legal-content" set:html={contentHtml} />
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .legal-page h1 {
+    font-size: var(--fs-h2);
+    margin-block-end: 1.5rem;
+  }
+</style>

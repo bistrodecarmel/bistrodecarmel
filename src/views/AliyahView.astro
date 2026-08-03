@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import GalleryGrid from '../components/GalleryGrid.astro';
+
+const packageItems = [
+  {
+    title: 'תיאום בבית הכנסת',
+    body: 'אנו נטפל בקשר עם הגבאי, בשריון בית הכנסת המתאים עבורכם ובארגון הטקס בצורה המושלמת.',
+  },
+  {
+    title: 'פייטן מקצועי',
+    body: 'נביא פייטן שילווה את הטקס בשירה מרגשת ומסורתית.',
+  },
+  {
+    title: 'תהלוכה ססגונית במדרחוב',
+    body: 'התחילו את היום בתהלוכה שמחה במדרחוב הציורי של זכרון יעקב, בליווי שופרות, תופים ושירה, המוסיפים נופך מסורתי וחגיגי לאירוע שלכם.',
+  },
+  {
+    title: 'תיעוד מקצועי',
+    body: 'צוות צילום מיומן יתעד את כל הרגעים המרגשים, מהטקס ועד החגיגה בביסטרו דה כרמל.',
+  },
+  {
+    title: 'אירוע בביסטרו דה כרמל',
+    body: 'לאחר התהלוכה, המשיכו לחגיגה בביסטרו דה כרמל, הממוקם במבנה היסטורי מרהיב מהמאה ה-19 בלב המושבה הפסטורלית זכרון יעקב. האולם מציע אווירה כפרית קסומה עם מבנה אבן היסטורי, גן אינטימי ונגיעות עיצוב עץ חמימות. תפריט השף הבשרי, היוקרתי והכשר, כולל אפשרות למנות גורמה מהמטבח האסיאתי, ויינות היקב וטעמם האנין מייצרים חווית אירוע קולינרית חד-פעמית ובלתי נשכחת.',
+  },
+];
+
+const galleryImages = [
+  '/images/gallery/aliyah/aliyah-01.jpg',
+  '/images/gallery/aliyah/aliyah-02.jpg',
+  '/images/gallery/aliyah/aliyah-03.jpg',
+  '/images/gallery/bar-bat-mitzvah/bm-02.jpg',
+];
+---
+
+<BaseLayout
+  title="חוגגים עלייה לתורה ובר מצווה בזכרון יעקב – ביסטרו דה כרמל"
+  description="הפקת עלייה לתורה מלאה בזכרון יעקב: תיאום בית כנסת, פייטן מקצועי, תהלוכה עם שופרות ותופים במדרחוב, תיעוד מקצועי וחגיגה בביסטרו דה כרמל."
+>
+  <Header />
+
+  <main>
+    <PageHero
+      eyebrow="בזכרון יעקב"
+      title="הפקת <strong>עליה לתורה</strong> ואירוע בר מצווה"
+      sub="הפכו את חגיגת העלייה לתורה או בר המצווה של ילדכם לאירוע בלתי נשכח בלב זכרון יעקב."
+      image="/images/gallery/aliyah/aliyah-01.jpg"
+    />
+
+    <section class="page-section">
+      <div class="container prose" data-animate="fade-up">
+        <p class="eyebrow">חבילה אחת, יום שלם</p>
+        <h2>חבילה ייחודית המשלבת <strong>את כל מרכיבי האירוע</strong></h2>
+        <p class="lead">
+          אנו מציעים חבילה ייחודית המשלבת את כל מרכיבי האירוע, תוך דאגה לכל פרט ופרט, כדי שאתם תוכלו
+          ליהנות בראש שקט.
+        </p>
+      </div>
+
+      <div class="container package-list" data-animate="stagger">
+        {
+          packageItems.map((item, i) => (
+            <div class="package-item">
+              <span class="package-num">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <GalleryGrid
+      images={galleryImages}
+      altPrefix="עלייה לתורה בזכרון יעקב"
+      eyebrow="רגעים מהטקסים"
+      title="עלייה לתורה <strong>בתמונות</strong>"
+    />
+
+    <CtaBand instanceId="aliyah" />
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .package-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-width: 860px;
+    margin-block-start: 2.5rem;
+  }
+
+  .package-item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    padding: 1.6rem 1.8rem;
+    background: var(--color-white);
+    border: 1px solid var(--color-ivory-deep);
+    border-radius: var(--radius-md);
+  }
+
+  .package-num {
+    font-weight: 200;
+    font-size: 2.1rem;
+    line-height: 1;
+    color: var(--color-bronze-text);
+    min-width: 3rem;
+    padding-block-start: 0.2rem;
+  }
+
+  .package-item h3 {
+    margin-block-end: 0.4rem;
+  }
+
+  .package-item p {
+    margin: 0;
+    color: var(--color-body);
+  }
+</style>

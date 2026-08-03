@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import GalleryGrid from '../components/GalleryGrid.astro';
+
+const reasons = [
+  {
+    title: 'אווירה כפרית קסומה',
+    body: 'מבנה עתיק, עיצוב עץ, ותאורה חמה שיוצרים תחושת בית.',
+  },
+  {
+    title: 'תפריט שף יוקרתי וכשר',
+    body: "תפריט בשרי עשיר, עם נגיעות מהמטבח האסיאתי, פוקאצ'ות מהטאבון, וקינוחים אישיים לשולחן.",
+  },
+  {
+    title: 'ליווי אישי וצמוד',
+    body: 'אנחנו איתכם מהפגישה הראשונה ועד הרגע שבו אתם יוצאים לריקוד הראשון.',
+  },
+  {
+    title: 'גמישות מלאה בעיצוב ואווירה',
+    body: 'בחרו בין חתונה בגן לבין אירוע בתוך האולם, התאמה למוזיקה, תאורה, סידור שולחנות ועוד.',
+  },
+  {
+    title: 'נוף, שקט, ומיקום מנצח',
+    body: 'רחוב היין בזכרון יעקב – נגיש, עם חניה בשפע, והרבה רוגע מסביב.',
+  },
+];
+
+const galleryImages = [
+  '/images/gallery/weddings/wed-02.jpg',
+  '/images/gallery/weddings/wed-03.jpg',
+  '/images/gallery/weddings/wed-05.jpg',
+  '/images/gallery/weddings/wed-06.jpg',
+];
+---
+
+<BaseLayout
+  title="אולם לחתונה קטנה – ביסטרו דה כרמל בזכרון יעקב | חתונה באווירה כפרית"
+  description="אולם לחתונה קטנה ואינטימית בזכרון יעקב: מבנה אבן מהמאה ה-19, גינה ירוקה, תפריט שף כשר וליווי אישי — חתונות בוטיק עד 250 אורחים."
+>
+  <Header />
+
+  <main>
+    <PageHero
+      eyebrow="בזכרון יעקב"
+      title="<strong>אולם לחתונה קטנה</strong>"
+      sub="חוויה אינטימית בביסטרו דה כרמל"
+      image="/images/gallery/weddings/wed-04.jpg"
+    />
+
+    <section class="page-section">
+      <div class="container prose" data-animate="fade-up">
+        <p class="eyebrow">חוויה אינטימית ברמה אחרת</p>
+        <h2>לא כל חתונה צריכה להיות ענקית <strong>כדי להיות מרגשת</strong></h2>
+        <p class="lead">
+          לפעמים, דווקא באירוע קטן, קרוב, עם האנשים הכי חשובים לכם – מתרחש הקסם האמיתי. ביסטרו דה כרמל,
+          בלב המושבה זכרון יעקב, הוא המקום שבו חלום על חתונה קטנה ומיוחדת הופך למציאות בלתי נשכחת.
+        </p>
+        <h3>חלל בוטיק לחתונות קטנות – עד 250 אורחים</h3>
+        <p>
+          במבנה אבן משוחזר מהמאה ה-19, עטוף בגינה ירוקה ואווירה כפרית, תמצאו את כל מה שצריך בשביל חתונה
+          אינטימית – עיצוב חם ומדויק, תפריט שף מוקפד, ואנשי מקצוע שילוו אתכם בכל שלב. האולם מתאים
+          לחתונות קטנות בכל עונות השנה – עם אווירה רומנטית, אישית, ולא מתפשרת.
+        </p>
+      </div>
+    </section>
+
+    <section class="page-section-tight reasons-section">
+      <div class="container">
+        <div class="reasons-head" data-animate="fade-up">
+          <p class="eyebrow">חמש סיבות טובות</p>
+          <h2>למה לבחור בביסטרו דה כרמל <strong>לחתונה קטנה?</strong></h2>
+        </div>
+        <div class="reasons-grid" data-animate="stagger">
+          {
+            reasons.map((r, i) => (
+              <div class="reason">
+                <span class="reason-num">{String(i + 1).padStart(2, '0')}</span>
+                <div>
+                  <h3>{r.title}</h3>
+                  <p>{r.body}</p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <GalleryGrid
+      images={galleryImages}
+      altPrefix="חתונה קטנה בביסטרו דה כרמל"
+      eyebrow="גלריית תמונות"
+      title="חתונות אינטימיות <strong>בתמונות</strong>"
+    />
+
+    <CtaBand instanceId="small-wedding" />
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .reasons-head {
+    max-width: 720px;
+  }
+
+  .reasons-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    max-width: 860px;
+    margin-block-start: 2rem;
+  }
+
+  .reason {
+    display: flex;
+    gap: 1.4rem;
+    align-items: flex-start;
+    padding: 1.5rem 1.7rem;
+    background: var(--color-white);
+    border: 1px solid var(--color-ivory-deep);
+    border-radius: var(--radius-md);
+  }
+
+  .reason-num {
+    font-weight: 200;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--color-bronze-text);
+    min-width: 2.8rem;
+    padding-block-start: 0.15rem;
+  }
+
+  .reason h3 {
+    margin-block-end: 0.3rem;
+    font-size: 1.2rem;
+  }
+
+  .reason p {
+    margin: 0;
+  }
+</style>

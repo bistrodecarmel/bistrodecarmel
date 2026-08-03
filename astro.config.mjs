@@ -8,5 +8,10 @@ import react from '@astrojs/react';
 export default defineConfig({
   site: 'https://bistrodecarmel.co.il',
   trailingSlash: 'always',
-  integrations: [sitemap(), react()]
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes('/thank-you-page/'),
+    }),
+    react(),
+  ]
 });

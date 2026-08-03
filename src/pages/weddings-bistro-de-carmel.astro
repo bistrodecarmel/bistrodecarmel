@@ -1,0 +1,130 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import GalleryGrid from '../components/GalleryGrid.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
+
+const quotes = [
+  {
+    quote:
+      'במילה אחת - ווואו!!! במלא מילים - התחתנו בביסטרו, חצי שנה אחרי שסגרנו את התאריך, חתונה של כ-220 אורחים. מעבר לתמורה הלא נורמלית למחיר, שחר החזיק לנו את היד לאורך כל הדרך, זרם עם כל בקשה וכל חלום שהיה לנו בקשר לאירוע, עשה זאת עם כל כך הרבה אהבה, הכלה ומקצועיות. האוכל מדהים וכל הספקים ששחר מביא איתו אלופים אחד אחד. אנחנו לא מפסיקים לקבל מחמאות מחברים ומשפחה ומבחינתנו האירוע היה כל מה שחלמנו שיהיה ותכלס הרבה מעבר. ממליצים בטירוף.',
+    author: 'זוג מאושר',
+    date: 'חתונה של כ-220 אורחים',
+  },
+  {
+    quote:
+      'רוצה להמליץ בחום על ביסטרו דה כרמל. במאי ערכנו חתונה קטנה של כ110 אנשים. המקום מהמם אווירה של יקב אמיתי ויוקרתי. מחיר הוגן. יחס אישי וחם, הצוות מאוד מקצועי, כל האוכל טעים ברמה מאוד גבוה, והמלצרים הגישו אוכל בלי סוף! ניתן לקבל מעטפת חבילה של כל אנשי המקצוע מאוד נוח! גם אנחנו וגם האורחים מאוד נהנו! ממליצה בחום לכל אירוע!!!',
+    author: 'לקוחה מרוצה',
+    date: 'חתונה קטנה של כ-110 אורחים',
+  },
+  {
+    quote:
+      'חוויה אינטימית מושלמת לכל המעוניינים בחתונה קטנה — חתונה זו חוויה שעלולה להיות מאיימת ומעלה המון חששות, אך כולם אוששו על ידי שחר המנהל, באמת שאפו לכל הצוות!!! החוויה הכי טובה במחיר באמת לכל כיס, באווירה משפחתית אינטימית ולא מאיימת',
+    author: 'לקוח מרוצה',
+    date: 'חתונה קטנה',
+  },
+  {
+    quote:
+      'התחתנו בביסטרו בשבוע שעבר. יום אחרי האירוע לא הפסקנו לקבל הודעות על איכות המקום, האוכל והצוות. מהרגע הראשון שהגענו למקום התאהבנו- האווירה של זכרון בלילה והצוות שהרגיש כמו משפחה, הרגשנו שאנחנו יכולים לסמוך עליהם בעיניים עצומות. בנוסף, לקחנו דרכם את הספקים שהיו מושלמים!',
+    author: 'זוג טרי',
+    date: 'חתונה בביסטרו',
+  },
+];
+
+const galleryImages = Array.from({ length: 8 }, (_, i) => `/images/gallery/weddings/wed-${String(i + 1).padStart(2, '0')}.jpg`);
+---
+
+<BaseLayout
+  title="חתונות בביסטרו דה כרמל - ביסטרו דה כרמל- אירועים קטנים בחיפה I בצפון"
+  description="חתונות בוטיק בביסטרו דה כרמל בזכרון יעקב: מבנה אבן ייחודי, מטבח שף בשרי וכשר, ליווי אישי צמוד וחתונות של עד 250 אורחים באווירת יקב רומנטית."
+>
+  <Header />
+
+  <main>
+    <PageHero
+      eyebrow="חתונות בביסטרו"
+      title="חתונות <strong>בביסטרו דה כרמל</strong>"
+      sub="אירועי בוטיק באווירת יקב אותנטית בזכרון יעקב"
+      image="/images/gallery/weddings/wed-01.jpg"
+    />
+
+    <section class="page-section">
+      <div class="container prose" data-animate="fade-up">
+        <p class="eyebrow">החגיגה המושלמת שלכם</p>
+        <h2>אירוע שהוא כולו <strong>וייב אחר</strong>, חם ומדויק</h2>
+        <p class="lead">
+          בביסטרו דה כרמל, אנחנו יוצרים אירוע שהוא כולו וייב אחר, חם ומדויק, במתחם מעוצב ששואב השראה
+          מאווירת יקב רומנטית.
+        </p>
+        <p>
+          המקום מציע חלל אירוח פנימי סופר-אלגנטי הממוקם בתוך מבנה אבן ייחודי בזיכרון יעקב, עם חלונות
+          גדולים המשקיפים על נופי האזור והכרמים. העיצוב שלנו משלב חומרי גלם טבעיים, אבן חמימה ונגיעות
+          בוטיק עכשוויות, שמעניקים למקום מראה ייחודי ומלא אופי.
+        </p>
+        <p>
+          הלב הפועם הוא מטבח שף בשרי וכשר ברמה גבוהה, המייצר חוויה קולינרית מפתיעה ומדויקת, כולל מנות
+          גורמה ומאפים טריים מהטאבון. אנו מפיקים חתונות של עד 250 אורחים, ומלווים אתכם עם צוות מקצועי
+          ואישי, המכוון ליצירת אירוע אינטימי ומוקפד.
+        </p>
+        <p>
+          הביסטרו הוא המקום המושלם עבור זוגות שמחפשים לחגוג רגעים של שמחה טהורה, אהבה וסטייל בלתי
+          מתפשר, עם האנשים שהם הכי אוהבים. המקום נמצא בזיכרון יעקב ומאפשר הגעה נוחה ומהירה לאורחים מכל
+          אזור המרכז והצפון.
+        </p>
+      </div>
+    </section>
+
+    <section class="section-dark page-section">
+      <div class="container">
+        <div class="quotes-head" data-animate="fade-up">
+          <p class="eyebrow no-line">זוגות מספרים</p>
+          <h2>מה אומרים עלינו <strong>אחרי החתונה</strong></h2>
+        </div>
+        <div class="quotes-grid" data-animate="stagger">
+          {quotes.map((q) => <TestimonialCard quote={q.quote} author={q.author} date={q.date} />)}
+        </div>
+      </div>
+    </section>
+
+    <GalleryGrid
+      images={galleryImages}
+      altPrefix="חתונה בביסטרו דה כרמל"
+      eyebrow="רגעים מחתונות אצלנו"
+      title="חתונות בביסטרו <strong>בתמונות</strong>"
+    />
+
+    <CtaBand
+      heading="לפרטים נוספים ותיאום פגישה"
+      sub="השאירו פרטים ונחזור אליכם מיד"
+      instanceId="weddings"
+    />
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .quotes-head {
+    text-align: center;
+  }
+
+  .quotes-head .eyebrow {
+    justify-content: center;
+  }
+
+  .quotes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-block-start: 2.5rem;
+  }
+
+  @media (max-width: 800px) {
+    .quotes-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

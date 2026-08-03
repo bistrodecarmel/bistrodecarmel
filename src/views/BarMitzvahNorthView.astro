@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import MitzvahOptions from '../components/MitzvahOptions.astro';
+
+const principles = [
+  {
+    title: 'האווירה ההיסטורית',
+    body: 'אנו שוכנים במבנה אבן משוחזר מהמאה ה-19, ששימש בעבר את יצרני היין של הברון רוטשילד. האותנטיות והיופי של המקום מעניקים לכל אירוע נופך של קסם וסיפור.',
+  },
+  {
+    title: 'קולינריה עילית כשרה',
+    body: 'צוות השף שלנו יוצר תפריט שף כשר עשיר ומגוון, עם מנות גורמה יצירתיות ואף אופציה למנות מטבח אסיאתי מעודן.',
+  },
+  {
+    title: 'הטאבון הלוהט',
+    body: "גולת הכותרת הקולינרית שלנו, המפיקה מאפים ופוקאצ'ות טריות וריחניות לאורך כל האירוע – חוויה חושית שובת לב.",
+  },
+  {
+    title: 'גמישות ותכנון מקיף',
+    body: 'אנו מציעים ליווי אישי וצמוד לכל אורך הדרך, מהרגע הראשון ועד לסיום האירוע, ומתאימים את החבילה המושלמת לצרכים ולחלומות שלכם.',
+  },
+];
+---
+
+<BaseLayout
+  title="בר מצווה בצפון - ביסטרו דה כרמל- אירועים קטנים בחיפה I בצפון"
+  description="מחפשים אולם לבר מצווה בצפון? ביסטרו דה כרמל בזכרון יעקב: מבנה היסטורי קסום, תפריט שף כשר, אירוע ערב או יום שלם עם עלייה לתורה ותהלוכה."
+>
+  <Header />
+
+  <main>
+    <PageHero
+      eyebrow="בזכרון יעקב"
+      title="<strong>בר מצווה בצפון</strong>"
+      sub="קסם היסטורי וחוויה קולינרית בביסטרו דה כרמל"
+      image="/images/gallery/bar-bat-mitzvah/bm-03.jpg"
+    />
+
+    <section class="page-section">
+      <div class="container prose" data-animate="fade-up">
+        <p class="eyebrow">הגעתם למקום הנכון</p>
+        <h2>בר מצווה בצפון: <strong>קסם היסטורי</strong> וחוויה קולינרית</h2>
+        <p class="lead">
+          רגע בר המצווה הוא ציון דרך מרגש ומשמעותי בחיי הנער/ה והמשפחה כולה. אם אתם מתכננים בר מצווה
+          בצפון ומחפשים חוויה שתהיה מיוחדת, בלתי נשכחת, ובעיקר – מותאמת בדיוק לכם – הגעתם למקום הנכון.
+        </p>
+        <p>
+          בביסטרו דה כרמל, השוכן במבנה היסטורי וקסום בלב זכרון יעקב, אנו מבינים שלכל משפחה יש את הדרך
+          הייחודית שלה לחגוג. לכן, אנו מציעים גמישות מלאה ופתרונות מקיפים, ההופכים את בר המצווה בזכרון
+          יעקב לחוויה מושלמת, בין אם אתם מחפשים אירוע ערב חגיגי ובין אם יום חוויתי הכולל את טקס העלייה
+          לתורה.
+        </p>
+      </div>
+    </section>
+
+    <MitzvahOptions />
+
+    <section class="section-dark page-section">
+      <div class="container">
+        <div class="principles-head" data-animate="fade-up">
+          <p class="eyebrow no-line">למה דווקא אנחנו</p>
+          <h2>ביסטרו דה כרמל: <strong>הקסם שבפרטים הקטנים</strong></h2>
+          <p>בליבת החוויה בביסטרו דה כרמל עומדים מספר עקרונות שלאורם אנו פועלים, ההופכים כל אירוע למיוחד במינו:</p>
+        </div>
+        <div class="principles-grid" data-animate="stagger">
+          {
+            principles.map((p, i) => (
+              <div class="principle">
+                <span class="principle-num">{String(i + 1).padStart(2, '0')}</span>
+                <h3>{p.title}</h3>
+                <p>{p.body}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <CtaBand instanceId="bar-mitzvah-north" />
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .principles-head {
+    text-align: center;
+    max-width: 720px;
+    margin-inline: auto;
+  }
+
+  .principles-head .eyebrow {
+    justify-content: center;
+  }
+
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-block-start: 2.75rem;
+  }
+
+  .principle {
+    padding: 1.9rem 1.8rem;
+    border: 1px solid color-mix(in srgb, var(--color-bronze-on-dark) 28%, transparent);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--color-white) 4%, transparent);
+  }
+
+  .principle-num {
+    display: block;
+    font-weight: 200;
+    font-size: 2rem;
+    color: var(--color-bronze-on-dark);
+    margin-block-end: 0.6rem;
+  }
+
+  .principle h3 {
+    margin-block-end: 0.5rem;
+  }
+
+  .principle p {
+    margin: 0;
+  }
+
+  @media (max-width: 760px) {
+    .principles-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

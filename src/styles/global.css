@@ -320,3 +320,81 @@ html.has-js [data-animate] {
   clip: rect(0 0 0 0);
   white-space: nowrap;
 }
+
+/* ===== עמודים פנימיים — מחלקות משותפות ===== */
+.page-section {
+  padding-block: var(--section-pad);
+}
+
+.page-section-tight {
+  padding-block: clamp(3rem, 6vw, 5rem);
+}
+
+.prose {
+  max-width: 760px;
+}
+
+.prose p {
+  color: var(--color-body);
+}
+
+.prose ul {
+  color: var(--color-body);
+  padding-inline-start: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.prose ul li::marker {
+  color: var(--color-bronze-text);
+}
+
+.prose strong {
+  color: var(--color-ink);
+}
+
+.checklist {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  color: var(--color-body);
+}
+
+.checklist li {
+  display: flex;
+  gap: 0.7rem;
+  align-items: baseline;
+}
+
+.checklist li::before {
+  content: '✓';
+  color: var(--color-bronze-text);
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+/* עמוד משפטי */
+.legal-content {
+  max-width: 760px;
+}
+
+.legal-content h1,
+.legal-content h2,
+.legal-content h3 {
+  font-weight: 600;
+  font-size: 1.35rem;
+  margin-block: 1.6em 0.5em;
+}
+
+.legal-content h1:first-child {
+  font-size: var(--fs-h2);
+  font-weight: 250;
+  margin-block-start: 0;
+}
+
+.legal-content a {
+  color: var(--color-bronze-text);
+}

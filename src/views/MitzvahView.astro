@@ -1,0 +1,188 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import GalleryGrid from '../components/GalleryGrid.astro';
+import MitzvahOptions from '../components/MitzvahOptions.astro';
+import MitzvahHighlights from '../components/MitzvahHighlights.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
+
+interface Props {
+  variant: 'bar' | 'bat';
+}
+
+const { variant } = Astro.props;
+const isBat = variant === 'bat';
+
+const meta = isBat
+  ? {
+      title: 'אולם בוטיק לבת מצווה בזכרון יעקב - ביסטרו דה כרמל',
+      description:
+        'בת מצווה בביסטרו דה כרמל בזכרון יעקב: אולם בוטיק במבנה היסטורי, אווירת יקב חמימה, תפריט שף כשר והפקה מלאה לאירועים של 70-250 מוזמנים.',
+      heroTitle: 'מקום קסום <strong>לבת מצווה קסומה</strong>',
+      introHeading: 'לחגוג בת מצווה מושלמת <strong>במקום מיוחד בצפון</strong>',
+      introBody:
+        'נעים להכיר, אנחנו ביסטרו דה כרמל זכרון יעקב. ונשמח לארח אתכם אצלנו לחגיגת בת מצווה חגיגית מדהימה. אנחנו נדאג להיות שם עבורכם, לתכנן עבורכם את האירוע לפרטי פרטים ולדאוג שאתם תבואו להנות מהאירוע – וכל השאר – עלינו!',
+      ctaInstance: 'bat-mitzvah',
+    }
+  : {
+      title: 'אולם לבר מצווה - ביסטרו דה כרמל - ביסטרו דה כרמל- אירועים קטנים בחיפה I בצפון',
+      description:
+        'בר מצווה בביסטרו דה כרמל בזכרון יעקב: אולם בוטיק במבנה היסטורי, אווירת יקב חמימה, תפריט שף כשר, תהלוכה ועלייה לתורה והפקה מלאה ל-70-250 מוזמנים.',
+      heroTitle: 'מקום קסום <strong>לבר מצווה קסומה</strong>',
+      introHeading: 'לילד שלכם מגיע <strong>אירוע מדהים של פעם בחיים</strong>',
+      introBody:
+        'נעים להכיר, אנחנו ביסטרו דה כרמל זכרון יעקב. ונשמח לארח אתכם אצלנו לחגיגת בר מצווה חגיגית מדהימה. אנחנו נדאג להיות שם עבורכם, לתכנן עבורכם את האירוע לפרטי פרטים ולדאוג שאתם תבואו להנות מהאירוע – וכל השאר – עלינו!',
+      ctaInstance: 'bar-mitzvah',
+    };
+
+const quotes = isBat
+  ? [
+      {
+        quote:
+          'כמות המחמאות הפירגון וההתפעלות הייתה עצומה האורחים לא מפסיקים לדבר על המקום על האוכל ועל האוירה המדהימה',
+        author: 'משפחה חוגגת',
+        date: 'בת מצווה',
+      },
+      {
+        quote:
+          'חגגנו את בת המצווה של בתנו במקום המדהים הזה, ואין ספק שזו הייתה הבחירה הטובה ביותר שיכולנו לעשות.',
+        author: 'הורים מרוצים',
+        date: 'בת מצווה',
+      },
+      {
+        quote:
+          'האורחים לא מפסיקים לשלוח הודעות על האירוע. איתמר היה מקסים- כמו מלאך שישב על הכתף והיה ער לכל דבר. תודה על הליווי והאכפתיות. היה נהדר!',
+        author: 'משפחה חוגגת',
+        date: 'בת מצווה',
+      },
+      {
+        quote:
+          'האוכל הוגש בשפע, הצוות היה שירותי בצורה מעוררת התפעלות. הכל היה נקי, מתוקתק, מסודר ובאוירה נעימה כל כך!',
+        author: 'לקוחה מרוצה',
+        date: 'אירוע צהריים',
+      },
+      {
+        quote:
+          'האולם יפהפה, מושקע ומטופח עד הפרט הקטן מקום מושלם לאירוע כל כך משמעותי ומרגש.',
+        author: 'משפחה חוגגת',
+        date: 'בת מצווה',
+      },
+      {
+        quote:
+          'האוכל היה פשוט מצוין! טעים מאוד, איכותי וברמה גבוהה. קיבלנו המון מחמאות מהאורחים על השפע ועל הטעמים הנהדרים.',
+        author: 'הורים מרוצים',
+        date: 'בת מצווה',
+      },
+    ]
+  : [
+      {
+        quote:
+          'כמות המחמאות הפירגון וההתפעלות הייתה עצומה האורחים לא מפסיקים לדבר על המקום על האוכל ועל האוירה המדהימה',
+        author: 'משפחה חוגגת',
+        date: 'בר מצווה',
+      },
+      {
+        quote:
+          'האורחים לא מפסיקים לשלוח הודעות על האירוע. איתמר היה מקסים- כמו מלאך שישב על הכתף והיה ער לכל דבר. תודה על הליווי והאכפתיות. היה נהדר!',
+        author: 'משפחה חוגגת',
+        date: 'בר מצווה',
+      },
+      {
+        quote:
+          'האוכל הוגש בשפע, הצוות היה שירותי בצורה מעוררת התפעלות. הכל היה נקי, מתוקתק, מסודר ובאוירה נעימה כל כך!',
+        author: 'לקוח מרוצה',
+        date: 'אירוע צהריים',
+      },
+      {
+        quote:
+          'חגגנו בר מצווה לילד בשילוב של עליה לתורה, חיפשנו מקום שיתן מענה מלא לכל החבילה וזה בדיוק מה שקיבלנו- הגענו לשחר, שחר דאג להתאים חבילה שכוללת את כל מה שרצינו- מקום עם אוכל משובח, תהלוכה עם מתופפים ושופרות, בית כנסת עם פיטן, צלם, דיגי ואוירה קסומה. אז בהזדמנות זו תודה רבה וממליצה בחום',
+        author: 'אמא מרוצה',
+        date: 'בר מצווה + עלייה לתורה',
+      },
+    ];
+
+const galleryImages = Array.from(
+  { length: 8 },
+  (_, i) => `/images/gallery/bar-bat-mitzvah/bm-${String(i + 1).padStart(2, '0')}.jpg`
+);
+---
+
+<BaseLayout title={meta.title} description={meta.description}>
+  <Header />
+
+  <main>
+    <PageHero
+      eyebrow="ביסטרו דה כרמל זכרון יעקב"
+      title={meta.heroTitle}
+      sub="בואו לחגוג את האירוע שלכם במקום מיוחד, עם אווירת יקב חמימה, אוכל מדהים ושירות מעולה. האולם שלנו מתאים לאירועי בוטיק של 70-250 מוזמנים."
+      image="/images/gallery/bar-bat-mitzvah/bm-01.jpg"
+    />
+
+    <section class="page-section">
+      <div class="container prose" data-animate="fade-up">
+        <p class="eyebrow">נעים להכיר</p>
+        <h2 set:html={meta.introHeading} />
+        <p class="lead">{meta.introBody}</p>
+      </div>
+    </section>
+
+    <section class="section-dark page-section">
+      <div class="container">
+        <div class="quotes-head" data-animate="fade-up">
+          <p class="eyebrow no-line">לקוחות ממליצים</p>
+          <h2>משפחות מספרות <strong>על האירוע שלהן</strong></h2>
+        </div>
+        <div class="quotes-grid" data-animate="stagger">
+          {quotes.map((q) => <TestimonialCard quote={q.quote} author={q.author} date={q.date} />)}
+        </div>
+      </div>
+    </section>
+
+    <MitzvahOptions />
+
+    <MitzvahHighlights />
+
+    <GalleryGrid
+      images={galleryImages}
+      altPrefix={isBat ? 'בת מצווה בביסטרו דה כרמל' : 'בר מצווה בביסטרו דה כרמל'}
+      eyebrow="רגעים מהאירועים שלנו"
+      title="הצצה לאווירה, לטקסים ולחגיגות <strong>בביסטרו דה כרמל</strong>"
+    />
+
+    <CtaBand instanceId={meta.ctaInstance} />
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .quotes-head {
+    text-align: center;
+  }
+
+  .quotes-head .eyebrow {
+    justify-content: center;
+  }
+
+  .quotes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-block-start: 2.5rem;
+  }
+
+  @media (max-width: 1000px) {
+    .quotes-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .quotes-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

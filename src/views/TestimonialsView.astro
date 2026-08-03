@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { testimonials } from '../data/testimonials';
+---
+
+<BaseLayout
+  title="המלצות - ביסטרו דה כרמל- אירועים קטנים בחיפה I בצפון"
+  description="עשרות המלצות אמיתיות של לקוחות שחגגו חתונות, בר/בת מצווה, בריתות ואירועים בביסטרו דה כרמל בזכרון יעקב."
+>
+  <Header />
+
+  <main>
+    <PageHero
+      eyebrow="ביסטרו דה כרמל"
+      title="<strong>המלצות</strong> מלקוחות אמיתיים"
+      sub={`${testimonials.length} משפחות וזוגות שחגגו אצלנו מספרים איך היה — מילה במילה.`}
+    />
+
+    <section class="page-section-tight">
+      <div class="container-wide">
+        <div class="reviews-grid">
+          {
+            testimonials.map((t) => (
+              <figure class="review-card">
+                <blockquote>{t.quote}</blockquote>
+                <figcaption>
+                  <span class="author">{t.author}</span>
+                  <span class="date">{t.date}</span>
+                </figcaption>
+              </figure>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <CtaBand instanceId="testimonials" />
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .reviews-grid {
+    columns: 3 320px;
+    column-gap: 1.25rem;
+  }
+
+  .review-card {
+    break-inside: avoid;
+    margin: 0 0 1.25rem;
+    padding: 1.7rem 1.6rem 1.35rem;
+    background: var(--color-white);
+    border: 1px solid var(--color-ivory-deep);
+    border-top: 2px solid var(--color-bronze-line);
+    border-radius: var(--radius-md);
+  }
+
+  blockquote {
+    margin: 0 0 1.1rem;
+    font-size: 0.98rem;
+    font-weight: 400;
+    line-height: 1.75;
+    color: var(--color-body);
+  }
+
+  figcaption {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding-block-start: 0.8rem;
+    border-top: 1px solid var(--color-ivory-deep);
+  }
+
+  .author {
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--color-ink);
+  }
+
+  .date {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-muted);
+    white-space: nowrap;
+  }
+</style>

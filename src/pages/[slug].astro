@@ -1,0 +1,56 @@
+---
+/**
+ * נתיב דינמי לעמודים עם slug עברי — ה-slugs חייבים להישאר זהים במדויק
+ * לאתר הישן לצורך שימור SEO. אל תשנו אותם בלי הפניית 301 מסודרת.
+ */
+import MitzvahView from '../views/MitzvahView.astro';
+import AliyahView from '../views/AliyahView.astro';
+import TestimonialsView from '../views/TestimonialsView.astro';
+import BarMitzvahNorthView from '../views/BarMitzvahNorthView.astro';
+import SmallWeddingView from '../views/SmallWeddingView.astro';
+import LegalView from '../views/LegalView.astro';
+import privacyHtml from '../content/legal/privacy.html?raw';
+import accessibilityHtml from '../content/legal/accessibility.html?raw';
+
+export function getStaticPaths() {
+  return [
+    { params: { slug: 'בת-מצווה-בביסטרו-דה-כרמל' }, props: { view: 'bat-mitzvah' } },
+    { params: { slug: 'בר-מצווה-בביסטרו-דה-כרמל' }, props: { view: 'bar-mitzvah' } },
+    { params: { slug: 'חוגגים-עלייה-לתורה-ובר-מצווה-בזכרון-יע' }, props: { view: 'aliyah' } },
+    { params: { slug: 'המלצות' }, props: { view: 'testimonials' } },
+    { params: { slug: 'בר-מצווה-בצפון' }, props: { view: 'bar-mitzvah-north' } },
+    { params: { slug: 'אולם-לחתונה-קטנה' }, props: { view: 'small-wedding' } },
+    { params: { slug: 'מדיניות-פרטיות-ביסטרו-דה-כרמל' }, props: { view: 'privacy' } },
+    { params: { slug: 'הצהרת-נגישות-ביסטרו-דה-כרמל' }, props: { view: 'accessibility' } },
+  ];
+}
+
+const { view } = Astro.props;
+---
+
+{view === 'bat-mitzvah' && <MitzvahView variant="bat" />}
+{view === 'bar-mitzvah' && <MitzvahView variant="bar" />}
+{view === 'aliyah' && <AliyahView />}
+{view === 'testimonials' && <TestimonialsView />}
+{view === 'bar-mitzvah-north' && <BarMitzvahNorthView />}
+{view === 'small-wedding' && <SmallWeddingView />}
+{
+  view === 'privacy' && (
+    <LegalView
+      title="מדיניות פרטיות ותנאי שימוש"
+      metaTitle="מדיניות פרטיות - ביסטרו דה כרמל"
+      description="מדיניות הפרטיות ותנאי השימוש של אתר ביסטרו דה כרמל."
+      contentHtml={privacyHtml}
+    />
+  )
+}
+{
+  view === 'accessibility' && (
+    <LegalView
+      title="הצהרת נגישות"
+      metaTitle="הצהרת נגישות - ביסטרו דה כרמל"
+      description="הצהרת הנגישות של ביסטרו דה כרמל — האתר והמקום הפיזי."
+      contentHtml={accessibilityHtml}
+    />
+  )
+}
