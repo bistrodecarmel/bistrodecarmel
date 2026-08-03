@@ -38,11 +38,22 @@ const isArticle = entry.data.kind === 'article';
             </nav>
           )
         }
+        <img
+          class="ornament-divider post-ornament"
+          src="/images/decor/divider-vine.jpg"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+        />
         <article class="prose post-body">
           <Content />
         </article>
       </div>
     </section>
+
+    <div class="watercolor-band on-light" aria-hidden="true">
+      <img src="/images/decor/vineyard-watercolor.jpg" alt="" loading="lazy" data-parallax="50" />
+    </div>
 
     <CtaBand instanceId={`post-${entry.id}`} />
   </main>
@@ -68,6 +79,12 @@ const isArticle = entry.data.kind === 'article';
 
   .breadcrumbs a:hover {
     text-decoration: underline;
+  }
+
+  /* מיושר לתחילת הטקסט (ימין ב-RTL), כמו הכותרות והפירורים מעליו */
+  .post-ornament {
+    margin-inline: 0 auto;
+    margin-block-end: 2rem;
   }
 
   .post-body :global(h2) {

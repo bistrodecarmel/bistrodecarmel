@@ -22,8 +22,9 @@ const posts = (await getCollection('blog')).filter((p) => p.data.kind === 'artic
       sub="מדריכים ורעיונות לתכנון האירוע המושלם בצפון"
     />
 
-    <section class="page-section-tight">
+    <section class="page-section-tight pattern-bg">
       <div class="container-wide">
+        <img class="ornament-divider" src="/images/decor/divider-vine.jpg" alt="" aria-hidden="true" loading="lazy" />
         <div class="posts-grid" data-animate="stagger">
           {
             posts.map((post) => (
@@ -39,6 +40,10 @@ const posts = (await getCollection('blog')).filter((p) => p.data.kind === 'artic
         </div>
       </div>
     </section>
+
+    <div class="watercolor-band on-light" aria-hidden="true">
+      <img src="/images/decor/vineyard-watercolor.jpg" alt="" loading="lazy" data-parallax="50" />
+    </div>
 
     <CtaBand instanceId="blog-index" />
   </main>
