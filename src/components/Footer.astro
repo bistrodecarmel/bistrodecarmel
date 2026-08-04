@@ -34,9 +34,6 @@ const moreLinks = [
       </nav>
 
       <p class="address">כתובתנו: רחוב היין 20 זכרון יעקב</p>
-      <p class="credit">
-        <a href="https://www.alma-digital.co.il/" target="_blank" rel="noopener">Alma-Digital בניית אתרים ושיווק דיגיטלי</a>
-      </p>
     </div>
 
     <div class="footer-form">
@@ -44,6 +41,12 @@ const moreLinks = [
     </div>
   </div>
 </footer>
+
+<div class="sub-footer">
+  <p class="credit">
+    <a href="https://www.alma-digital.co.il/" target="_blank" rel="noopener">Alma-Digital בניית אתרים ושיווק דיגיטלי</a>
+  </p>
+</div>
 
 <style>
   .site-footer .footer-giant {
@@ -138,9 +141,17 @@ const moreLinks = [
     color: var(--color-on-dark-soft);
   }
 
+  /* פס תחתון נפרד — כהה יותר מהפוטר עצמו, מפריד ברור עם קו עדין */
+  .sub-footer {
+    background: var(--color-ink);
+    border-block-start: 1px solid color-mix(in srgb, var(--color-bronze-line) 30%, transparent);
+    padding-block: 1.1rem;
+    text-align: center;
+  }
+
   .credit {
     font-size: 0.8rem;
-    margin-block-start: 0.25rem;
+    margin: 0;
   }
 
   .credit a {
@@ -149,7 +160,7 @@ const moreLinks = [
   }
 
   .credit a:hover {
-    color: var(--color-on-dark-soft);
+    color: var(--color-white);
   }
 
   @media (max-width: 820px) {
