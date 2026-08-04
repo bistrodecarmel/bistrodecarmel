@@ -177,7 +177,7 @@ const galleryImages = [
 
     <!-- ===== חוגגים בביסטרו ===== -->
     <section class="events pattern-bg">
-      <div class="container">
+      <div class="container events-body">
         <div class="events-head" data-animate="fade-up">
           <p class="eyebrow">02 &middot; חוגגים בביסטרו</p>
           <h2>אירועים אינטימיים ומרגשים <strong>עד 250 מוזמנים</strong></h2>
@@ -628,16 +628,24 @@ const galleryImages = [
     color: var(--color-bronze-text);
   }
 
+  /* דו-טור: טקסט מימין, כרטיסי האירועים ב-2x2 משמאל — במקום שורת כרטיסים
+     דקה מתחת לטקסט שמשאירה חצי מהרוחב ריק, כמו ב-.story-grid */
+  .events-body {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(2.5rem, 5vw, 4rem);
+    align-items: start;
+  }
+
   .event-cards {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: clamp(1.25rem, 2vw, 2rem);
-    margin-block-start: clamp(2.5rem, 5vw, 4rem);
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(1rem, 1.6vw, 1.5rem);
   }
 
   .slot-2,
   .slot-4 {
-    transform: translateY(2.5rem);
+    transform: translateY(1.75rem);
   }
 
   /* ===== קולינריה ===== */
@@ -865,12 +873,11 @@ const galleryImages = [
   }
 
   @media (max-width: 1024px) {
-    .event-cards {
-      grid-template-columns: repeat(2, 1fr);
+    .events-body {
+      grid-template-columns: 1fr;
     }
-    .slot-2,
-    .slot-4 {
-      transform: translateY(1.5rem);
+    .event-cards {
+      margin-block-start: clamp(2rem, 4vw, 3rem);
     }
     .stats {
       grid-template-columns: repeat(2, 1fr);
