@@ -58,10 +58,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       import { initReveal } from '../scripts/reveal';
       import { initAnimations } from '../scripts/animations';
       import { initLightbox } from '../scripts/lightbox';
+      import { initLeadGuard } from '../scripts/lead-guard';
       // reveal.ts קודם: הוא זה שקובע אם [data-animate] יוסתר בכלל
       initReveal();
       initAnimations();
       initLightbox();
+      // בכל עמוד, גם בלי טופס — ייתכן שממתינה פנייה מביקור קודם שנכשל
+      initLeadGuard();
     </script>
   </body>
 </html>
