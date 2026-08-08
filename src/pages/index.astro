@@ -13,16 +13,33 @@ import { testimonials as allTestimonials } from '../data/testimonials';
 /* המלצות בדף הבית: ציטוטים קצרים-בינוניים מתוך ההמלצות האמיתיות */
 const homeQuotes = allTestimonials.filter((t) => t.quote.length > 40 && t.quote.length < 260).slice(0, 6);
 
+/* ארבעת הכרטיסים האלה הם נקודת ההחלטה של המבקר — הוא בוחר מהם לאיזה עמוד
+   להיכנס. עד עכשיו כולם נשאו צילומי חלל ריק בלי אנשים ובלי שום סימן לסוג
+   האירוע, כולל venue-10 (סידור פרחים על עמוד חופה) על כרטיס עליה לתורה.
+   עכשיו כל כרטיס נושא צילום מהאירוע שהוא מוכר, ותואם את ההירו של עמוד היעד
+   כדי שהמבקר יזהה שהגיע למקום הנכון.
+   הכרטיס נחתך ל-3:4 לאורך עם קשת בראש, ולכן כולם נבחרו לפי איך שהם נראים
+   בחיתוך הזה ולא בפריים המלא. */
 const eventTypes = [
-  { title: 'חתונות', href: '/weddings-bistro-de-carmel/', image: '/images/gallery/venue/venue-06.jpg' },
-  /* בר מצווה קיבל בעבר את venue-08 — כמעט אותה תמונה כמו venue-09 של בת מצווה.
-     venue-21 (אירוע ערב בתאורה חגיגית) מפריד בין שני הכרטיסים. */
-  { title: 'בר מצווה', href: '/בר-מצווה-בביסטרו-דה-כרמל/', image: '/images/gallery/venue/venue-21.jpg' },
-  { title: 'בת מצווה', href: '/בת-מצווה-בביסטרו-דה-כרמל/', image: '/images/gallery/venue/venue-09.jpg' },
+  {
+    title: 'חתונות',
+    href: '/weddings-bistro-de-carmel/',
+    image: '/images/gallery/weddings/wed-01.jpg', // כניסת החתן והכלה בזיקוקים
+  },
+  {
+    title: 'בר מצווה',
+    href: '/בר-מצווה-בביסטרו-דה-כרמל/',
+    image: '/images/gallery/bar-bat-mitzvah/bm-02.jpg', // הילד בכניסה עם המתופפים
+  },
+  {
+    title: 'בת מצווה',
+    href: '/בת-מצווה-בביסטרו-דה-כרמל/',
+    image: '/images/gallery/bar-bat-mitzvah/bm-04.jpg', // הילדה על המדרגות תחת קשת הבלונים
+  },
   {
     title: 'הפקת עליה לתורה',
     href: '/חוגגים-עלייה-לתורה-ובר-מצווה-בזכרון-יע/',
-    image: '/images/gallery/venue/venue-10.jpg',
+    image: '/images/gallery/aliyah/aliyah-01.jpg', // התהלוכה במדרחוב עם המשפחה
   },
 ];
 
