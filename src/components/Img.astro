@@ -1,0 +1,88 @@
+---
+/**
+ * עטיפה ל-<Image> של Astro שמקבלת נתיב-מחרוזת בסגנון public.
+ *
+ * למה זה קיים: תמונות הגלריה מגיעות ממערכים ומ-props (`galleryImages`,
+ * `EventTypeCard`, `GalleryGrid`...), ו-<Image> של Astro דורש אובייקט
+ * ImageMetadata מ-import סטטי — אי אפשר להעביר לו מחרוזת. import.meta.glob
+ * טוען את כל המטא-דאטה מראש, ואז אפשר להמשיך לעבוד עם נתיבים כמו קודם
+ * ולקבל בכל זאת WebP + srcset.
+ *
+ * מה זה פותר בפועל: הקבצים במקור הם 1920px JPEG, אבל גריד הגלריה מצייר
+ * אותם בתאים של ~300px. הדפדפן הוריד פי 6 פיקסלים ממה שהוצג, ובפורמט
+ * שכבד ב-60-70% מ-WebP. דף הבית שקל 14MB.
+ *
+ * decor/ ו-textures/ נשארו ב-public/ בכוונה — ה-CSS מפנה אליהם ב-url(),
+ * ושם אין דרך לעבור דרך הפייפליין של Astro.
+ */
+import { Image, getImage } from 'astro:assets';
+
+interface Props {
+  /** נתיב בסגנון public, למשל "/images/gallery/venue/venue-13.jpg" */
+  src: string;
+  alt: string;
+  /** רוחב התצוגה בפועל לפי breakpoint — קובע איזה קובץ הדפדפן יוריד */
+  sizes?: string;
+  widths?: number[];
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  src,
+  alt,
+  sizes = '(max-width: 900px) 50vw, 25vw',
+  widths = [320, 480, 640, 960],
+  loading = 'lazy',
+  fetchpriority,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/images/**/*.{jpg,jpeg,png,webp,avif}',
+  { eager: true }
+);
+
+const key = `/src/assets/images${src.replace(/^\/images/, '')}`;
+const found = images[key];
+
+if (!found) {
+  /* נכשל בזמן בנייה ולא בשקט בזמן ריצה — תמונה חסרה היא באג, לא אזהרה */
+  throw new Error(
+    `<Img>: לא נמצאה תמונה עבור "${src}" (חיפשתי ב-"${key}"). ` +
+      `ודא שהקובץ יושב תחת src/assets/images/ ולא ב-public/images/.`
+  );
+}
+
+const image = found.default;
+
+/* ה-lightbox פותח את התמונה בגודל מלא. אחרי srcset ה-src מצביע על וריאנט
+   קטן ומטושטש במסך מלא, אז שומרים גודל מלא ב-data-full ו-lightbox.ts
+   מעדיף אותו.
+   לא מצביעים על ה-JPEG המקורי (~750KB): 1600px ב-WebP נראה זהה על מסך
+   ושוקל כחמישית. הווריאנט נוצר בזמן בנייה, ונטען רק אם מישהו באמת פותח. */
+const full = (
+  await getImage({
+    src: image,
+    width: Math.min(image.width, 1600),
+    format: 'webp',
+    quality: 82,
+  })
+).src;
+---
+
+<Image
+  src={image}
+  alt={alt}
+  sizes={sizes}
+  widths={widths}
+  format="webp"
+  loading={loading}
+  fetchpriority={fetchpriority}
+  class={className}
+  data-full={full}
+  {...rest}
+/>

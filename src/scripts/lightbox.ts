@@ -21,8 +21,12 @@ export function initLightbox() {
 
   const show = (i: number) => {
     idx = (i + current.length) % current.length;
-    imgEl.src = current[idx].src;
-    imgEl.alt = current[idx].alt || '';
+    /* בגריד התמונות מוגשות ב-srcset, כך ש-.src מצביע על וריאנט קטן
+       (320-640px) שייראה מטושטש במסך מלא. <Img> שומר את הנתיב לגודל
+       המלא ב-data-full; הנפילה ל-.src מכסה <img> רגיל בלי המאפיין. */
+    const img = current[idx];
+    imgEl.src = img.dataset.full || img.src;
+    imgEl.alt = img.alt || '';
   };
 
   const open = (imgs: HTMLImageElement[], i: number) => {

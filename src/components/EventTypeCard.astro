@@ -1,4 +1,6 @@
 ---
+import Img from './Img.astro';
+
 interface Props {
   title: string;
   href: string;
@@ -12,7 +14,14 @@ const num = String(index).padStart(2, '0');
 
 <a class="event-card" href={href}>
   <div class="frame">
-    <img src={image} alt={title} loading="lazy" width="480" height="620" />
+    {/* 4 עמודות בדסקטופ (~280px), 2 בטאבלט, עמודה מלאה במובייל */}
+    <Img
+      src={image}
+      alt={title}
+      sizes="(max-width: 560px) 92vw, (max-width: 900px) 46vw, 24vw"
+      widths={[320, 480, 640]}
+      loading="lazy"
+    />
   </div>
   <div class="meta">
     <span class="num" aria-hidden="true">{num}</span>

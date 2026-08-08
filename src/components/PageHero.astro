@@ -1,4 +1,6 @@
 ---
+import Img from './Img.astro';
+
 interface Props {
   eyebrow: string;
   /** תומך ב-<strong> להדגשה */
@@ -27,7 +29,17 @@ const { eyebrow, title, sub, image } = Astro.props;
         </div>
         <div class="page-hero-media">
           <div class="page-hero-media-inner">
-            <img src={image} alt="" aria-hidden="true" fetchpriority="high" />
+            {/* חצי מסך בדסקטופ, רוחב מלא במובייל. eager + fetchpriority
+                כי זו תמונת ה-LCP של העמודים הפנימיים. */}
+            <Img
+              src={image!}
+              alt=""
+              aria-hidden="true"
+              sizes="(max-width: 900px) 100vw, 50vw"
+              widths={[640, 960, 1280, 1600]}
+              loading="eager"
+              fetchpriority="high"
+            />
           </div>
         </div>
       </div>

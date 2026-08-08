@@ -1,4 +1,6 @@
 ---
+import Img from './Img.astro';
+
 interface Props {
   images: string[];
   altPrefix: string;
@@ -22,8 +24,15 @@ const { images, altPrefix, eyebrow, title } = Astro.props;
     <div class="gallery-section-grid" data-animate="stagger">
       {
         images.map((src, i) => (
+          /* 4 עמודות בדסקטופ, 2 מתחת ל-900px */
           <div class="gallery-section-item">
-            <img src={src} alt={`${altPrefix} - תמונה ${i + 1}`} loading="lazy" />
+            <Img
+              src={src}
+              alt={`${altPrefix} - תמונה ${i + 1}`}
+              sizes="(max-width: 900px) 50vw, 25vw"
+              widths={[320, 480, 640, 960]}
+              loading="lazy"
+            />
           </div>
         ))
       }

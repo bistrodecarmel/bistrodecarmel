@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import LocalBusinessSchema from '../components/LocalBusinessSchema.astro';
 import EventTypeCard from '../components/EventTypeCard.astro';
+import Img from '../components/Img.astro';
 import TestimonialCard from '../components/TestimonialCard.astro';
 import MarqueeStrip from '../components/MarqueeStrip.astro';
 import CtaBand from '../components/CtaBand.astro';
@@ -79,7 +80,9 @@ const foodGallery = [
 >
   <Fragment slot="head">
     <LocalBusinessSchema />
-    <link rel="preload" as="image" href="/images/atmosphere/hero-sparklers.jpg" />
+    {/* אין preload להירו: התמונה עברה לפייפליין של Astro ומוגשת ב-srcset,
+        כך שנתיב קבוע אחד היה מוריד את הקובץ הלא נכון (ולרוב קובץ שני מיותר).
+        loading="eager" + fetchpriority="high" על <Img> נותנים את אותה עדיפות. */}
   </Fragment>
 
   <Header />
@@ -115,9 +118,13 @@ const foodGallery = [
 
         <div class="hero-media">
           <div class="hero-media-inner" data-parallax="50">
-            <img
+            {/* תמונת ה-LCP של דף הבית — eager, בלי lazy, בעדיפות גבוהה */}
+            <Img
               src="/images/atmosphere/hero-sparklers.jpg"
               alt="כניסת זוג לאולם ביסטרו דה כרמל בליווי מזרקות זיקוקים, אורחים מריעים משני הצדדים"
+              sizes="(max-width: 900px) 100vw, 58vw"
+              widths={[640, 960, 1280, 1600, 1920]}
+              loading="eager"
               fetchpriority="high"
             />
           </div>
@@ -156,18 +163,22 @@ const foodGallery = [
         </div>
         <div class="story-media collage" data-animate="fade-up">
           <div class="collage-main arch" data-parallax="26">
-            <img
+            <Img
               src="/images/gallery/venue/venue-15.jpg"
               alt="חלל האירועים של ביסטרו דה כרמל — קירות אבן, שולחנות עץ וכיסאות וינטאז'"
+              sizes="(max-width: 900px) 92vw, 42vw"
+              widths={[480, 720, 960, 1280]}
               loading="lazy"
             />
           </div>
           <!-- הקופסה הזו היא ריבוע של ~207px עם object-fit: cover, ולכן צריכה מנה
                עם מרכז ברור וצבע חזק. לחם הטאבון נחתך כאן לגוש בז' חסר עניין. -->
           <div class="collage-secondary" data-parallax="54">
-            <img
+            <Img
               src="/images/gallery/culinary/food-mezze-bowl.jpg"
               alt="מנת פתיחה צבעונית מתפריט השף של ביסטרו דה כרמל"
+              sizes="(max-width: 900px) 40vw, 210px"
+              widths={[240, 360, 480]}
               loading="lazy"
             />
           </div>
@@ -234,7 +245,14 @@ const foodGallery = [
     <!-- ===== קולינריה ===== -->
     <section id="food" class="food section-dark">
       <div class="food-bg" data-parallax="80">
-        <img src="/images/gallery/culinary/food-saj-meat.jpg" alt="" aria-hidden="true" loading="lazy" />
+        <Img
+          src="/images/gallery/culinary/food-saj-meat.jpg"
+          alt=""
+          aria-hidden="true"
+          sizes="100vw"
+          widths={[960, 1440, 1920]}
+          loading="lazy"
+        />
       </div>
       <div class="food-content container">
         <p class="eyebrow" data-animate="fade-up">03 &middot; קולינריה</p>
@@ -247,14 +265,29 @@ const foodGallery = [
           האנין, מייצרים חווית אירוע קולינרית חד פעמית ובלתי נשכחת.
         </p>
         <div class="food-gallery" data-animate="stagger" data-lightbox>
-          {foodGallery.map((f) => <img src={f.src} alt={f.alt} loading="lazy" />)}
+          {foodGallery.map((f) => (
+            <Img
+              src={f.src}
+              alt={f.alt}
+              sizes="(max-width: 560px) 46vw, (max-width: 900px) 46vw, 22vw"
+              widths={[240, 360, 480, 720]}
+              loading="lazy"
+            />
+          ))}
         </div>
       </div>
     </section>
 
     <!-- חוצץ אקוורל — כרמים בשעת זהב (איור, לא צילום) -->
     <div class="watercolor-band" aria-hidden="true">
-      <img src="/images/decor/vineyard-watercolor.jpg" alt="" loading="lazy" data-parallax="50" />
+      <Img
+        src="/images/decor/vineyard-watercolor.jpg"
+        alt=""
+        sizes="100vw"
+        widths={[960, 1440, 1920]}
+        loading="lazy"
+        data-parallax="50"
+      />
     </div>
 
     <!-- ===== המלצות ===== -->
@@ -289,7 +322,13 @@ const foodGallery = [
           {
             galleryImages.map((img) => (
               <div class={`gallery-item ${img.span}`}>
-                <img src={img.src} alt={img.alt} loading="lazy" />
+                <Img
+                  src={img.src}
+                  alt={img.alt}
+                  sizes={img.span === 'wide' ? '(max-width: 900px) 100vw, 50vw' : '(max-width: 900px) 50vw, 25vw'}
+                  widths={[320, 480, 640, 960]}
+                  loading="lazy"
+                />
               </div>
             ))
           }

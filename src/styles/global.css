@@ -62,8 +62,8 @@
   --section-pad: clamp(4.5rem, 9vw, 8rem);
 
   /* טקסטורות (מופשטות בלבד) */
-  --texture-stone: url('/images/textures/stone-cream.jpg');
-  --texture-linen-dark: url('/images/textures/linen-olive.jpg');
+  --texture-stone: url('/images/textures/stone-cream.webp');
+  --texture-linen-dark: url('/images/textures/linen-olive.webp');
 }
 
 *,
@@ -165,6 +165,13 @@ a {
 img {
   max-width: 100%;
   display: block;
+  /* height: auto חובה מאז שהתמונות עוברות דרך <Image> של Astro: הוא פולט
+     width ו-height כמאפייני HTML (נכון — זה מונע קפיצת לייאאוט בטעינה),
+     אבל מאפיין height גובר על aspect-ratio ב-CSS. בלי השורה הזו כל כלל
+     שנשען על aspect-ratio בלבד — גלריית הקולינריה, הקולאז' — נמתח לגובה
+     המקורי של הקובץ במקום להישאר ריבוע.
+     כללים שרוצים height: 100% (למשל .gallery-item img) גוברים בספציפיות. */
+  height: auto;
 }
 
 ul {
@@ -692,7 +699,7 @@ html.reveal-ready [data-animate="stagger"] > *.is-visible {
   content: '';
   position: absolute;
   inset: 0;
-  background: url('/images/decor/pattern-leaves.jpg') center / 420px repeat;
+  background: url('/images/decor/pattern-leaves.webp') center / 420px repeat;
   opacity: 0.25;
   mix-blend-mode: multiply;
   pointer-events: none;

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
+import Img from '../components/Img.astro';
 import Footer from '../components/Footer.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
@@ -58,7 +59,14 @@ for (let i = 0; i < testimonials.length; i += GROUP_SIZE) {
     </section>
 
     <div class="watercolor-band on-light" aria-hidden="true">
-      <img src="/images/decor/vineyard-watercolor.jpg" alt="" loading="lazy" data-parallax="50" />
+      <Img
+        src="/images/decor/vineyard-watercolor.jpg"
+        alt=""
+        sizes="100vw"
+        widths={[960, 1440, 1920]}
+        loading="lazy"
+        data-parallax="50"
+      />
     </div>
 
     <CtaBand instanceId="testimonials" />
