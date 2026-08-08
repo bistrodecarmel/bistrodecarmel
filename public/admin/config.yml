@@ -1,0 +1,79 @@
+# ממשק ניהול התוכן — Sveltia CMS
+#
+# איך זה עובד: עריכה בממשק יוצרת קומיט בגיטהאב, נטליפיי מזהה ובונה, והשינוי
+# עולה לאוויר תוך דקות. אין מסד נתונים ואין שרת — התוכן הוא קבצים בריפו,
+# ולכן גם מגורסא: אפשר לחזור אחורה מכל טעות עם git revert.
+#
+# שלב זה הוא ספייק מכוון: מחובר רק לקולקציית הבלוג שכבר קיימת, כדי לאמת
+# אימות, עברית/RTL והלולאה המלאה — לפני שמשקיעים בחילוץ שאר התוכן מהקוד.
+
+backend:
+  name: github
+  repo: bistrodecarmel/bistrodecarmel
+  branch: main
+
+# תמונות שמועלות מתוך עורך הטקסט נכנסות ל-public/, לא ל-src/assets/.
+#
+# למה דווקא ככה, למרות שזה מוותר על אופטימיזציה: תמונה שמוטמעת בגוף מאמר
+# נכתבת ב-markdown כ-![](/images/uploads/x.jpg). Astro לא מעבד נתיבים
+# מוחלטים ב-markdown — הוא מגיש אותם as-is מ-public/. אם התיקייה הייתה
+# תחת src/assets/, הקובץ פשוט לא היה קיים בכתובת הזו והתמונה הייתה
+# מחזירה 404. הרכיב <Img> פותר את המיפוי הזה, אבל הוא לא רץ על גוף מאמר.
+#
+# בשלבים הבאים, שדות תמונה *מובנים* (תמונת נושא, מנה בתפריט, גלריה) יקבלו
+# media_folder ייעודי ברמת השדה שמצביע ל-src/assets/images/ — שם <Img> כן
+# מרנדר, ושם האופטימיזציה באמת נדרשת.
+media_folder: public/images/uploads
+public_folder: /images/uploads
+
+# עברית
+locale: he
+
+collections:
+  - name: blog
+    label: מאמרים ובלוג
+    label_singular: מאמר
+    folder: src/content/blog
+    extension: md
+    format: frontmatter
+    create: true
+    # שם הקובץ. ה-slug בעברית נשמר כשדה נפרד בתוך הקובץ ולא כשם הקובץ —
+    # ככה זה בנוי היום, ואסור לשנות את זה: [slug].astro מייצר את הנתיבים
+    # מהשדה, וה-slugs זהים לאתר הוורדפרס הישן לצורך שימור דירוגי SEO.
+    slug: '{{year}}-{{month}}-{{day}}-{{fields.title}}'
+    summary: '{{title}}'
+    sortable_fields: ['title', 'kind']
+    fields:
+      - label: כותרת
+        name: title
+        widget: string
+        hint: הכותרת שמופיעה בראש המאמר ובעמוד הבלוג
+
+      - label: כתובת העמוד (slug)
+        name: slug
+        widget: string
+        hint: >-
+          אזהרה: שינוי הערך הזה במאמר קיים שובר את הקישור ומאבד את הדירוג
+          שלו בגוגל. במאמר חדש — לכתוב בעברית עם מקפים במקום רווחים.
+
+      - label: כותרת לגוגל (Meta Title)
+        name: metaTitle
+        widget: string
+        hint: מה שמופיע ככותרת בתוצאות החיפוש. עד ~60 תווים.
+
+      - label: תיאור לגוגל (Meta Description)
+        name: description
+        widget: text
+        hint: הטקסט מתחת לכותרת בתוצאות החיפוש. עד ~155 תווים.
+
+      - label: סוג העמוד
+        name: kind
+        widget: select
+        options:
+          - { label: 'מאמר רגיל', value: 'article' }
+          - { label: 'עמוד נחיתה', value: 'landing' }
+        default: 'article'
+
+      - label: תוכן
+        name: body
+        widget: markdown
