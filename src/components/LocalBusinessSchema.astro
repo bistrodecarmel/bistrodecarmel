@@ -1,16 +1,22 @@
 ---
+/* הקובץ הזה היה היחיד שקידד את הדומיין בקשיחות, בזמן שכל שאר הכתובות
+   המוחלטות באתר נגזרות מ-`site` שבקונפיג. התוצאה: כשהאתר רץ על
+   netlify.app, הסכימה עדיין הצהירה על הדומיין הישן — כולל תמונה שמחזירה
+   404. עכשיו הכל נגזר מאותו מקור אחד. */
+const base = Astro.site!;
+
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'EventVenue',
-  '@id': 'https://bistrodecarmel.co.il/#business',
+  '@id': new URL('/#business', base).href,
   name: 'ביסטרו דה כרמל',
   alternateName: 'Bistro de Carmel',
   description:
     'אולם אירועים בוטיק במבנה אבן היסטורי מהמאה ה-19 בזכרון יעקב, לחתונות, בר/בת מצווה, הפקת עליה לתורה, ברית ואירועים עסקיים, עד 250 אורחים.',
-  url: 'https://bistrodecarmel.co.il/',
+  url: new URL('/', base).href,
   telephone: '+972-55-431-6261',
   priceRange: '₪₪₪',
-  image: 'https://bistrodecarmel.co.il/og-default.jpg',
+  image: new URL('/og-default.jpg', base).href,
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'רחוב היין 20',
