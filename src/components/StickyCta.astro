@@ -1,0 +1,441 @@
+---
+/**
+ * פס פעולה קבוע בתחתית המסך + טופס בחלון קופץ.
+ *
+ * שלוש החלטות שמסבירות את הקוד:
+ *
+ * 1. הפס לא מופיע מיד. הוא עולה רק אחרי שהמבקר גלל מעבר לאזור הפתיחה —
+ *    פס שקופץ על מישהו שעוד לא ראה כלום הוא הפרעה, לא הזמנה.
+ *
+ * 2. הפס נסוג כשקטע "צור קשר" נמצא על המסך. אחרת הוא מכסה בדיוק את הטופס
+ *    שהוא מנסה להוביל אליו, ומציע פעם שנייה משהו שכבר פתוח מול העיניים.
+ *
+ * 3. החלון הקופץ הוא <dialog> אמיתי ולא div. הדפדפן נותן בחינם מלכודת
+ *    פוקוס, סגירה ב-Esc, הסתרת הרקע מקוראי מסך ו-::backdrop. גרסה
+ *    ידנית של זה תמיד יוצאת פחות נגישה ועם יותר קוד.
+ */
+import LeadForm from './LeadForm.astro';
+---
+
+<div class="sticky-cta" id="sticky-cta" data-sticky-cta hidden>
+  <div class="sticky-cta-inner">
+    <p class="sticky-cta-pitch">
+      <span class="sticky-cta-mark" aria-hidden="true"></span>
+      <span class="sticky-cta-lead">מתכננים אירוע?</span>
+      <span class="sticky-cta-sub">אירועי בוטיק ל-70 עד 250 אורחים בזכרון יעקב</span>
+    </p>
+
+    <div class="sticky-cta-actions">
+      <a class="sticky-cta-phone" href="tel:+972554316261">
+        <span class="sticky-cta-phone-icon" aria-hidden="true"></span>
+        <span class="sticky-cta-phone-label">חייגו אלינו</span>
+        <span class="sticky-cta-phone-number" dir="ltr">055-4316261</span>
+      </a>
+      <button type="button" class="btn btn-cta" data-cta-open>
+        לקבלת הצעה
+        <span class="btn-cta-arrow" aria-hidden="true">←</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<dialog class="cta-dialog" id="cta-dialog" aria-labelledby="cta-dialog-title">
+  <div class="cta-dialog-panel">
+    <button type="button" class="cta-dialog-close" data-cta-close aria-label="סגירת החלון">
+      <span aria-hidden="true">×</span>
+    </button>
+    <h2 class="cta-dialog-title" id="cta-dialog-title">נשמח לחזור אליכם</h2>
+    <LeadForm
+      heading=""
+      instanceId="sticky"
+      eventType={true}
+      source="פס תחתון קבוע"
+    />
+  </div>
+</dialog>
+
+<style>
+  /* ===== הפס ===== */
+  .sticky-cta {
+    position: fixed;
+    inset-block-end: 0;
+    inset-inline: 0;
+    z-index: 60;
+    background:
+      linear-gradient(
+        color-mix(in srgb, var(--color-olive-deep) 95%, transparent),
+        color-mix(in srgb, var(--color-olive-deep) 95%, transparent)
+      ),
+      var(--texture-linen-dark) center / cover;
+    border-block-start: 1px solid color-mix(in srgb, var(--color-bronze-line) 55%, transparent);
+    box-shadow: 0 -10px 34px rgba(34, 39, 30, 0.22);
+    /* מוסתר עד שגוללים; ה-transform הוא מה שמונפש */
+    transform: translateY(100%);
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    /* מכשירים עם notch בתחתית */
+    padding-block-end: env(safe-area-inset-bottom, 0);
+  }
+
+  .sticky-cta.is-visible {
+    transform: translateY(0);
+  }
+
+  .sticky-cta-inner {
+    max-width: 1240px;
+    margin-inline: auto;
+    padding: 0.85rem clamp(1rem, 4vw, 2.5rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  /* ===== הטקסט ===== */
+  .sticky-cta-pitch {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    margin: 0;
+    min-width: 0;
+  }
+
+  /* מעוין זעיר — אותו סימן שחוזר ב-eyebrow לאורך האתר */
+  .sticky-cta-mark {
+    flex: none;
+    width: 6px;
+    height: 6px;
+    transform: rotate(45deg);
+    background: var(--color-bronze-on-dark);
+    align-self: center;
+  }
+
+  .sticky-cta-lead {
+    font-family: var(--font-display, inherit);
+    font-size: 1.08rem;
+    font-weight: 700;
+    color: var(--color-on-dark);
+    white-space: nowrap;
+  }
+
+  .sticky-cta-sub {
+    font-size: 0.9rem;
+    color: var(--color-on-dark-soft);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* ===== הפעולות ===== */
+  .sticky-cta-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    flex: none;
+  }
+
+  .sticky-cta-phone {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    text-decoration: none;
+    color: var(--color-on-dark-soft);
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.5rem 0.2rem;
+    transition: color 0.2s ease;
+  }
+
+  .sticky-cta-phone:hover {
+    color: var(--color-bronze-on-dark);
+  }
+
+  .sticky-cta-phone-icon {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--color-bronze-on-dark);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-bronze-on-dark) 22%, transparent);
+  }
+
+  .sticky-cta-phone-label {
+    display: none;
+  }
+
+  .sticky-cta-phone-number {
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+
+  /* הכפתור: ברונזה מלאה על הכהה — הדבר הבהיר ביותר בפס, ולכן מה שהעין
+     נוחתת עליו קודם */
+  .btn-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 0;
+    cursor: pointer;
+    background: var(--color-bronze-on-dark);
+    color: var(--color-olive-deep);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0.78rem 1.5rem;
+    border-radius: var(--radius-md);
+    white-space: nowrap;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .btn-cta:hover {
+    background: var(--color-on-dark);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  }
+
+  .btn-cta:focus-visible {
+    outline: 2px solid var(--color-on-dark);
+    outline-offset: 3px;
+  }
+
+  .btn-cta-arrow {
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .btn-cta:hover .btn-cta-arrow {
+    transform: translateX(-3px); /* RTL: החץ מצביע שמאלה, אז "קדימה" זה שמאלה */
+  }
+
+  /* ===== מובייל ===== */
+  @media (max-width: 760px) {
+    .sticky-cta-inner {
+      padding: 0.6rem 0.8rem;
+      gap: 0.6rem;
+    }
+
+    /* במובייל אין מקום למשפט השיווקי — הפעולות עצמן הן המסר */
+    .sticky-cta-pitch {
+      display: none;
+    }
+
+    .sticky-cta-actions {
+      flex: 1;
+      gap: 0.6rem;
+    }
+
+    /* שתי פעולות שוות: להתקשר זו לא פחות המרה מלהשאיר פרטים,
+       ובנייד היא לרוב המהירה מבין השתיים */
+    .sticky-cta-phone {
+      flex: 1;
+      justify-content: center;
+      gap: 0.4rem;
+      min-height: 3rem;
+      border: 1px solid color-mix(in srgb, var(--color-bronze-on-dark) 45%, transparent);
+      border-radius: var(--radius-md);
+      color: var(--color-on-dark);
+    }
+
+    .sticky-cta-phone-label {
+      display: inline;
+      font-weight: 700;
+    }
+
+    .sticky-cta-phone-number {
+      display: none;
+    }
+
+    .btn-cta {
+      flex: 1;
+      justify-content: center;
+      min-height: 3rem;
+      padding-inline: 0.9rem;
+    }
+  }
+
+  /* ===== החלון הקופץ ===== */
+  .cta-dialog {
+    border: 0;
+    padding: 0;
+    background: transparent;
+    max-width: min(430px, calc(100vw - 2rem));
+    width: 100%;
+    max-height: calc(100dvh - 2rem);
+    overflow: visible;
+    margin: auto;
+  }
+
+  .cta-dialog::backdrop {
+    background: color-mix(in srgb, var(--color-olive-deep) 74%, transparent);
+    backdrop-filter: blur(3px);
+  }
+
+  .cta-dialog-panel {
+    position: relative;
+    max-height: calc(100dvh - 2rem);
+    overflow-y: auto;
+    border-radius: var(--radius-lg);
+  }
+
+  .cta-dialog-title {
+    /* הכותרת יושבת על כרטיס הטופס עצמו, ולכן צריכה את אותו רקע בהיר */
+    margin: 0;
+    padding: 1.6rem 1.9rem 0;
+    background: var(--color-white);
+    border: 1px solid var(--color-ivory-deep);
+    border-block-end: 0;
+    border-start-start-radius: var(--radius-lg);
+    border-start-end-radius: var(--radius-lg);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--color-ink);
+  }
+
+  .cta-dialog-close {
+    position: absolute;
+    inset-block-start: 0.7rem;
+    inset-inline-end: 0.7rem;
+    z-index: 2;
+    width: 2.2rem;
+    height: 2.2rem;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--color-muted);
+    font-size: 1.7rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .cta-dialog-close:hover {
+    background: var(--color-ivory);
+    color: var(--color-ink);
+  }
+
+  .cta-dialog-close:focus-visible {
+    outline: 2px solid var(--color-bronze-text);
+    outline-offset: 2px;
+  }
+
+  /* הטופס בתוך החלון ממשיך את הכרטיס שמתחת לכותרת, בלי פינות כפולות */
+  .cta-dialog-panel :global(.lead-form) {
+    max-width: none;
+    box-shadow: none;
+    border-start-start-radius: 0;
+    border-start-end-radius: 0;
+    border-block-start: 0;
+    padding-block-start: 0.9rem;
+  }
+
+  /* כניסה: החלון עולה מעט ומתבהר. ::backdrop מונפש בנפרד — הוא לא ילד
+     של הדיאלוג ולכן לא יורש ממנו אנימציה. */
+  .cta-dialog[open] {
+    animation: cta-dialog-in 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .cta-dialog[open]::backdrop {
+    animation: cta-backdrop-in 0.32s ease;
+  }
+
+  @keyframes cta-dialog-in {
+    from {
+      opacity: 0;
+      transform: translateY(14px) scale(0.985);
+    }
+  }
+
+  @keyframes cta-backdrop-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sticky-cta {
+      transition: none;
+    }
+    .cta-dialog[open],
+    .cta-dialog[open]::backdrop {
+      animation: none;
+    }
+    .btn-cta,
+    .btn-cta-arrow {
+      transition: none;
+    }
+  }
+
+  /* בלי JS אין מי שיפתח את החלון, אז אין טעם להציג את הפס */
+  :global(html:not(.has-js)) .sticky-cta {
+    display: none;
+  }
+</style>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-sticky-cta]');
+  const dialog = document.querySelector<HTMLDialogElement>('#cta-dialog');
+
+  if (bar && dialog) {
+    bar.hidden = false;
+
+    /* --- מתי הפס מוצג --- */
+    const SHOW_AFTER = 620; // בערך גובה אזור הפתיחה
+    let contactOnScreen = false;
+    let scrolledEnough = false;
+
+    const sync = () => {
+      bar.classList.toggle('is-visible', scrolledEnough && !contactOnScreen);
+    };
+
+    const onScroll = () => {
+      const past = window.scrollY > SHOW_AFTER;
+      if (past !== scrolledEnough) {
+        scrolledEnough = past;
+        sync();
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    /* קטע "צור קשר" קיים רק בעמודים מסוימים; היעדרו פשוט אומר
+       שאין מה להתנגש איתו. IntersectionObserver ולא חישוב מיקום בגלילה,
+       באותו נימוק שמופיע ב-reveal.ts. */
+    const contact = document.querySelector('#contact');
+    if (contact) {
+      new IntersectionObserver(
+        ([entry]) => {
+          contactOnScreen = entry.isIntersecting;
+          sync();
+        },
+        { threshold: 0.12 }
+      ).observe(contact);
+    }
+
+    /* --- פתיחה וסגירה --- */
+    const open = () => {
+      dialog.showModal();
+      /* הפוקוס נוחת כברירת מחדל על כפתור הסגירה, שזו נחיתה עגומה.
+         מעבירים אותו לשדה הראשון כדי שאפשר יהיה פשוט להתחיל להקליד. */
+      dialog.querySelector<HTMLInputElement>('input[name="name"]')?.focus();
+    };
+
+    document
+      .querySelectorAll<HTMLElement>('[data-cta-open]')
+      .forEach((el) => el.addEventListener('click', open));
+
+    document
+      .querySelectorAll<HTMLElement>('[data-cta-close]')
+      .forEach((el) => el.addEventListener('click', () => dialog.close()));
+
+    /* קליק על הרקע סוגר. <dialog> לא נותן את זה בעצמו: האירוע נרשם על
+       הדיאלוג גם כשלוחצים על ה-::backdrop, אז בודקים אם נקודת הלחיצה
+       נמצאת מחוץ לגבולות הפאנל. */
+    dialog.addEventListener('click', (e) => {
+      const panel = dialog.querySelector('.cta-dialog-panel');
+      if (!panel || e.target !== dialog) return;
+      const r = panel.getBoundingClientRect();
+      const outside =
+        e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom;
+      if (outside) dialog.close();
+    });
+  }
+</script>

@@ -1,14 +1,24 @@
 ---
 import '../styles/global.css';
 
+import StickyCta from '../components/StickyCta.astro';
+
 interface Props {
   title: string;
   description: string;
   ogImage?: string;
   noindex?: boolean;
+  /** כיבוי הפס הקבוע — לעמודים שבהם הוא מיותר או מטריד */
+  stickyCta?: boolean;
 }
 
-const { title, description, ogImage = '/og-default.jpg', noindex = false } = Astro.props;
+const {
+  title,
+  description,
+  ogImage = '/og-default.jpg',
+  noindex = false,
+  stickyCta = true,
+} = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
@@ -43,6 +53,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   </head>
   <body>
     <slot />
+    {stickyCta && <StickyCta />}
     <script>
       import { initReveal } from '../scripts/reveal';
       import { initAnimations } from '../scripts/animations';

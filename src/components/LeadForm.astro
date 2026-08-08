@@ -3,9 +3,20 @@ interface Props {
   heading?: string;
   compact?: boolean;
   instanceId?: string;
+  /** מוסיף שדה "באיזה אירוע מדובר". כבוי כברירת מחדל כדי לא להאריך את
+      הטפסים הקיימים — להדליק בכל מופע שבו הפילוח שווה את השדה הנוסף. */
+  eventType?: boolean;
+  /** נשלח כשדה מוסתר, כדי לדעת מאיזה טופס באתר הגיע הליד. */
+  source?: string;
 }
 
-const { heading = 'השאירו פרטים ונחזור אליכם מיד', compact = false, instanceId = 'default' } = Astro.props;
+const {
+  heading = 'השאירו פרטים ונחזור אליכם מיד',
+  compact = false,
+  instanceId = 'default',
+  eventType = false,
+  source = 'טופס באתר',
+} = Astro.props;
 const idFor = (field: string) => `lead-${instanceId}-${field}`;
 ---
 
@@ -18,6 +29,7 @@ const idFor = (field: string) => `lead-${instanceId}-${field}`;
   action="/thank-you-page/"
 >
   <input type="hidden" name="form-name" value="lead" />
+  <input type="hidden" name="source" value={source} />
   <p class="hidden-field">
     <label>אל תמלאו שדה זה: <input name="bot-field" /></label>
   </p>
@@ -39,6 +51,26 @@ const idFor = (field: string) => `lead-${instanceId}-${field}`;
     <label for={idFor('guests')}>כמות מוזמנים <span class="hint">(החל מ-70)</span></label>
     <input id={idFor('guests')} name="guests" type="number" min="70" inputmode="numeric" />
   </div>
+
+  {
+    eventType && (
+      <div class="field">
+        <label for={idFor('event')}>באיזה אירוע אתם מתעניינים?</label>
+        <div class="select-wrap">
+          <select id={idFor('event')} name="eventType" required>
+            <option value="" disabled selected>
+              בחרו סוג אירוע
+            </option>
+            <option value="חתונה">חתונה</option>
+            <option value="בר מצווה">בר מצווה</option>
+            <option value="בת מצווה">בת מצווה</option>
+            <option value="אחר">אחר</option>
+          </select>
+          <span class="select-arrow" aria-hidden="true" />
+        </div>
+      </div>
+    )
+  }
 
   <label class="consent">
     <input type="checkbox" name="consent" required />
@@ -109,10 +141,53 @@ const idFor = (field: string) => `lead-${instanceId}-${field}`;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
 
-  .field input:focus {
+  .field input:focus,
+  .field select:focus {
     outline: none;
     border-color: var(--color-bronze-text);
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-bronze-line) 25%, transparent);
+  }
+
+  /* appearance:none מסיר את חץ ברירת המחדל של הדפדפן, שנראה זר מול שאר
+     השדות, ומחליף אותו בחץ בצבע הברונזה של האתר. המיקום נשאר בקצה השדה
+     (שמאל ב-RTL) — שם משתמשים מצפים למצוא אותו בכל תפריט נפתח. */
+  .select-wrap {
+    position: relative;
+  }
+
+  .field select {
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.6rem 0.85rem;
+    padding-inline-end: 2.4rem;
+    border: 1px solid var(--color-ivory-deep);
+    border-radius: var(--radius-sm);
+    background: var(--color-white);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: var(--color-ink);
+    appearance: none;
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  /* כל עוד לא נבחר ערך, הטקסט אפור כמו placeholder */
+  .field select:invalid {
+    color: var(--color-muted);
+  }
+
+  .select-arrow {
+    position: absolute;
+    inset-inline-end: 0.95rem;
+    inset-block-start: 50%;
+    width: 0.5rem;
+    height: 0.5rem;
+    /* צלעות פיזיות בכוונה ולא לוגיות: חץ שמצביע למטה מצביע למטה בכל כיוון
+       כתיבה. עם border-inline-end הפינה מתהפכת ב-RTL והחץ יוצא מצביע הצידה. */
+    border-right: 1.5px solid var(--color-bronze-text);
+    border-bottom: 1.5px solid var(--color-bronze-text);
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events: none;
   }
 
   .consent {
