@@ -14,7 +14,9 @@ const homeQuotes = allTestimonials.filter((t) => t.quote.length > 40 && t.quote.
 
 const eventTypes = [
   { title: 'חתונות', href: '/weddings-bistro-de-carmel/', image: '/images/gallery/venue/venue-06.jpg' },
-  { title: 'בר מצווה', href: '/בר-מצווה-בביסטרו-דה-כרמל/', image: '/images/gallery/venue/venue-08.jpg' },
+  /* בר מצווה קיבל בעבר את venue-08 — כמעט אותה תמונה כמו venue-09 של בת מצווה.
+     venue-21 (אירוע ערב בתאורה חגיגית) מפריד בין שני הכרטיסים. */
+  { title: 'בר מצווה', href: '/בר-מצווה-בביסטרו-דה-כרמל/', image: '/images/gallery/venue/venue-21.jpg' },
   { title: 'בת מצווה', href: '/בת-מצווה-בביסטרו-דה-כרמל/', image: '/images/gallery/venue/venue-09.jpg' },
   {
     title: 'הפקת עליה לתורה',
@@ -37,17 +39,37 @@ const stats: {
 ];
 
 
+/* גלריית המקום — מיזוג של צילומי האירועים הישנים (רגע, אנשים, תנועה) עם
+   סדרת הצילומים החדשה מאוגוסט 2026 (חלל, עריכת שולחן, פרטים).
+   12 פריטים, מתוכם 4 בפריסת span — יחד 16 תאים, כלומר 4 שורות מלאות בגריד
+   של 4 עמודות, בלי שורה קטומה בתחתית.
+   הערה: venue-11/12 הוסרו — הן היו בכלל תמונות אוכל שהוכנסו בטעות לתיקיית venue. */
 const galleryImages = [
-  { src: '/images/gallery/venue/venue-01.jpg', span: 'tall' },
-  { src: '/images/gallery/venue/venue-02.jpg', span: '' },
-  { src: '/images/gallery/venue/venue-03.jpg', span: '' },
-  { src: '/images/gallery/venue/venue-04.jpg', span: 'wide' },
-  { src: '/images/gallery/venue/venue-05.jpg', span: '' },
-  { src: '/images/gallery/venue/venue-07.jpeg', span: 'tall' },
-  { src: '/images/gallery/venue/venue-11.jpg', span: '' },
-  { src: '/images/gallery/venue/venue-12.jpg', span: 'wide' },
-  { src: '/images/gallery/venue/venue-06.jpg', span: '' },
-  { src: '/images/gallery/venue/venue-08.jpg', span: '' },
+  { src: '/images/gallery/venue/venue-13.jpg', span: 'wide', alt: 'אולם האירועים של ביסטרו דה כרמל ערוך לאירוע, באור יום' },
+  { src: '/images/gallery/venue/venue-19.jpg', span: 'tall', alt: 'סידור שולחן עם אשכול ענבים וכוס יין' },
+  { src: '/images/gallery/venue/venue-05.jpg', span: '', alt: 'כניסת החתן והכלה לאולם בזיקוקים' },
+  { src: '/images/gallery/venue/venue-14.jpg', span: '', alt: 'גרם המדרגות ההיסטורי מעוטר בבד לבן' },
+  { src: '/images/gallery/venue/venue-18.jpg', span: '', alt: 'פרט מקרוב: מנורת שולחן, סידור פרחים וכלי הגשה' },
+  { src: '/images/gallery/venue/venue-20.jpg', span: 'tall', alt: 'עץ הזית בחצר ביסטרו דה כרמל' },
+  { src: '/images/gallery/venue/venue-01.jpg', span: '', alt: 'טקס חופה בביסטרו דה כרמל' },
+  { src: '/images/gallery/venue/venue-22.jpg', span: 'wide', alt: 'שולחן ארוך ערוך באור רך מבעד לווילונות' },
+  { src: '/images/gallery/venue/venue-16.jpg', span: '', alt: 'סידור פרחים על עמוד עטוף בבד לבן' },
+  { src: '/images/gallery/venue/venue-17.jpg', span: '', alt: 'קונסולת קבלת פנים עם סידורי פרחים ומנורות' },
+  { src: '/images/gallery/venue/venue-06.jpg', span: '', alt: 'החצר החיצונית עם חביות היין' },
+  { src: '/images/gallery/venue/venue-21.jpg', span: '', alt: 'אירוע ערב באולם בתאורה חגיגית' },
+];
+
+/* קולינריה — סדרת צילומי האוכל המקצועית מאוגוסט 2026.
+   8 תמונות = שתי שורות מלאות בגריד הריבועי של 4 עמודות. */
+const foodGallery = [
+  { src: '/images/gallery/culinary/food-mezze-spread.jpg', alt: 'מבחר מנות מתפריט השף של ביסטרו דה כרמל' },
+  { src: '/images/gallery/culinary/food-hummus.jpg', alt: 'חומוס עם גרגירי חומוס ושמן זית' },
+  { src: '/images/gallery/culinary/food-focaccia.jpg', alt: 'לחם טאבון עם ירקות צלויים על קרש עץ' },
+  { src: '/images/gallery/culinary/food-carpaccio.jpg', alt: "קרפצ'יו בקר עם קרוטונים" },
+  { src: '/images/gallery/culinary/food-eggplant-tahini.jpg', alt: 'חציל צלוי בטחינה עם סלסת עגבניות' },
+  { src: '/images/gallery/culinary/food-tomato-salad.jpg', alt: 'סלט עגבניות ובזיליקום טרי' },
+  { src: '/images/gallery/culinary/food-rice-onion.jpg', alt: 'אורז עם בצל מקורמל' },
+  { src: '/images/gallery/culinary/food-root-vegetables.jpg', alt: 'ירקות שורש צלויים בסיר נחושת' },
 ];
 ---
 
@@ -135,15 +157,17 @@ const galleryImages = [
         <div class="story-media collage" data-animate="fade-up">
           <div class="collage-main arch" data-parallax="26">
             <img
-              src="/images/gallery/venue/venue-03.jpg"
+              src="/images/gallery/venue/venue-15.jpg"
               alt="חלל האירועים של ביסטרו דה כרמל — קירות אבן, שולחנות עץ וכיסאות וינטאז'"
               loading="lazy"
             />
           </div>
+          <!-- הקופסה הזו היא ריבוע של ~207px עם object-fit: cover, ולכן צריכה מנה
+               עם מרכז ברור וצבע חזק. לחם הטאבון נחתך כאן לגוש בז' חסר עניין. -->
           <div class="collage-secondary" data-parallax="54">
             <img
-              src="/images/gallery/culinary/food-02.jpg"
-              alt="מאפים טריים מהטאבון של ביסטרו דה כרמל"
+              src="/images/gallery/culinary/food-mezze-bowl.jpg"
+              alt="מנת פתיחה צבעונית מתפריט השף של ביסטרו דה כרמל"
               loading="lazy"
             />
           </div>
@@ -210,7 +234,7 @@ const galleryImages = [
     <!-- ===== קולינריה ===== -->
     <section id="food" class="food section-dark">
       <div class="food-bg" data-parallax="80">
-        <img src="/images/gallery/culinary/food-05.jpg" alt="" aria-hidden="true" loading="lazy" />
+        <img src="/images/gallery/culinary/food-saj-meat.jpg" alt="" aria-hidden="true" loading="lazy" />
       </div>
       <div class="food-content container">
         <p class="eyebrow" data-animate="fade-up">03 &middot; קולינריה</p>
@@ -223,10 +247,7 @@ const galleryImages = [
           האנין, מייצרים חווית אירוע קולינרית חד פעמית ובלתי נשכחת.
         </p>
         <div class="food-gallery" data-animate="stagger" data-lightbox>
-          <img src="/images/gallery/culinary/food-01.jpg" alt="מנת שף מביסטרו דה כרמל" loading="lazy" />
-          <img src="/images/gallery/culinary/food-02.jpg" alt="מאפה טרי מהטאבון" loading="lazy" />
-          <img src="/images/gallery/culinary/food-03.jpg" alt="קולינריה בביסטרו דה כרמל" loading="lazy" />
-          <img src="/images/gallery/culinary/food-04.jpg" alt="תפריט שף בביסטרו דה כרמל" loading="lazy" />
+          {foodGallery.map((f) => <img src={f.src} alt={f.alt} loading="lazy" />)}
         </div>
       </div>
     </section>
@@ -266,9 +287,9 @@ const galleryImages = [
         </div>
         <div class="gallery-grid" data-lightbox data-animate="stagger">
           {
-            galleryImages.map((img, i) => (
+            galleryImages.map((img) => (
               <div class={`gallery-item ${img.span}`}>
-                <img src={img.src} alt={`ביסטרו דה כרמל - תמונה ${i + 1}`} loading="lazy" />
+                <img src={img.src} alt={img.alt} loading="lazy" />
               </div>
             ))
           }
