@@ -45,9 +45,14 @@ import LeadForm from './LeadForm.astro';
       <span aria-hidden="true">×</span>
     </button>
     <h2 class="cta-dialog-title" id="cta-dialog-title">נשמח לחזור אליכם</h2>
+    {/* שם טופס נפרד ולא "lead": נטליפיי רושמת הגדרה אחת לכל שם, ושומרת רק
+        שדות שנמצאים בה. תחת השם המשותף היא רשמה הגדרה מטופס בלי שדה סוג
+        האירוע, והשדה נבלע בשקט בכל שליחה. בונוס: תיבת פניות נפרדת מראה
+        כמה לידים הפס באמת מייצר. */}
     <LeadForm
       heading=""
       instanceId="sticky"
+      formName="lead-popup"
       eventType={true}
       source="פס תחתון קבוע"
     />

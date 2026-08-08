@@ -8,6 +8,15 @@ interface Props {
   eventType?: boolean;
   /** נשלח כשדה מוסתר, כדי לדעת מאיזה טופס באתר הגיע הליד. */
   source?: string;
+  /**
+   * שם הטופס בנטליפיי. חייב להיות שונה לכל טופס עם *סט שדות* שונה.
+   *
+   * נטליפיי סורקת את ה-HTML בזמן בנייה ורושמת הגדרה אחת לכל שם טופס, ואז
+   * שומרת בשליחה רק שדות שנמצאים בהגדרה הזו. כששלושה טפסים חלקו את השם
+   * "lead" והיא רשמה את ההגדרה מאחד מהם שאין בו את שדה סוג האירוע — השדה
+   * נשלח, נבלע בשקט, ולא הופיע בפניות. אומת בשליחה אמיתית לאתר החי.
+   */
+  formName?: string;
 }
 
 const {
@@ -16,19 +25,20 @@ const {
   instanceId = 'default',
   eventType = false,
   source = 'טופס באתר',
+  formName = 'lead',
 } = Astro.props;
 const idFor = (field: string) => `lead-${instanceId}-${field}`;
 ---
 
 <form
-  name="lead"
+  name={formName}
   method="POST"
   data-netlify="true"
   netlify-honeypot="bot-field"
   class:list={['lead-form', { compact }]}
   action="/thank-you-page/"
 >
-  <input type="hidden" name="form-name" value="lead" />
+  <input type="hidden" name="form-name" value={formName} />
   <input type="hidden" name="source" value={source} />
   <p class="hidden-field">
     <label>אל תמלאו שדה זה: <input name="bot-field" /></label>
