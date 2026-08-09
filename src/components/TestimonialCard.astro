@@ -1,4 +1,6 @@
 ---
+import StarRating from './StarRating.astro';
+
 interface Props {
   quote: string;
   author: string;
@@ -9,6 +11,7 @@ const { quote, author, date } = Astro.props;
 ---
 
 <figure class="testimonial-card">
+  <StarRating />
   <blockquote>{quote}</blockquote>
   <figcaption>
     <span class="author">{author}</span>
@@ -28,6 +31,14 @@ const { quote, author, date } = Astro.props;
     flex-direction: column;
     gap: 1.25rem;
     height: 100%;
+  }
+
+  /* הכרטיס הוא flex עם gap של 1.25rem — רווח נכון בין ציטוט לחתימה, אבל
+     גדול מדי בין הכוכבים לציטוט שהם מדרגים. מקזזים אותו חלקית.
+     `:global` כי `.stars` נולד ב-StarRating ולכן נושא את ה-scope שלו. */
+  .testimonial-card :global(.stars) {
+    color: var(--color-bronze-on-dark);
+    margin-block-end: -0.65rem;
   }
 
   blockquote {

@@ -5,6 +5,7 @@ import Img from '../components/Img.astro';
 import Footer from '../components/Footer.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
+import StarRating from '../components/StarRating.astro';
 import { testimonials } from '../data/testimonials';
 
 /* שוברים את הרשימה הארוכה לקבוצות עם מפריד עדין ביניהן, במקום גוש כרטיסים אחיד */
@@ -44,6 +45,7 @@ for (let i = 0; i < testimonials.length; i += GROUP_SIZE) {
                 )}
                 {group.map((t) => (
                   <figure class="review-card">
+                    <StarRating />
                     <blockquote>{t.quote}</blockquote>
                     <figcaption>
                       <span class="author">{t.author}</span>
@@ -110,6 +112,13 @@ for (let i = 0; i < testimonials.length; i += GROUP_SIZE) {
     border: 1px solid var(--color-ivory-deep);
     border-top: 2px solid var(--color-bronze-line);
     border-radius: var(--radius-md);
+  }
+
+  /* גוון הברונזה הכהה — על הרקע הלבן של הכרטיס הגוון הבהיר נעלם.
+     `:global` כי `.stars` נולד ב-StarRating ולכן נושא את ה-scope שלו. */
+  .review-card :global(.stars) {
+    color: var(--color-bronze-text);
+    margin-block-end: 0.75rem;
   }
 
   blockquote {
