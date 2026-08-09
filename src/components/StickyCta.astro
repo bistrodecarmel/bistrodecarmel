@@ -148,6 +148,10 @@ import LeadForm from './LeadForm.astro';
     font-weight: 600;
     padding: 0.5rem 0.2rem;
     transition: color 0.2s ease;
+    /* ראו ההערה ב-.btn-cta */
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
   }
 
   .sticky-cta-phone:hover {
@@ -188,6 +192,13 @@ import LeadForm from './LeadForm.astro';
     border-radius: var(--radius-md);
     white-space: nowrap;
     transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    /* בלי אלה, נגיעה בטלפון שזזה במילימטר נקראת כתחילת בחירת טקסט על המילה
+       ולא כהפעלת הכפתור, והחלון פשוט לא נפתח. `manipulation` גם מוותר על
+       ההמתנה לדאבל-טאפ-לזום, כלומר הלחיצה נרשמת מיד במקום אחרי ~300ms. */
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .btn-cta:hover {
